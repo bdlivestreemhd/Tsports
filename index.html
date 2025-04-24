@@ -1,181 +1,379 @@
-<!DOCTYPE html>  <html lang="en">  
-<head>  
-  <meta charset="utf-8" />  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
-  <title>Eros Now</title>  
-  <script src="https://cdn.tailwindcss.com"></script>  
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>  
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>  
-  <style>  
-    body {  
-      font-family: 'Poppins', sans-serif;
-padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়ী এডজাস্ট করুন */  
-    }  
-    main {  
-      padding-bottom: 100px;  
-    }  
-    .active-tab {  
-      color: #ef4444;  
-      transform: scale(1.2);  
-      transition: all 0.3s ease-in-out;  
-    }  
-    .scroll-x {  
-      overflow-x: auto;  
-      white-space: nowrap;  
-    }  
-    .scroll-x::-webkit-scrollbar {  
-      display: none;  
-    }  
-  </style>  
-</head>  
-<body class="bg-black text-white">
-    
-    <!-- Main -->
-    <main class="p-4">
-        <!-- LIVE Section - Placed just below header -->
-        <div id="liveSection">
-            <!-- Rotating Banner - Placed at the top of the live section -->
-            <div class="mb-6">
-                <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/th2.html"><img id="rotatingBanner" src="https://image.tsports.com/images/mobile_thumbnail/1742534265-IMG_3293.jpeg" class="w-full rounded-xl transition duration-700 ease-in-out" /></a>
-            </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TiSPORTS - WATCH MOVIES DRAMAS FOR FREE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+  padding-bottom: 50px; /* Footer এর উচ্চতা অনুযায়ী এডজাস্ট করুন */
+      font-family: 'Open Sans', sans-serif;
+      background-color: #111827;
+      color: white;
+    }
+    .glow-text {
+      text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+    }
+    .thumbnail {
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+    }
+    .thumbnail:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
+    .poster {
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      width: auto;
+      height: auto;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      flex-shrink: 0;
+    }
+    .poster:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
+    .carousel-fade {
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body class="overflow-x-hidden">
+  <!-- Login Screen -->
+  <div id="loginScreen" class="fixed inset-0 bg-black z-50 flex flex-col justify-center items-center space-y-4 p-4 hidden">
+    <h2 class="text-2xl font-bold glow-text">Create Your Account</h2>
+    <input id="nameInput" type="text" placeholder="Enter Your Name" class="p-2 w-64 rounded text-black">
+    <input id="imageInput" type="file" accept="image/*" class="p-2 w-64">
+    <button onclick="submitLogin()" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-700 transition-all animate-bounce">Submit</button>
+  </div>
 
-            <!-- Carousel Section -->
-            <div class="text-xl font-semibold mb-2">Live Cricket</div>
-            <div class="flex justify-center gap-4 mb-4" id="carouselContainer">
-                <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/th2.html"><img src="https://image.tsports.com/images/mobile_thumbnail/1742534265-IMG_3293.jpeg" class="w-24 h-24 rounded-full object-cover" /></a>
-                <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/2.html"><img src="https://image.tsports.com/images/mobile_thumbnail/1744288356-LIVE-1280.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
-                <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/17.html"><img src="https://i.postimg.cc/y6tRX3RQ/IMG-20250414-112122.png" class="w-24 h-24 rounded-full object-cover" /></a>
-            </div>
-            <div class="text-xl font-semibold mb-2">Live Sports Channels</div>
-<div class="grid grid-cols-3 gap-4 mb-4" id="carouselContainer">
-<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/20.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdt4UdXv3RANJabZQbZWqrJamOKm2gQsGD8Zbo_kKr4rjNqWtLjGTNfs3I&s=10" class="w-24 h-24 rounded-full object-cover" /></a>
-  <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/11.html"><img src="https://images.toffeelive.com/images/program/603/logo/240x240/mobile_logo_237244001666780563.png" class="w-24 h-24 rounded-full object-cover" /></a>
-  <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/13.html"><img src="https://images.toffeelive.com/images/program/604/logo/240x240/mobile_logo_093449001666780976.png" class="w-24 h-24 rounded-full object-cover" /></a>
-  <a href="p.html"><img src="https://images.toffeelive.com/images/program/2418/logo/240x240/mobile_logo_992280001666781086.png" class="w-24 h-24 rounded-full object-cover" /></a>
-  <a href="p.html"><img src="https://images.toffeelive.com/images/program/351/logo/240x240/mobile_logo_027801001666782321.png" class="w-24 h-24 rounded-full object-cover" /></a>
-  <a href="p.html"><img src="https://image.tsports.com/images/web_thumbnail_horizontal/1739007685-Live--340-473.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
-  <a href="p.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6KnHrquRbSAk5kIMcf5tT-iUmaYWt0dCdTqGrY4iFX8srzR3_D_84opU&s=10" class="w-24 h-24 rounded-full object-cover" /></a>
-  <a href="http://smart.bengaldigital.live/WWE/index.m3u8"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuoiK7r_F5dICsJUgyIB2nzI3wRTsz9OPEp2er4VLcvd4NsOHVh1BDN7E&s=10" class="w-24 h-24 rounded-full object-cover" /></a>
-</div>
-        </div>
+  <!-- Header -->
+  <header class="flex items-center justify-between p-4 bg-gray-800 shadow-md">
+    <div class="flex items-center space-x-3">
+      <img id="userImage" alt="Logo" class="h-10 w-10 rounded-full" src="" />
+      <i class="fas fa-tv text-white text-xl"></i>
+    </div>
+    <i class="fas fa-search text-white text-xl"></i>
+  </header>
 
-        <!-- Movies Section -->
-        <div id="moviesSection" class="grid grid-cols-2 md:grid-cols-4 gap-4 hidden">
-<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/16.html" class="text-center">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNKI_Jmr60j-qi_6EHFF9DnoTEgLwM6PuGNLYv-wGzfdJ_0Dfkkr04RZc&s=10" class="w-full rounded-xl" />
-                <p class="mt-2 font-semibold">Surya's Saturday <span class="text-gray-400 text-sm">| 2024</span></p>
-            </a>
-<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/16.html" class="text-center">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaleK4EgV8rytpH-ugaYbQ9rbv7USM9sLkXWuiLcxV7H70KpxsuRDBWQQ&s=10" class="w-full rounded-xl" />
-                <p class="mt-2 font-semibold">DeadBody <span class="text-gray-400 text-sm">| 2024</span></p>
-            </a>
-<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/12.html" class="text-center">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGtwKDiBs9jwmwvP853VLiHZknSAzJWxFa0Qe0ck_1_6vbOBeVcIhOZA-8&s=10" class="w-full rounded-xl" />
-                <p class="mt-2 font-semibold">How Sweet <span class="text-gray-400 text-sm">| Bongo Original</span></p>
-            </a>
-<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/8.html" class="text-center">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDlKVtSj82cs_btdX9sAqqQ1HVAq3rkokvNHM-anVdBdG6PtzL51xD3rU&s=10" class="w-full rounded-xl" />
-                <p class="mt-2 font-semibold">Checkmate <span class="text-gray-400 text-sm">| 2021</span></p>
-            </a>
-<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/9.html" class="text-center">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4zKpyRUefXrv-kDuZ-zCaxOXO6BpiSYeGdWLqFRWThvwcg88yNOQohj5d&s=10" class="w-full rounded-xl" />
-                <p class="mt-2 font-semibold">Aditya Varma <span class="text-gray-400 text-sm">| 2019</span></p>
-            </a>
-<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/1.html" class="text-center">
+  <!-- Carousel -->
+  <div id="carousel" class="mb-4 h-48 overflow-hidden relative">
+    <img id="carouselImage" class="w-full h-48 object-cover carousel-fade" src="https://cdn.bongo-solutions.com/919f93a7-400e-4149-a70d-204beb589074/content/2b5dd560-f31e-43e3-9333-efb3fc134125/09848f73-591b-4ad6-92cc-1dffbe77c2d9.jpg?width=2400" alt="Featured Image">
+  </div>
+
+  <!-- Main -->
+  <main class="p-4">
+    <!-- Latest Natok Section -->
+    <section class="mb-8">
+      <h2 class="text-xl font-bold mb-4 glow-text">FREE NATOK</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <a href="th1.html"><img class="thumbnail" src="https://cdn.bongo-solutions.com/919f93a7-400e-4149-a70d-204beb589074/content/2b5dd560-f31e-43e3-9333-efb3fc134125/09848f73-591b-4ad6-92cc-1dffbe77c2d9.jpg?width=2400" alt="Natok 1"></a>
+        <a href="th2.html"><img class="thumbnail" src="https://cdn.bongo-solutions.com/919f93a7-400e-4149-a70d-204beb589074/content/6d352160-83cc-46c1-ad6e-1fde273655da/fa7807e8-c80c-46aa-a844-bf1df54659b3.jpg?width=2400" alt="Natok 2"></a>
+        <a href="th3.html"><img class="thumbnail" src="https://cdn.bongo-solutions.com/919f93a7-400e-4149-a70d-204beb589074/content/ec28708b-7ac0-4c5f-b761-92a48eba2788/e5ab7270-e329-4bc6-8a62-f9c088ee9bdd.jpg?width=2400" alt="Natok 3"></a>
+        <a href="th4.html"><img class="thumbnail" src="https://storage.googleapis.com/a1aa/image/18ZHzUak3P5WI9oPclyR9_zBVjVQhxUSAeCYYSKKp7I.jpg" alt="Natok 4"></a>
+      </div>
+    </section>
+
+    <!-- Free Movie Posters -->
+    <section class="mb-8">
+      <h2 class="text-xl font-bold mb-4 glow-text">FREE MOVIE</h2>
+      <div class="flex space-x-4 overflow-x-auto pb-2">
+<a href="m4.html"><img class="poster" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBccdeUWQ8MB1cuab5IHLZPpacRE9ISgxsriQVCcYiTBYbDb7uW5lHMCY&s=10" alt="Movie 4"></a>
+        <a href="m1.html"><img class="poster" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYLcmkRYJ1qz6Y9UFWtB5PrdcqgocI__FhaTa9agw50yUcO879Tn5qc_Q&s=10" alt="Movie 1"></a>
+        <a href="m2.html"><img class="poster" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa4g7IFHvIl4VlrjmbmMKldUbjOevoxtJ5ZD3pYpxeepLC0uBzM2dvdH0&s=10" alt="Movie 2"></a>
+        <a href="m3.html"><img class="poster" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBccdeUWQ8MB1cuab5IHLZPpacRE9ISgxsriQVCcYiTBYbDb7uW5lHMCY&s=10" alt="Movie 3"></a>
+        <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/m1.html"><img class="poster" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYLcmkRYJ1qz6Y9UFWtB5PrdcqgocI__FhaTa9agw50yUcO879Tn5qc_Q&s=10" alt="Movie 1"></a>
+<a href="1.html"><img class="poster" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYLcmkRYJ1qz6Y9UFWtB5PrdcqgocI__FhaTa9agw50yUcO879Tn5qc_Q&s=10" alt="Movie 1"></a>
+<a href="2.html"><img class="poster" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYLcmkRYJ1qz6Y9UFWtB5PrdcqgocI__FhaTa9agw50yUcO879Tn5qc_Q&s=10" alt="Movie 1"></a>
+<a href="3.html"><img class="poster" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYLcmkRYJ1qz6Y9UFWtB5PrdcqgocI__FhaTa9agw50yUcO879Tn5qc_Q&s=10" alt="Movie 1"></a>
+<a href="4.html"><img class="poster" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYLcmkRYJ1qz6Y9UFWtB5PrdcqgocI__FhaTa9agw50yUcO879Tn5qc_Q&s=10" alt="Movie 1"></a><a href="5.html"><img class="poster" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYLcmkRYJ1qz6Y9UFWtB5PrdcqgocI__FhaTa9agw50yUcO879Tn5qc_Q&s=10" alt="Movie 1"></a>
+        <a href="8.html" class="text-center">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpvLsfsnNtPDDUyIZEaf1YhZj_NUYlNcu7vD6A31Fbsu9uEIamfS1OJp0&s=10" class="w-full rounded-xl" />
-                <p class="mt-2 font-semibold">Michael - Gangster <span class="text-gray-400 text-sm">| 2024</span></p>
-            </a>
-<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/15.html" class="text-center">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZajFvb5YVT63lRTzqmB9yEFKOn9fryc0K7eZYmRWaweejSeRe8TqZb4nc&s=10" class="w-full rounded-xl" />
-                <p class="mt-2 font-semibold">BorBad Shakib Khan <span class="text-gray-400 text-sm">| 2025</span></p>
-            </a>
-            <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/m1.html" class="text-center">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYLcmkRYJ1qz6Y9UFWtB5PrdcqgocI__FhaTa9agw50yUcO879Tn5qc_Q&s=10" class="w-full rounded-xl" />
-                <p class="mt-2 font-semibold">A a Premi <span class="text-gray-400 text-sm">| 2017</span></p>
-            </a>
-<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/m2.html" class="text-center">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa4g7IFHvIl4VlrjmbmMKldUbjOevoxtJ5ZD3pYpxeepLC0uBzM2dvdH0&s=10" class="w-full rounded-xl" />
-                <p class="mt-2 font-semibold">Double Dot Com <span class="text-gray-400 text-sm">| 2018</span></p>
-            </a>
-<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/m3.html" class="text-center">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBccdeUWQ8MB1cuab5IHLZPpacRE9ISgxsriQVCcYiTBYbDb7uW5lHMCY&s=10" class="w-full rounded-xl" />
-                <p class="mt-2 font-semibold">Savysachi <span class="text-gray-400 text-sm">| 2019</span></p>
-            </a>
-<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/th3.html" class="text-center">
-                <img src="https://asset.bioscopelive.com/uploads/images/2025/03/12/posters_11f51ed791637f26ddc4e549838938f7_goplay_800x1200.jpg?w=640&q=75" class="w-full rounded-xl" />
-                <p class="mt-2 font-semibold">Vir <span class="text-gray-400 text-sm">| BD</span></p>
-            </a>
-        </div>
+                <p class="mt-2 font-semibold">Michael - Gangster Michael <span class="text-gray-400 text-sm">| 2024</span></p>
+        </a>
+<a href="9.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpvLsfsnNtPDDUyIZEaf1YhZj_NUYlNcu7vD6A31Fbsu9uEIamfS1OJp0&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Michael - Gangster Michael <span class="text-gray-400 text-sm">| 2024</span></p>
+</a>
+        <a href="10.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpvLsfsnNtPDDUyIZEaf1YhZj_NUYlNcu7vD6A31Fbsu9uEIamfS1OJp0&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Michael - Gangster Michael <span class="text-gray-400 text-sm">| 2024</span></p>
+        </a>
+        <a href="11.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpvLsfsnNtPDDUyIZEaf1YhZj_NUYlNcu7vD6A31Fbsu9uEIamfS1OJp0&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Michael - Gangster Michael <span class="text-gray-400 text-sm">| 2024</span></p>
+        </a>
+        <a href="12.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpvLsfsnNtPDDUyIZEaf1YhZj_NUYlNcu7vD6A31Fbsu9uEIamfS1OJp0&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Michael - Gangster Michael <span class="text-gray-400 text-sm">| 2024</span></p>
+        </a>
+        <a href="13.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpvLsfsnNtPDDUyIZEaf1YhZj_NUYlNcu7vD6A31Fbsu9uEIamfS1OJp0&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Michael - Gangster Michael <span class="text-gray-400 text-sm">| 2024</span></p>
+        </a>
+        <a href="14.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpvLsfsnNtPDDUyIZEaf1YhZj_NUYlNcu7vD6A31Fbsu9uEIamfS1OJp0&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Michael - Gangster Michael <span class="text-gray-400 text-sm">| 2024</span></p>
+        </a>
+        <a href="15.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpvLsfsnNtPDDUyIZEaf1YhZj_NUYlNcu7vD6A31Fbsu9uEIamfS1OJp0&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Michael - Gangster Michael <span class="text-gray-400 text-sm">| 2024</span></p>
+        </a>
+        <a href="16.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpvLsfsnNtPDDUyIZEaf1YhZj_NUYlNcu7vD6A31Fbsu9uEIamfS1OJp0&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Michael - Gangster Michael <span class="text-gray-400 text-sm">| 2024</span></p>
+        </a>
+        <a href="17.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpvLsfsnNtPDDUyIZEaf1YhZj_NUYlNcu7vD6A31Fbsu9uEIamfS1OJp0&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Michael - Gangster Michael <span class="text-gray-400 text-sm">| 2024</span></p>
+        </a>
+        <a href="18.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpvLsfsnNtPDDUyIZEaf1YhZj_NUYlNcu7vD6A31Fbsu9uEIamfS1OJp0&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Michael - Gangster Michael <span class="text-gray-400 text-sm">| 2024</span></p>
+        </a>
+        <a href="19.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpvLsfsnNtPDDUyIZEaf1YhZj_NUYlNcu7vD6A31Fbsu9uEIamfS1OJp0&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Michael - Gangster Michael <span class="text-gray-400 text-sm">| 2024</span></p>
+        </a>
+        <a href="20.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpvLsfsnNtPDDUyIZEaf1YhZj_NUYlNcu7vD6A31Fbsu9uEIamfS1OJp0&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Michael - Gangster Michael <span class="text-gray-400 text-sm">| 2024</span></p>
+        </a>
+        <a href="21.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpvLsfsnNtPDDUyIZEaf1YhZj_NUYlNcu7vD6A31Fbsu9uEIamfS1OJp0&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Michael - Gangster Michael <span class="text-gray-400 text-sm">| 2024</span></p>
+        </a>
 
-        <!-- TV Section -->
-        <div id="tvSection" class="grid grid-cols-3 gap-4 hidden">
-            <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/10.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOwULgTyxl7QPxbuZwFdzn7OJLcUZPBMdAwAYbOa8tCehX2ex77oCaOGA&s=10" class="w-full aspect-square rounded-full" /></a>
-            <a href="p.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQivK8mbjdDZ64kRxy_X5VKVJSb97NvNAYzJXYiTHBqMMUBMUxNte4GrGNI&s=10" class="w-full aspect-square rounded-full" /></a>
-            <a href="p.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvVSjHKilMonLLpE7WKusCuHJpz2SDYS4oTIqRfsAxGZ4dcZHyrTCqgiXY&s=10" class="w-full aspect-square rounded-full" /></a>
-            <a href="p.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdv-PzdROavTdvkf5XkSICDmxsUzOTj33nplcGE8hCPNULDAeTHyLnXhE&s=10" class="w-full aspect-square rounded-full" /></a>
-            <a href="p.html"><img src="https://asset.news24bd.tv/files/shares/default-img.jpg" class="w-full aspect-square rounded-full" /></a>
-<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/18.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAVkPOsQ9RvNyiqoKNm-R5gvCmTTvZdnU7q8XwQRuGPisAu70dqdrKjZ4&s=10" class="w-full aspect-square rounded-full" /></a>
-            <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/18.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfufQuJ-PbIntSk238Jt7bmIr_g_O2BMS2awxpLC4bX3WuJhEMXRWrNx90&s=10" class="w-full aspect-square rounded-full" /></a>
-            <a href="p.html"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4e/Rtv_bangladesh.svg/1200px-Rtv_bangladesh.svg.png" class="w-full aspect-square rounded-full" /></a>
-<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/14.html"><img src="https://images.toffeelive.com/images/program/343/logo/240x240/mobile_logo_496322001666780228.png" class="w-full aspect-square rounded-full" /></a>
-            <a href="p.html"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/Logo_of_Channel_24_%28Bangladesh%29.svg/1200px-Logo_of_Channel_24_%28Bangladesh%29.svg.png" class="w-full aspect-square rounded-full" /></a>
-<a href="p.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR7S2sGx1khd61ztOj1UA5OaK_FxUDTWLUyA&s" class="w-full aspect-square rounded-full" /></a>
-<a href="p.html"><img src="https://yt3.googleusercontent.com/JO8MicN497ze8WVXcu-wmA2WAMqhO8UIQhslV3VhiRu1kaQU3r9nOB4IVkmUt0ALC23DVSSp=s900-c-k-c0x00ffffff-no-rj" class="w-full aspect-square rounded-full" /></a>
-        </div>
-    </main>
+      </div>
+    </section>
+  </main>
 
-    <!-- Footer -->
-    <footer class="fixed bottom-0 left-0 right-0 bg-black p-3 shadow-md z-10">
-        <div class="flex justify-around">
-            <button id="liveBtn" class="text-center active-tab">
-                <i class="fas fa-broadcast-tower text-xl"></i>
-                <p class="text-xs mt-1">Live</p>
-            </button>
-            <button id="moviesBtn" class="text-center text-white">
-                <i class="fas fa-film text-xl"></i>
-                <p class="text-xs mt-1">Movies</p>
-            </button>
-            <button id="tvBtn" class="text-center text-white">
-                <i class="fas fa-tv text-xl"></i>
-                <p class="text-xs mt-1">TV</p>
-            </button>
-        </div>
-    </footer>
+  <!-- Footer -->
+  <footer class="fixed bottom-0 left-0 right-0 bg-gray-800 p-4">
+    <div class="flex justify-around">
+      <a href="index.html" class="flex flex-col items-center" id="homeBtn">
+        <i class="fas fa-home text-2xl"></i>
+        <span>Home</span>
+      </a>
+      <a href="shorts.html" class="flex flex-col items-center" id="shortsBtn">
+        <i class="fas fa-play text-2xl"></i>
+        <span>Shorts</span>
+      </a>
+    </div>
+  </footer>
 
-        const liveBtn = document.getElementById('liveBtn');
-        const moviesBtn = document.getElementById('moviesBtn');
-        const tvBtn = document.getElementById('tvBtn');
+  <!-- Popup Container -->
+<div id="palestine-popup" class="popup-overlay">
+  <div class="popup-box">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Palestine.svg" class="popup-img" alt="Palestine Flag">
+    <h2 class="popup-question">Are You Support Palestine?</h2>
+    <div class="popup-buttons">
+      <button onclick="handleYes()" class="btn-yes">Yes</button>
+      <button onclick="handleNo()" class="btn-no">No</button>
+    </div>
+    <div id="congrats" class="congrats-message">Thank you for supporting Palestine!</div>
+  </div>
+</div>
 
-        const liveSection = document.getElementById('liveSection');
-        const moviesSection = document.getElementById('moviesSection');
-        const tvSection = document.getElementById('tvSection');
+<style>
+/* Overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
 
-        function activateTab(button, section) {
-            [liveBtn, moviesBtn, tvBtn].forEach(btn => btn.classList.remove('active-tab', 'text-red-500'));
-            [liveSection, moviesSection, tvSection].forEach(sec => sec.classList.add('hidden'));
-            button.classList.add('active-tab', 'text-red-500');
-            section.classList.remove('hidden');
-        }
+/* Popup Box */
+.popup-box {
+  background: #fff;
+  padding: 30px;
+  max-width: 400px;
+  width: 90%;
+  border-radius: 20px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  animation: popup-in 0.5s ease-out;
+}
 
-        liveBtn.addEventListener('click', () => activateTab(liveBtn, liveSection));
-        moviesBtn.addEventListener('click', () => activateTab(moviesBtn, moviesSection));
-        tvBtn.addEventListener('click', () => activateTab(tvBtn, tvSection));
+/* Image */
+.popup-img {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
 
-        // Banner Rotation Logic
-        const bannerImages = [
-            "https://image.tsports.com/images/mobile_thumbnail/1742534265-IMG_3293.jpeg",
-            "https://i.postimg.cc/k4y3gZRR/20250411-130615.jpg",
-            "https://image.tsports.com/images/mobile_thumbnail/1744288356-LIVE-1280.jpg"
-        ];
-        let currentImageIndex = 0;
+/* Question */
+.popup-question {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
 
-        function rotateBanner() {
-            currentImageIndex = (currentImageIndex + 1) % bannerImages.length;
-            document.getElementById('rotatingBanner').src = bannerImages[currentImageIndex];
-        }
+/* Buttons */
+.popup-buttons {
+  display: flex;
+  justify-content: space-around;
+}
 
-        setInterval(rotateBanner, 3000); // Rotate every 3 seconds
-    </script>
+.btn-yes, .btn-no {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-yes {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-no {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-yes:hover {
+  background-color: #218838;
+}
+
+.btn-no:hover {
+  background-color: #c82333;
+}
+
+/* Congrats Message */
+.congrats-message {
+  display: none;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #28a745;
+  font-weight: bold;
+  animation: fadeIn 0.5s ease;
+}
+
+/* Animations */
+@keyframes popup-in {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+</style>
+
+<script>
+// Check if user already answered
+const userResponse = localStorage.getItem('palestineSupport');
+if (userResponse === 'no') {
+  window.location.href = "https://example.com"; // Change to your redirect URL
+} else if (userResponse === 'yes') {
+  document.getElementById('palestine-popup').style.display = 'none';
+}
+
+// Yes handler
+function handleYes() {
+  localStorage.setItem('palestineSupport', 'yes');
+  document.querySelector('.popup-buttons').style.display = 'none';
+  document.getElementById('congrats').style.display = 'block';
+  setTimeout(() => {
+    document.getElementById('palestine-popup').style.display = 'none';
+  }, 2500);
+}
+
+// No handler
+function handleNo() {
+  localStorage.setItem('palestineSupport', 'no');
+  window.location.href = "https://example.com"; // Change to your redirect URL
+}
+    // Carousel
+    const images = [
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj6TQ38RucPFsUYdfylFLQ2jM0cAFNsBVvDdEQYVTRmRmtmKQChfPzFKLl&s=10bdd.jpg?width=2400',
+      'https://cdn.bongo-solutions.com/919f93a7-400e-4149-a70d-204beb589074/content/6d352160-83cc-46c1-ad6e-1fde273655da/fa7807e8-c80c-46aa-a844-bf1df54659b3.jpg?width=2400',
+      'https://cdn.bongo-solutions.com/919f93a7-400e-4149-a70d-204beb589074/content/2b5dd560-f31e-43e3-9333-efb3fc134125/09848f73-591b-4ad6-92cc-1dffbe77c2d9.jpg?width=2400'
+    ];
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % images.length;
+      const carousel = document.getElementById('carouselImage');
+      carousel.classList.remove('carousel-fade');
+      void carousel.offsetWidth;
+      carousel.src = images[index];
+      carousel.classList.add('carousel-fade');
+    }, 3000);
+
+    // Login
+    const loginScreen = document.getElementById('loginScreen');
+    const storedName = localStorage.getItem('userName');
+    const storedImage = localStorage.getItem('userImage');
+    const userImage = document.getElementById('userImage');
+
+    if (!storedName || !storedImage) {
+      loginScreen.classList.remove('hidden');
+    } else {
+      userImage.src = storedImage;
+    }
+
+    function submitLogin() {
+      const name = document.getElementById('nameInput').value;
+      const image = document.getElementById('imageInput').files[0];
+      if (name && image) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          localStorage.setItem('userName', name);
+          localStorage.setItem('userImage', e.target.result);
+          userImage.src = e.target.result;
+          loginScreen.classList.add('hidden');
+        };
+        reader.readAsDataURL(image);
+      } else {
+        alert('Please enter name and select an image.');
+      }
+    }
+
+    // Footer active state
+    const isShortsPage = window.location.href.includes('shorts.html');
+    const homeBtn = document.getElementById('homeBtn');
+    const shortsBtn = document.getElementById('shortsBtn');
+
+    if (isShortsPage) {
+      shortsBtn.querySelector('i').classList.add('text-red-500');
+      shortsBtn.querySelector('span').classList.add('text-red-500');
+      homeBtn.querySelector('i').classyList.remove('text-red-500');
+      homeBtn.querySelector('i').classList.add('text-gray-500');
+      homeBtn.querySelector('span').classList.remove('text-red-500');
+      homeBtn.querySelector('span').classList.add('text-gray-500');
+    } else {
+      homeBtn.querySelector('i').classList.add('text-red-500');
+      homeBtn.querySelector('span').classList.add('text-red-500');
+      shortsBtn.querySelector('i').classList.add('text-gray-500');
+      shortsBtn.querySelector('span').classList.add('text-gray-500');
+    }
+  </script>
 </body>
 </html>
-                                 </html>
