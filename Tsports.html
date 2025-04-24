@@ -1,253 +1,181 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+  <meta charset="utf-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
+  <title>Eros Now</title>  
+  <script src="https://cdn.tailwindcss.com"></script>  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>  
+  <style>  
+    body {  
+      font-family: 'Poppins', sans-serif;
+padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়ী এডজাস্ট করুন */  
+    }  
+    main {  
+      padding-bottom: 100px;  
+    }  
+    .active-tab {  
+      color: #ef4444;  
+      transform: scale(1.2);  
+      transition: all 0.3s ease-in-out;  
+    }  
+    .scroll-x {  
+      overflow-x: auto;  
+      white-space: nowrap;  
+    }  
+    .scroll-x::-webkit-scrollbar {  
+      display: none;  
+    }  
+  </style>  
+</head>  
+<body class="bg-black text-white">
     
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/x-icon" href="Cric stream Favicon.jpg">
-    <title>TSPORTS</title>
-    <style>
-       
-        body {
-            margin: 0px;
-            padding-top: 5px;
-            font-family: Arial, sans-serif;
-            width: 100%
-        }
+    <!-- Main -->
+    <main class="p-4">
+        <!-- LIVE Section - Placed just below header -->
+        <div id="liveSection">
+            <!-- Rotating Banner - Placed at the top of the live section -->
+            <div class="mb-6">
+                <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/th2.html"><img id="rotatingBanner" src="https://image.tsports.com/images/mobile_thumbnail/1742534265-IMG_3293.jpeg" class="w-full rounded-xl transition duration-700 ease-in-out" /></a>
+            </div>
 
-       
-        #jwplayerDiv {
-            width: 100%;
-            height: 100%;
-            
-        }
-        .sticky-footer {
-           position: fixed;
-           bottom: 0;
-           width: 100%;
-           background: #fff;
-           color: white;
-           text-align: center;
-           padding: 0px;
-        }
+            <!-- Carousel Section -->
+            <div class="text-xl font-semibold mb-2">Live Cricket</div>
+            <div class="flex justify-center gap-4 mb-4" id="carouselContainer">
+                <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/th2.html"><img src="https://image.tsports.com/images/mobile_thumbnail/1742534265-IMG_3293.jpeg" class="w-24 h-24 rounded-full object-cover" /></a>
+                <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/2.html"><img src="https://image.tsports.com/images/mobile_thumbnail/1744288356-LIVE-1280.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
+                <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/17.html"><img src="https://i.postimg.cc/y6tRX3RQ/IMG-20250414-112122.png" class="w-24 h-24 rounded-full object-cover" /></a>
+            </div>
+            <div class="text-xl font-semibold mb-2">Live Sports Channels</div>
+<div class="grid grid-cols-3 gap-4 mb-4" id="carouselContainer">
+<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/20.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdt4UdXv3RANJabZQbZWqrJamOKm2gQsGD8Zbo_kKr4rjNqWtLjGTNfs3I&s=10" class="w-24 h-24 rounded-full object-cover" /></a>
+  <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/11.html"><img src="https://images.toffeelive.com/images/program/603/logo/240x240/mobile_logo_237244001666780563.png" class="w-24 h-24 rounded-full object-cover" /></a>
+  <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/13.html"><img src="https://images.toffeelive.com/images/program/604/logo/240x240/mobile_logo_093449001666780976.png" class="w-24 h-24 rounded-full object-cover" /></a>
+  <a href="p.html"><img src="https://images.toffeelive.com/images/program/2418/logo/240x240/mobile_logo_992280001666781086.png" class="w-24 h-24 rounded-full object-cover" /></a>
+  <a href="p.html"><img src="https://images.toffeelive.com/images/program/351/logo/240x240/mobile_logo_027801001666782321.png" class="w-24 h-24 rounded-full object-cover" /></a>
+  <a href="p.html"><img src="https://image.tsports.com/images/web_thumbnail_horizontal/1739007685-Live--340-473.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
+  <a href="p.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6KnHrquRbSAk5kIMcf5tT-iUmaYWt0dCdTqGrY4iFX8srzR3_D_84opU&s=10" class="w-24 h-24 rounded-full object-cover" /></a>
+  <a href="http://smart.bengaldigital.live/WWE/index.m3u8"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuoiK7r_F5dICsJUgyIB2nzI3wRTsz9OPEp2er4VLcvd4NsOHVh1BDN7E&s=10" class="w-24 h-24 rounded-full object-cover" /></a>
+</div>
+        </div>
 
-        
-
-           /* Popup styles */
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #1c1c1c;
-            border-radius: 20px; /* Rounded card style */
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
-            z-index: 1002;
-            width: 90%;
-            max-width: 400px;
-            animation: fadeIn 0.5s;
-        }
-
-        .popup h2 {
-            color: #ffcc00;
-            margin-bottom: 10px;
-            font-size: 20px;
-        }
-
-        .popup p {
-            margin-bottom: 20px;
-            color: #ccc;
-            font-size: 16px;
-        }
-
-        .popup button {
-            background-color: #0088cc;
-            color: #fff;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-bottom: 10px;
-            width: 100%;
-        }
-
-        .popup button:hover {
-            background-color: #006699;
-        }
-
-        .popup .close-btn {
-            background-color: #555;
-        }
-
-        .popup .close-btn:hover {
-            background-color: #333;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .neon-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding-top: 5px;
-            padding-bottom:25px;
-            margin: 10px;
-            margin-top: 25px;
-            background-color: #2f2f2f;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #00ff99;
-            transition: all 0.3s ease-in-out;
-            animation: neonBorder 2s infinite alternate;
-        }
-
-        .neon-container h1 {
-            color: #fff;
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            letter-spacing: 2px;
-        }
-
-        .neon-container a {
-            color: #00ff99;
-            font-size: 1.5rem;
-            text-decoration: none;
-            font-weight: bold;
-            border: 2px solid #00ff99;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .neon-container a:hover {
-            background-color: #00ff99;
-            color: #121212;
-            box-shadow: 0 0 20px #00ff99, 0 0 40px #00ff99;
-        }
-
-        /* Neon Border Animation */
-        @keyframes neonBorder {
-            0% {
-                border-color: #00ff99;
-            }
-            25% {
-                border-color: #ff007f;
-            }
-            50% {
-                border-color: #007fff;
-            }
-            75% {
-                border-color: #ffbf00;
-            }
-            100% {
-                border-color: #00ff99;
-            }
-        }
-
-       
-
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .neon-container h1 {
-                font-size: 2rem;
-            }
-
-            .neon-container a {
-                font-size: 1.2rem;
-                padding: 8px 16px;
-            }
-        }
-   
-    </style>
-    <script src="https://cdn.jwplayer.com/libraries/SAHhwvZq.js"></script>
-</head>
-<body>
-    <div id="jwplayerDiv"></div>
-   <script>
-    // Function to get URL query parameters
-    function getQueryParam(param) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param);
-    }
-
-    // Retrieve the 'file' parameter from the URL, or use the default URL if none is provided
-    const hlsStreamUrl = getQueryParam("file") || "https://live.tsports.com/mobile_hls/tsports_live_2/playlist.m3u8";
-
-    // Initialize JW Player
-    const playerInstance = jwplayer("jwplayerDiv");
-
-    // Configure the player with the HLS stream from URL parameter or default stream
-    playerInstance.setup({
-        file: hlsStreamUrl,
-        width: "100%",
-        height: "100%",
-        aspectratio: "16:9",
-        autostart: true,
-        mute: false, 
-        type: "hls", // Ensures HLS compatibility
-        preload: "auto", // Preload stream for faster playback
-        cast: {
-            appid: "CC1AD845" // Chromecast App ID (optional)
-        }
-    });
-
-    // Optional: Handle player errors gracefully
-    playerInstance.on('error', function(error) {
-        console.error("Error loading stream:", error.message);
-    });
-</script>
-
-       <center>
-            <!-- BEGIN: Powered by Supercounters.com -->
-            <center><script type="text/javascript" src="//widget.supercounters.com/ssl/online_t.js"></script><script type="text/javascript">sc_online_t(1707487,"Users Online","170ddb");</script><br><noscript><a href="https://www.supercounters.com/">supercounters.com</a></noscript>
-            </center>
-            <!-- END: Powered by Supercounters.com -->
-
-            
-        </center>
-
-
-            
-        </center>
-
-        <div style="background-color: #0074d9; text-align: center; padding: 10px;">
-            <a href="https://t.me/LiveTV_2" target="_blank">
-                <button id="joinTelegramButton">Join Telegram</button>
+        <!-- Movies Section -->
+        <div id="moviesSection" class="grid grid-cols-2 md:grid-cols-4 gap-4 hidden">
+<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/16.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNKI_Jmr60j-qi_6EHFF9DnoTEgLwM6PuGNLYv-wGzfdJ_0Dfkkr04RZc&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Surya's Saturday <span class="text-gray-400 text-sm">| 2024</span></p>
+            </a>
+<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/16.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaleK4EgV8rytpH-ugaYbQ9rbv7USM9sLkXWuiLcxV7H70KpxsuRDBWQQ&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">DeadBody <span class="text-gray-400 text-sm">| 2024</span></p>
+            </a>
+<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/12.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGtwKDiBs9jwmwvP853VLiHZknSAzJWxFa0Qe0ck_1_6vbOBeVcIhOZA-8&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">How Sweet <span class="text-gray-400 text-sm">| Bongo Original</span></p>
+            </a>
+<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/8.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDlKVtSj82cs_btdX9sAqqQ1HVAq3rkokvNHM-anVdBdG6PtzL51xD3rU&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Checkmate <span class="text-gray-400 text-sm">| 2021</span></p>
+            </a>
+<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/9.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4zKpyRUefXrv-kDuZ-zCaxOXO6BpiSYeGdWLqFRWThvwcg88yNOQohj5d&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Aditya Varma <span class="text-gray-400 text-sm">| 2019</span></p>
+            </a>
+<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/1.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpvLsfsnNtPDDUyIZEaf1YhZj_NUYlNcu7vD6A31Fbsu9uEIamfS1OJp0&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Michael - Gangster <span class="text-gray-400 text-sm">| 2024</span></p>
+            </a>
+<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/15.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZajFvb5YVT63lRTzqmB9yEFKOn9fryc0K7eZYmRWaweejSeRe8TqZb4nc&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">BorBad Shakib Khan <span class="text-gray-400 text-sm">| 2025</span></p>
+            </a>
+            <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/m1.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYLcmkRYJ1qz6Y9UFWtB5PrdcqgocI__FhaTa9agw50yUcO879Tn5qc_Q&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">A a Premi <span class="text-gray-400 text-sm">| 2017</span></p>
+            </a>
+<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/m2.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa4g7IFHvIl4VlrjmbmMKldUbjOevoxtJ5ZD3pYpxeepLC0uBzM2dvdH0&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Double Dot Com <span class="text-gray-400 text-sm">| 2018</span></p>
+            </a>
+<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/m3.html" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBccdeUWQ8MB1cuab5IHLZPpacRE9ISgxsriQVCcYiTBYbDb7uW5lHMCY&s=10" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Savysachi <span class="text-gray-400 text-sm">| 2019</span></p>
+            </a>
+<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/th3.html" class="text-center">
+                <img src="https://asset.bioscopelive.com/uploads/images/2025/03/12/posters_11f51ed791637f26ddc4e549838938f7_goplay_800x1200.jpg?w=640&q=75" class="w-full rounded-xl" />
+                <p class="mt-2 font-semibold">Vir <span class="text-gray-400 text-sm">| BD</span></p>
             </a>
         </div>
-    </div>
 
-
-    <!-- <div class="neon-container">
-        <div>
-            <h1>Share With Your Friends & Support Us!</h1>
-            <a href="https://t.me/rslivetv" target="_blank">Click to Connect</a>
+        <!-- TV Section -->
+        <div id="tvSection" class="grid grid-cols-3 gap-4 hidden">
+            <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/10.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOwULgTyxl7QPxbuZwFdzn7OJLcUZPBMdAwAYbOa8tCehX2ex77oCaOGA&s=10" class="w-full aspect-square rounded-full" /></a>
+            <a href="p.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQivK8mbjdDZ64kRxy_X5VKVJSb97NvNAYzJXYiTHBqMMUBMUxNte4GrGNI&s=10" class="w-full aspect-square rounded-full" /></a>
+            <a href="p.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvVSjHKilMonLLpE7WKusCuHJpz2SDYS4oTIqRfsAxGZ4dcZHyrTCqgiXY&s=10" class="w-full aspect-square rounded-full" /></a>
+            <a href="p.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdv-PzdROavTdvkf5XkSICDmxsUzOTj33nplcGE8hCPNULDAeTHyLnXhE&s=10" class="w-full aspect-square rounded-full" /></a>
+            <a href="p.html"><img src="https://asset.news24bd.tv/files/shares/default-img.jpg" class="w-full aspect-square rounded-full" /></a>
+<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/18.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAVkPOsQ9RvNyiqoKNm-R5gvCmTTvZdnU7q8XwQRuGPisAu70dqdrKjZ4&s=10" class="w-full aspect-square rounded-full" /></a>
+            <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/18.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfufQuJ-PbIntSk238Jt7bmIr_g_O2BMS2awxpLC4bX3WuJhEMXRWrNx90&s=10" class="w-full aspect-square rounded-full" /></a>
+            <a href="p.html"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4e/Rtv_bangladesh.svg/1200px-Rtv_bangladesh.svg.png" class="w-full aspect-square rounded-full" /></a>
+<a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/14.html"><img src="https://images.toffeelive.com/images/program/343/logo/240x240/mobile_logo_496322001666780228.png" class="w-full aspect-square rounded-full" /></a>
+            <a href="p.html"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/Logo_of_Channel_24_%28Bangladesh%29.svg/1200px-Logo_of_Channel_24_%28Bangladesh%29.svg.png" class="w-full aspect-square rounded-full" /></a>
+<a href="p.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR7S2sGx1khd61ztOj1UA5OaK_FxUDTWLUyA&s" class="w-full aspect-square rounded-full" /></a>
+<a href="p.html"><img src="https://yt3.googleusercontent.com/JO8MicN497ze8WVXcu-wmA2WAMqhO8UIQhslV3VhiRu1kaQU3r9nOB4IVkmUt0ALC23DVSSp=s900-c-k-c0x00ffffff-no-rj" class="w-full aspect-square rounded-full" /></a>
         </div>
-    </div> -->
-<br>
-    <br>
-    <br>
-    <br>
-    <br>
-<!--Adsterra-->
-     <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
-   <script type='text/javascript' src='//winemeaslesnab.com/b8/79/64/b8796488740ca1a0e8072b79a9cf305a.js'></script>
-   <script type='text/javascript' src='//winemeaslesnab.com/85/e9/77/85e977399bb7d26c871b08153416eb89.js'></script>
-   <script type='text/javascript' src='//pl26277075.profitableratecpm.com/b8/79/64/b8796488740ca1a0e8072b79a9cf305a.js'></script>
-   <script async="async" data-cfasync="false" src="//winemeaslesnab.com/8176f6561bcbf76ea93b531bc037deff/invoke.js"></script>
-   <div id="container-8176f6561bcbf76ea93b531bc037deff"></div>
-    
-    
+    </main>
+
+    <!-- Footer -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-black p-3 shadow-md z-10">
+        <div class="flex justify-around">
+            <button id="liveBtn" class="text-center active-tab">
+                <i class="fas fa-broadcast-tower text-xl"></i>
+                <p class="text-xs mt-1">Live</p>
+            </button>
+            <button id="moviesBtn" class="text-center text-white">
+                <i class="fas fa-film text-xl"></i>
+                <p class="text-xs mt-1">Movies</p>
+            </button>
+            <button id="tvBtn" class="text-center text-white">
+                <i class="fas fa-tv text-xl"></i>
+                <p class="text-xs mt-1">TV</p>
+            </button>
+        </div>
+    </footer>
+
+        const liveBtn = document.getElementById('liveBtn');
+        const moviesBtn = document.getElementById('moviesBtn');
+        const tvBtn = document.getElementById('tvBtn');
+
+        const liveSection = document.getElementById('liveSection');
+        const moviesSection = document.getElementById('moviesSection');
+        const tvSection = document.getElementById('tvSection');
+
+        function activateTab(button, section) {
+            [liveBtn, moviesBtn, tvBtn].forEach(btn => btn.classList.remove('active-tab', 'text-red-500'));
+            [liveSection, moviesSection, tvSection].forEach(sec => sec.classList.add('hidden'));
+            button.classList.add('active-tab', 'text-red-500');
+            section.classList.remove('hidden');
+        }
+
+        liveBtn.addEventListener('click', () => activateTab(liveBtn, liveSection));
+        moviesBtn.addEventListener('click', () => activateTab(moviesBtn, moviesSection));
+        tvBtn.addEventListener('click', () => activateTab(tvBtn, tvSection));
+
+        // Banner Rotation Logic
+        const bannerImages = [
+            "https://image.tsports.com/images/mobile_thumbnail/1742534265-IMG_3293.jpeg",
+            "https://i.postimg.cc/k4y3gZRR/20250411-130615.jpg",
+            "https://image.tsports.com/images/mobile_thumbnail/1744288356-LIVE-1280.jpg"
+        ];
+        let currentImageIndex = 0;
+
+        function rotateBanner() {
+            currentImageIndex = (currentImageIndex + 1) % bannerImages.length;
+            document.getElementById('rotatingBanner').src = bannerImages[currentImageIndex];
+        }
+
+        setInterval(rotateBanner, 3000); // Rotate every 3 seconds
+    </script>
 </body>
 </html>
+                                 </html>
