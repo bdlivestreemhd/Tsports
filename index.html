@@ -138,12 +138,7 @@ padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়�
             </button>
         </div>
     </footer>
-<!-- Popup Container -->
-<div id="palestine-popup" class="popup-overlay">
-  <div class="popup-box">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Palestine.svg" class="popup-img" alt="Palestine Flag">
-    <h2 class="popup-question">Are You Support Palestine?</h2>
-    <div class="popup-buttons">
+
       <button onclick="handleYes()" class="btn-yes">Yes</button>
       <button onclick="handleNo()" class="btn-no">No</button>
     </div>
@@ -151,7 +146,6 @@ padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়�
   </div>
 </div>
 
-<style>
 /* Overlay */
 .popup-overlay {
   position: fixed;
@@ -248,30 +242,6 @@ padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়�
 }
 </style>
 
-<script>
-// Check if user already answered
-const userResponse = localStorage.getItem('palestineSupport');
-if (userResponse === 'no') {
-  window.location.href = "https://taohid21.github.io/accses-denied-/"; // Change to your redirect URL
-} else if (userResponse === 'yes') {
-  document.getElementById('palestine-popup').style.display = 'none';
-}
-
-// Yes handler
-function handleYes() {
-  localStorage.setItem('palestineSupport', 'yes');
-  document.querySelector('.popup-buttons').style.display = 'none';
-  document.getElementById('congrats').style.display = 'block';
-  setTimeout(() => {
-    document.getElementById('palestine-popup').style.display = 'none';
-  }, 2500);
-}
-
-// No handler
-function handleNo() {
-  localStorage.setItem('palestineSupport', 'no');
-  window.location.href = "https://taohid21.github.io/accses-denied-/"; // Change to your redirect URL
-}
 
         const liveBtn = document.getElementById('liveBtn');
         const moviesBtn = document.getElementById('moviesBtn');
