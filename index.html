@@ -1,5 +1,5 @@
 <!DOCTYPE html>  <html lang="en">  
-  
+
 <head>  
 
   <meta charset="utf-8" />  
@@ -57,7 +57,7 @@ padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়�
   </style>  
 
 </head>  
-  
+
 <body class="bg-black text-white">
 
     
@@ -82,7 +82,7 @@ padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়�
 
             <!-- Carousel Section -->
 
-            <div class="text-xl font-semibold mb-2">𝙻𝚒𝚟𝚎 𝙴𝚟𝚎𝚗𝚝𝚜</div>
+            <div class="text-xl font-semibold mb-2">Live Evans</div>
 
             <div class="flex justify-center gap-4 mb-4" id="carouselContainer">
 
@@ -94,7 +94,7 @@ padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়�
 
             </div>
 
-            <div class="text-xl font-semibold mb-2">𝚂𝚙𝚘𝚛𝚝𝚜 𝙲𝚑𝚊𝚗𝚗𝚎𝚕𝚜</div>
+            <div class="text-xl font-semibold mb-2">Sports Channels</div>
 
 <div class="grid grid-cols-3 gap-4 mb-4" id="carouselContainer">
 
@@ -109,7 +109,6 @@ padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়�
   <a href="tencricket.html"><img src="tencricket.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
 
   <a href="fancode.html"><img src="fancode.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
-
 </div>
 
         </div>
@@ -119,6 +118,8 @@ padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়�
         <!-- Movies Section -->
 
         <div id="moviesSection" class="grid grid-cols-2 md:grid-cols-4 gap-4 hidden">
+
+<div id="moviesSection" class="grid grid-cols-2 md:grid-cols-4 gap-4 hidden">
 
 <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/16.html" class="text-center">
 
@@ -206,7 +207,7 @@ padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়�
 
                 <p class="mt-2 font-semibold">Vir<span class="text-gray-400 text-sm">| 2023</span></p>
 
-            </a>
+</a>
 
         </div>
 
@@ -215,6 +216,8 @@ padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়�
         <!-- TV Section -->
 
         <div id="tvSection" class="grid grid-cols-3 gap-4 hidden">
+
+            <div id="tvSection" class="grid grid-cols-3 gap-4 hidden">
             
             <a href="btv.html"><img src="btv.jpg" class="w-full aspect-square rounded-full" /></a>
           
@@ -259,7 +262,6 @@ padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়�
             <a href="yrfmusic.html"><img src="yrfmusic.jpg" class="w-full aspect-square rounded-full" /></a>
 
             <a href="joomusic.html"><img src="joomusic.jpg" class="w-full aspect-square rounded-full" /></a>
-
         </div>
 
     </main>
@@ -270,13 +272,14 @@ padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়�
 
     <footer class="fixed bottom-0 left-0 right-0 bg-black p-3 shadow-md z-10">
 
-        <div class="flex justify-around">
+   
+     <div class="flex justify-around">
 
             <button id="liveBtn" class="text-center active-tab">
 
                 <i class="fas fa-broadcast-tower text-xl"></i>
 
-                <p class="text-xs mt-1">𝐋𝐢𝐯𝐞</p>
+                <p class="text-xs mt-1">Live</p>
 
             </button>
 
@@ -284,7 +287,7 @@ padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়�
 
                 <i class="fas fa-film text-xl"></i>
 
-                <p class="text-xs mt-1">𝐌𝐨𝐯𝐢𝐞𝐬</p>
+                <p class="text-xs mt-1">Movies</p>
 
             </button>
 
@@ -292,18 +295,42 @@ padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়�
 
                 <i class="fas fa-tv text-xl"></i>
 
-                <p class="text-xs mt-1">𝐓𝐯</p>
+                <p class="text-xs mt-1">TV</p>
 
             </button>
 
         </div>
 
     </footer>
-  
+
+<!-- Popup Container -->
+
+<div id="palestine-popup" class="popup-overlay">
+
+  <div class="popup-box">
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Palestine.svg" class="popup-img" alt="Palestine Flag">
+
+    <h2 class="popup-question">Are You Support Palestine?</h2>
+
+    <div class="popup-buttons">
+
+      <button onclick="handleYes()" class="btn-yes">Yes</button>
+
+      <button onclick="handleNo()" class="btn-no">No</button>
+
+    </div>
+
+    <div id="congrats" class="congrats-message">Thank you for supporting Palestine!</div>
+
+  </div>
+
 </div>
-</div>
-  
+
+
+
 <style>
+
 /* Overlay */
 
 .popup-overlay {
@@ -498,7 +525,51 @@ padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়�
 
 <script>
 
+// Check if user already answered
 
+const userResponse = localStorage.getItem('palestineSupport');
+
+if (userResponse === 'no') {
+
+  window.location.href = "https://taohid21.github.io/accses-denied-/"; // Change to your redirect URL
+
+} else if (userResponse === 'yes') {
+
+  document.getElementById('palestine-popup').style.display = 'none';
+
+}
+
+
+
+// Yes handler
+
+function handleYes() {
+
+  localStorage.setItem('palestineSupport', 'yes');
+
+  document.querySelector('.popup-buttons').style.display = 'none';
+
+  document.getElementById('congrats').style.display = 'block';
+
+  setTimeout(() => {
+
+    document.getElementById('palestine-popup').style.display = 'none';
+
+  }, 2500);
+
+}
+
+
+
+// No handler
+
+function handleNo() {
+
+  localStorage.setItem('palestineSupport', 'no');
+
+  window.location.href = "https://taohid21.github.io/accses-denied-/"; // Change to your redirect URL
+
+}
 
 
 
@@ -567,7 +638,9 @@ padding-bottom: 68px; /* Footer এর উচ্চতা অনুযায়�
 
 
         setInterval(rotateBanner, 3000); // Rotate every 3 seconds
-  
+
+    </script>
+
 </body>
 
 </html>
