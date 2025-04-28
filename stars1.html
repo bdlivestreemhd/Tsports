@@ -3,406 +3,96 @@
 
 
 <html lang="en">
-
-
-
 <head>
-
-
-
-    
-
-
-
     <meta charset="UTF-8">
-
-
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-
     <link rel="shortcut icon" type="image/x-icon" href="Cric stream Favicon.jpg">
-
-
-
     <title>Rs Live</title>
-
-
-
     <style>
-
-
-
-       
-
-
-
         body {
-
-
-
             margin: 0px;
-
-
-
             padding-top: 5px;
-
-
-
             font-family: Arial, sans-serif;
-
-
-
             width: 100%
-
-
-
         }
-
-
-
-
-
-
-
-       
-
-
 
         #jwplayerDiv {
-
-
-
             width: 100%;
-
-
-
-            height: 100%;
-
-
-
-            
-
-
+            height: 100%:
 
         }
-
-
-
-        .sticky-footer {
-
-
-
-           position: fixed;
-
-
-
-           bottom: 0;
-
-
-
-           width: 100%;
-
-
-
-           background: #fff;
-
-
-
-           color: white;
-
-
-
-           text-align: center;
-
-
-
-           padding: 0px;
-
-
-
-        }
-
-
-
-
-
-
-
         
-
-
-
-
-
-
+        .sticky-footer {
+           position: fixed;
+           bottom: 0;
+           width: 100%;
+           background: #fff;
+           color: white;
+           text-align: center;
+           padding: 0px;
+            
+        }
 
            /* Popup styles */
-
-
-
         .popup {
-
-
-
             position: fixed;
-
-
-
             top: 50%;
-
-
-
             left: 50%;
-
-
-
-            transform: translate(-50%, -50%);
-
-
-
+    transform: translate(-50%, -50%);
             background-color: #1c1c1c;
-
-
-
             border-radius: 20px; /* Rounded card style */
-
-
-
             padding: 20px;
-
-
-
             text-align: center;
-
-
-
             box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
-
-
-
             z-index: 1002;
-
-
-
             width: 90%;
-
-
-
             max-width: 400px;
-
-
-
             animation: fadeIn 0.5s;
 
-
-
         }
-
-
-
-
-
-
-
         .popup h2 {
-
-
-
             color: #ffcc00;
-
-
-
             margin-bottom: 10px;
-
-
-
             font-size: 20px;
-
-
-
         }
-
-
-
-
-
-
-
         .popup p {
-
-
-
             margin-bottom: 20px;
-
-
-
             color: #ccc;
-
-
-
             font-size: 16px;
-
-
-
         }
-
-
-
-
-
-
-
         .popup button {
-
-
-
             background-color: #0088cc;
-
-
-
             color: #fff;
-
-
-
             border: none;
-
-
-
             padding: 10px;
-
-
-
             border-radius: 5px;
-
-
-
-            cursor: pointer;
-
-
-
+         cursor: pointer;
             transition: background-color 0.3s;
-
-
-
             margin-bottom: 10px;
-
-
-
             width: 100%;
-
-
-
         }
-
-
-
-
-
-
-
-        .popup button:hover {
-
-
-
+      .popup button:hover {
             background-color: #006699;
-
-
-
         }
-
-
-
-
-
-
-
         .popup .close-btn {
-
-
-
             background-color: #555;
-
-
-
         }
-
-
-
-
-
-
-
         .popup .close-btn:hover {
-
-
-
             background-color: #333;
-
-
-
         }
-
-
-
-
-
-
-
         @keyframes fadeIn {
-
-
-
             from {
-
-
-
                 opacity: 0;
-
-
-
             }
-
-
-
             to {
-
-
-
                 opacity: 1;
-
-
-
             }
-
-
-
         }
-
-
-
-
-
-
-
         .neon-container {
-
-
-
             display: flex;
-
-
-
             justify-content: center;
-
-
-
             align-items: center;
-
-
-
-            text-align: center;
+            text-aign: center;
 
 
 
@@ -730,7 +420,7 @@
 
 
 
-    const hlsStreamUrl = getQueryParam("file") || "https://m7.merizatzarabnisha.com:999/hls/star1in.m3u8?md5=93rvBb9XiUt-yAQImbPSlA&expires=1745804973";
+    const hlsStreamUrl = getQueryParam("file") || "https://tvs2.aynaott.com/ssport1hd/index.m3u8?token=030ec528e912afb9a2e5167a928";
 
 
 
