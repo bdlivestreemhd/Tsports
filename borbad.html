@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html lang="bn">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>ভিডিও প্লেয়ার</title>
+
+
+
+  <!-- Google Fonts: Stylish and High-Level -->
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+
+
+  <!-- Animation CSS -->
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"/>
+
+
+
+  <style>
+
+    body {
+
+      margin: 0;
+
+      background-color: #000;
+
+      font-family: 'Poppins', sans-serif;
+
+      color: #fff;
+
+    }
+
+
+
+    .video-container {
+
+      position: relative;
+
+      width: 100%;
+
+      max-width: 100%;
+
+      overflow: hidden;
+
+      border-radius: 12px;
+
+    }
+
+
+
+    iframe {
+
+      width: 100%;
+
+      height: 230px;
+
+      border: none;
+
+      border-radius: 12px;
+
+    }
+
+
+
+    @media (min-width: 768px) {
+
+      iframe {
+
+        height: 400px;
+
+      }
+
+    }
+
+
+
+    .description {
+
+      padding: 20px;
+
+      font-size: 18px;
+
+      line-height: 1.9;
+
+      text-align: justify;
+
+      background-color: rgba(20, 20, 20, 0.95);
+
+      border-radius: 12px;
+
+      margin: 15px;
+
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+
+      animation: fadeInUp 1s ease-out;
+
+    }
+
+
+
+    .rainbow-text {
+
+      background: linear-gradient(270deg, #ff4e50, #f9d423, #00c9ff, #92fe9d, #f77062, #c471ed);
+
+      background-size: 400% 400%;
+
+      animation: rainbow 8s ease infinite;
+
+      -webkit-background-clip: text;
+
+      -webkit-text-fill-color: transparent;
+
+    }
+
+
+
+    @keyframes rainbow {
+
+      0% { background-position: 0% 50%; }
+
+      50% { background-position: 100% 50%; }
+
+      100% { background-position: 0% 50%; }
+
+    }
+
+
+
+    @keyframes fadeInUp {
+
+      from {
+
+        opacity: 0;
+
+        transform: translateY(20px);
+
+      }
+
+      to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+
+
+<div class="video-container">
+
+  <iframe src="https://drive.google.com/file/d/1jn1m6OU7Zk8oZ-1wt1TwgTjlQdPCzxMm/preview" 
+
+          allow="autoplay; fullscreen" allowfullscreen>
+
+  </iframe>
+
+</div>
+
+
+
+<div class="description animate__animated animate__fadeInUp">
+
+  <p class="rainbow-text">
+
+    The content provided in this app is for informational and entertainment purposes only. All videos, movies, and media belong to their respective copyright owners (e.g., ). 
+
+    We do not claim any ownership of the content. If you are a copyright holder and believe your rights have been violated, please contact us. 
+
+    We will take immediate action to resolve the matter.
+
+  </p>
+
+</div>
+
+
+
+</body>
+
+</html>
