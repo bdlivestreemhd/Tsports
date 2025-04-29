@@ -1,145 +1,491 @@
-<!DOCTYPE html><html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rs Live</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-        }
-        .hero {
-            background: linear-gradient(135deg, #1e5799 0%, #207cca 100%);
-            color: white;
-            padding: 5rem 0;
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        .player-wrapper {
-            background: #000;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-bottom: 2rem;
-        }
-        video {
-            width: 100%;
-            height: auto;
-        }
-        .feature-box {
-            text-align: center;
-            padding: 2rem;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
-            height: 100%;
-        }
-        .feature-box i {
-            font-size: 3rem;
-            color: #1e5799;
-            margin-bottom: 1rem;
-        }
-        .player-controls {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
-        .volume-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        footer {
-            background: #343a40;
-            color: white;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-        .sports-icon {
-            font-size: 2rem;
-            margin-right: 10px;
-        }
-    </style>
-<style type="text/css">* {user-select: auto !important; -webkit-user-select: auto !important;}</style><input type="hidden" id="inject_idm_text_selection"><style></style></head>
-<body>
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
     
-    <!-- Main Content -->
-            <!-- Streaming Page -->
-        <div class="container my-5" id="stream">
-            
-            
-            <div class="player-wrapper">
-                <video id="sportfever-player" controls="" autoplay="" src="blob:http://sportfever.co4.in/91336ac2-2d2a-4b06-acb9-a412f64047ab">
-                    <source src="http://kst.moonplex.net:8080/CH2/index.m3u8" type="application/x-mpegURL">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-            
-            <div class="player-controls">
-                <button id="play-btn" class="btn btn-primary"><i class="fas fa-play"></i> Play</button>
-                <button id="pause-btn" class="btn btn-secondary"><i class="fas fa-pause"></i> Pause</button>
-                <button id="fullscreen-btn" class="btn btn-info"><i class="fas fa-expand"></i> Fullscreen</button>
-                <div class="volume-control">
-                    <i class="fas fa-volume-up"></i>
-                    <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="1">
-                </div>
-            </div>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" type="image/x-icon" href="Cric stream Favicon.jpg">
+
+    <title>Btv Live</title>
+
+    <style>
+
+       
+
+        body {
+
+            margin: 0px;
+
+            padding-top: 5px;
+
+            font-family: Arial, sans-serif;
+
+            width: 100%
+
+        }
+
+
+
+       
+
+        #jwplayerDiv {
+
+            width: 100%;
+
+            height: 100%;
+
             
 
-    <!-- JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const video = document.getElementById('sportfever-player');
-            
-            // Check for HLS support
-            if (Hls.isSupported()) {
-                const hls = new Hls();
-                hls.loadSource('http://kst.moonplex.net:8080/CH2/index.m3u8');
-                hls.attachMedia(video);
-                hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                    video.play();
-                });
-            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                
-                video.addEventListener('loadedmetadata', function() {
-                    video.play();
-                });
+        }
+
+        .sticky-footer {
+
+           position: fixed;
+
+           bottom: 0;
+
+           width: 100%;
+
+           background: #fff;
+
+           color: white;
+
+           text-align: center;
+
+           padding: 0px;
+
+        }
+
+
+
+        
+
+
+
+           /* Popup styles */
+
+        .popup {
+
+            position: fixed;
+
+            top: 50%;
+
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+            background-color: #1c1c1c;
+
+            border-radius: 20px; /* Rounded card style */
+
+            padding: 20px;
+
+            text-align: center;
+
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+
+            z-index: 1002;
+
+            width: 90%;
+
+            max-width: 400px;
+
+            animation: fadeIn 0.5s;
+
+        }
+
+
+
+        .popup h2 {
+
+            color: #ffcc00;
+
+            margin-bottom: 10px;
+
+            font-size: 20px;
+
+        }
+
+
+
+        .popup p {
+
+            margin-bottom: 20px;
+
+            color: #ccc;
+
+            font-size: 16px;
+
+        }
+
+
+
+        .popup button {
+
+            background-color: #0088cc;
+
+            color: #fff;
+
+            border: none;
+
+            padding: 10px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            transition: background-color 0.3s;
+
+            margin-bottom: 10px;
+
+            width: 100%;
+
+        }
+
+
+
+        .popup button:hover {
+
+            background-color: #006699;
+
+        }
+
+
+
+        .popup .close-btn {
+
+            background-color: #555;
+
+        }
+
+
+
+        .popup .close-btn:hover {
+
+            background-color: #333;
+
+        }
+
+
+
+        @keyframes fadeIn {
+
+            from {
+
+                opacity: 0;
+
             }
-            
-            // Player controls
-            document.getElementById('play-btn').addEventListener('click', function() {
-                video.play();
-            });
-            
-            document.getElementById('pause-btn').addEventListener('click', function() {
-                video.pause();
-            });
-            
-            document.getElementById('fullscreen-btn').addEventListener('click', function() {
-                if (video.requestFullscreen) {
-                    video.requestFullscreen();
-                } else if (video.webkitRequestFullscreen) {
-                    video.webkitRequestFullscreen();
-                } else if (video.msRequestFullscreen) {
-                    video.msRequestFullscreen();
-                }
-            });
-            
-            document.getElementById('volume-slider').addEventListener('input', function(e) {
-                video.volume = e.target.value;
-            });
-        });
-    </script>
+
+            to {
+
+                opacity: 1;
+
+            }
+
+        }
 
 
-<div style="text-align: center;"><div style="position:relative; top:0; margin-right:auto;margin-left:auto; z-index:99999">
 
-</div></div>
-</body></html>
+        .neon-container {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            padding-top: 5px;
+
+            padding-bottom:25px;
+
+            margin: 10px;
+
+            margin-top: 25px;
+
+            background-color: #2f2f2f;
+
+            border-radius: 10px;
+
+            box-shadow: 0 0 10px #00ff99;
+
+            transition: all 0.3s ease-in-out;
+
+            animation: neonBorder 2s infinite alternate;
+
+        }
+
+
+
+        .neon-container h1 {
+
+            color: #fff;
+
+            font-size: 2.5rem;
+
+            margin-bottom: 15px;
+
+            letter-spacing: 2px;
+
+        }
+
+
+
+        .neon-container a {
+
+            color: #00ff99;
+
+            font-size: 1.5rem;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            border: 2px solid #00ff99;
+
+            padding: 10px 20px;
+
+            border-radius: 5px;
+
+            transition: all 0.3s ease-in-out;
+
+        }
+
+
+
+        .neon-container a:hover {
+
+            background-color: #00ff99;
+
+            color: #121212;
+
+            box-shadow: 0 0 20px #00ff99, 0 0 40px #00ff99;
+
+        }
+
+
+
+        /* Neon Border Animation */
+
+        @keyframes neonBorder {
+
+            0% {
+
+                border-color: #00ff99;
+
+            }
+
+            25% {
+
+                border-color: #ff007f;
+
+            }
+
+            50% {
+
+                border-color: #007fff;
+
+            }
+
+            75% {
+
+                border-color: #ffbf00;
+
+            }
+
+            100% {
+
+                border-color: #00ff99;
+
+            }
+
+        }
+
+
+
+       
+
+
+
+        /* Responsive Styles */
+
+        @media (max-width: 768px) {
+
+            .neon-container h1 {
+
+                font-size: 2rem;
+
+            }
+
+
+
+            .neon-container a {
+
+                font-size: 1.2rem;
+
+                padding: 8px 16px;
+
+            }
+
+        }
+
+   
+
+    </style>
+
+    <script src="https://cdn.jwplayer.com/libraries/SAHhwvZq.js"></script>
+
+</head>
+
+<body>
+
+    <div id="jwplayerDiv"></div>
+
+   <script>
+
+    // Function to get URL query parameters
+
+    function getQueryParam(param) {
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        return urlParams.get(param);
+
+    }
+
+
+
+    // Retrieve the 'file' parameter from the URL, or use the default URL if none is provided
+
+    const hlsStreamUrl = getQueryParam("file") || "https://tvs2.aynaott.com/tsportshd/index.fmp4.m3u8?token=030ec528e912afb9a2e5167a928?by=Xfireflix";
+
+
+
+    // Initialize JW Player
+
+    const playerInstance = jwplayer("jwplayerDiv");
+
+
+
+    // Configure the player with the HLS stream from URL parameter or default stream
+
+    playerInstance.setup({
+
+        file: hlsStreamUrl,
+
+        width: "100%",
+
+        height: "100%",
+
+        aspectratio: "16:9",
+
+        autostart: true,
+
+        mute: false, 
+
+        type: "hls", // Ensures HLS compatibility
+
+        preload: "auto", // Preload stream for faster playback
+
+        cast: {
+
+            appid: "CC1AD845" // Chromecast App ID (optional)
+
+        }
+
+    });
+
+
+
+    // Optional: Handle player errors gracefully
+
+    playerInstance.on('error', function(error) {
+
+        console.error("Error loading stream:", error.message);
+
+    });
+
+</script>
+
+
+
+       <center>
+
+            <!-- BEGIN: Powered by Supercounters.com -->
+
+            <center><script type="text/javascript" src="//widget.supercounters.com/ssl/online_t.js"></script><script type="text/javascript">sc_online_t(1707487,"Users Online","170ddb");</script><br><noscript><a href="https://www.supercounters.com/">supercounters.com</a></noscript>
+
+            </center>
+
+            <!-- END: Powered by Supercounters.com -->
+
+
+
+            
+
+        </center>
+
+
+
+
+
+            
+
+        </center>
+
+
+
+        <div style="background-color: #0074d9; text-align: center; padding: 6px;">
+
+            <a href="https://t.me/rslivetv" target="_blank">
+
+                <button id="joinTelegramButton">Join Telegram</button>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <!-- <div class="neon-container">
+
+        <div>
+
+            <h1>Share With Your Friends & Support Us!</h1>
+
+            <a href="https://t.me/rslivetv" target="_blank">Click to Connect</a>
+
+        </div>
+
+    </div> -->
+
+<br>
+
+    <br>
+
+    <br>
+
+    <br>
+
+    <br>
+
+    
+
+        <script async="async" data-cfasync="false" src="//pl26377079.profitableratecpm.com/cdeccdd75d3e2e6916a42ce9653cfb08/invoke.js"></script>
+<div id="container-cdeccdd75d3e2e6916a42ce9653cfb08"></div>
+
+
+</body>
+
+</html>
