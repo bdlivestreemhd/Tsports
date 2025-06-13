@@ -51,7 +51,7 @@
     
     .progress-bar {
       height: 100%;
-      background: #E50914; /* বঙ্গবিডি/চরকি স্টাইলের লাল রং */
+      background: #E50914;
       width: 0%;
     }
     
@@ -61,6 +61,7 @@
       color: white;
       font-size: 16px;
       cursor: pointer;
+      outline: none;
     }
     
     .quality-selector {
@@ -70,16 +71,36 @@
       background: rgba(0, 0, 0, 0.7);
       padding: 10px;
       display: none;
+      border-radius: 5px;
     }
     
     .quality-option {
       display: block;
       padding: 5px;
       cursor: pointer;
+      color: #ddd;
     }
     
     .quality-option:hover {
       color: #E50914;
+    }
+
+    /* টুলটিপ স্টাইল */
+    .tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+      display: none;
+    }
+
+    button:hover .tooltip {
+      display: block;
     }
   </style>
 </head>
@@ -87,15 +108,30 @@
   <div class="player-container">
     <video id="videoPlayer"></video>
     <div class="controls">
-      <button class="play-pause"><i class="fas fa-play"></i></button>
+      <button class="play-pause">
+        <i class="fas fa-play"></i>
+        <span class="tooltip">প্লে/পজ</span>
+      </button>
       <div class="progress-container">
         <div class="progress-bar"></div>
       </div>
       <div class="time">00:00 / 00:00</div>
-      <button class="volume"><i class="fas fa-volume-up"></i></button>
-      <button class="quality-btn"><i class="fas fa-cog"></i></button>
-      <button class="telegram-btn" id="telegramButton"><i class="fab fa-telegram"></i></button>
-      <button class="fullscreen"><i class="fas fa-expand"></i></button>
+      <button class="volume">
+        <i class="fas fa-volume-up"></i>
+        <span class="tooltip">ভলিউম</span>
+      </button>
+      <button class="quality-btn">
+        <i class="fas fa-cog"></i>
+        <span class="tooltip">কোয়ালিটি</span>
+      </button>
+      <button class="telegram-btn" id="telegramButton">
+        <i class="fab fa-telegram"></i>
+        <span class="tooltip">টেলিগ্রামে শেয়ার</span>
+      </button>
+      <button class="fullscreen">
+        <i class="fas fa-expand"></i>
+        <span class="tooltip">ফুলস্ক্রিন</span>
+      </button>
     </div>
     <div class="quality-selector">
       <div class="quality-option" data-quality="high">হাই (1080p)</div>
@@ -118,8 +154,8 @@
       const fullscreenBtn = document.querySelector('.fullscreen');
       const telegramButton = document.getElementById('telegramButton');
 
-      // বঙ্গবিডি/চরকি স্টাইলের HLS স্ট্রিম (উদাহরণ)
-      const streamUrl = 'https://smart.bengaldigital.live/Star-jalsha/index.m3u8'; // আপনার আসল HLS স্ট্রিম দিয়ে প্রতিস্থাপন করুন
+      // ভিডিও স্ট্রিম URL (আপনার নিজের URL দিয়ে প্রতিস্থাপন করুন)
+      const streamUrl = 'https://smart.bengaldigital.live/Star-jalsha/index.m3u8';
 
       let hls = new Hls();
       
@@ -130,47 +166,44 @@
           video.play();
         });
         
-        // কোয়ালিটি লেভেল
         hls.on(Hls.Events.MANIFEST_PARSED, function(event, data) {
           const qualityLevels = hls.levels;
           console.log('উপলব্ধ কোয়ালিটি লেভেল:', qualityLevels);
         });
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        // সাফারির জন্য যা নেটিভ HLS সাপোর্ট করে
         video.src = streamUrl;
         video.addEventListener('loadedmetadata', function() {
           video.play();
         });
       }
 
-      // প্লে/পজ বাটন
+      // প্লে/পজ ফাংশনালিটি
       playPauseBtn.addEventListener('click', function() {
         if (video.paused) {
           video.play();
-          playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+          playPauseBtn.innerHTML = '<i class="fas fa-pause"></i><span class="tooltip">পজ</span>';
         } else {
           video.pause();
-          playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+          playPauseBtn.innerHTML = '<i class="fas fa-play"></i><span class="tooltip">প্লে</span>';
         }
       });
 
-      // ভলিউম বাটন
+      // ভলিউম কন্ট্রোল
       volumeBtn.addEventListener('click', function() {
         if (video.volume > 0) {
           video.volume = 0;
-          volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+          volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i><span class="tooltip">ভলিউম অন</span>';
         } else {
           video.volume = 1;
-          volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+          volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i><span class="tooltip">ভলিউম বন্ধ</span>';
         }
       });
 
-      // প্রোগ্রেস বার
+      // প্রোগ্রেস বার আপডেট
       video.addEventListener('timeupdate', function() {
         const progress = (video.currentTime / video.duration) * 100;
         progressBar.style.width = progress + '%';
         
-        // সময় ডিসপ্লে আপডেট
         const currentMinutes = Math.floor(video.currentTime / 60);
         const currentSeconds = Math.floor(video.currentTime % 60);
         const durationMinutes = Math.floor(video.duration / 60);
@@ -192,14 +225,17 @@
         qualitySelector.style.display = qualitySelector.style.display === 'block' ? 'none' : 'block';
       });
 
-      // টেলিগ্রাম বাটন
+      // টেলিগ্রাম শেয়ার ফাংশনালিটি (ফিক্সড)
       telegramButton.addEventListener('click', function() {
-        // আপনার টেলিগ্রাম লিংক দিয়ে প্রতিস্থাপন করুন
-        const telegramUrl = 'https://t.me/yourchannel'; 
-        window.open(telegramUrl, '_blank');
+        const telegramUsername = 'yourchannel'; // আপনার টেলিগ্রাম ইউজারনেম দিয়ে প্রতিস্থাপন করুন
+        const shareText = 'এই ভিডিওটি দেখুন!'; // শেয়ার টেক্সট
+        const pageUrl = window.location.href; // বর্তমান পেজ URL
+        
+        // ইউনিভার্সাল টেলিগ্রাম শেয়ার লিংক
+        window.open(`https://t.me/share/url?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(shareText)}`, '_blank');
       });
 
-      // ফুলস্ক্রিন বাটন
+      // ফুলস্ক্রিন ফাংশনালিটি
       fullscreenBtn.addEventListener('click', function() {
         if (!document.fullscreenElement) {
           video.requestFullscreen().catch(err => {
@@ -208,6 +244,15 @@
         } else {
           document.exitFullscreen();
         }
+      });
+
+      // কোয়ালিটি অপশনে ক্লিক করার ফাংশনালিটি
+      document.querySelectorAll('.quality-option').forEach(option => {
+        option.addEventListener('click', function() {
+          const quality = this.getAttribute('data-quality');
+          // এখানে কোয়ালিটি পরিবর্তনের লজিক যোগ করুন
+          qualitySelector.style.display = 'none';
+        });
       });
     });
   </script>
