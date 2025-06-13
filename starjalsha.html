@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+
+<html lang="bn">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>BongoBD/Chorki-style Player</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+
+    body {
+
+      margin: 0;
+
+      padding: 0;
+
+      font-family: 'Roboto', sans-serif;
+
+      background: #000;
+
+      color: #fff;
+
+    }
+
+    
+
+    .player-container {
+
+      max-width: 1000px;
+
+      margin: 0 auto;
+
+      position: relative;
+
+    }
+
+    
+
+    #videoPlayer {
+
+      width: 100%;
+
+      background: #000;
+
+    }
+
+    
+
+    .controls {
+
+      display: flex;
+
+      align-items: center;
+
+      padding: 10px;
+
+      background: rgba(0, 0, 0, 0.7);
+
+      position: absolute;
+
+      bottom: 0;
+
+      width: 100%;
+
+      box-sizing: border-box;
+
+    }
+
+    
+
+    .play-pause, .volume, .time, .fullscreen {
+
+      margin: 0 10px;
+
+    }
+
+    
+
+    .progress-container {
+
+      flex-grow: 1;
+
+      height: 5px;
+
+      background: #333;
+
+      margin: 0 10px;
+
+      cursor: pointer;
+
+    }
+
+    
+
+    .progress-bar {
+
+      height: 100%;
+
+      background: #E50914; /* BongoBD/Chorki-style red */
+
+      width: 0%;
+
+    }
+
+    
+
+    button {
+
+      background: none;
+
+      border: none;
+
+      color: white;
+
+      font-size: 16px;
+
+      cursor: pointer;
+
+    }
+
+    
+
+    .quality-selector {
+
+      position: absolute;
+
+      top: -60px;
+
+      right: 10px;
+
+      background: rgba(0, 0, 0, 0.7);
+
+      padding: 10px;
+
+      display: none;
+
+    }
+
+    
+
+    .quality-option {
+
+      display: block;
+
+      padding: 5px;
+
+      cursor: pointer;
+
+    }
+
+    
+
+    .quality-option:hover {
+
+      color: #E50914;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="player-container">
+
+    <video id="videoPlayer"></video>
+
+    <div class="controls">
+
+      <button class="play-pause"><i class="fas fa-play"></i></button>
+
+      <div class="progress-container">
+
+        <div class="progress-bar"></div>
+
+      </div>
+
+      <div class="time">00:00 / 00:00</div>
+
+      <button class="volume"><i class="fas fa-volume-up"></i></button>
+
+      <button class="quality-btn"><i class="fas fa-cog"></i></button>
+
+      <button class="fullscreen"><i class="fas fa-expand"></i></button>
+
+    </div>
+
+    <div class="quality-selector">
+
+      <div class="quality-option" data-quality="high">High (1080p)</div>
+
+      <div class="quality-option" data-quality="medium">Medium (720p)</div>
+
+      <div class="quality-option" data-quality="low">Low (480p)</div>
+
+    </div>
+
+  </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+      const video = document.getElementById('videoPlayer');
+
+      const playPauseBtn = document.querySelector('.play-pause');
+
+      const volumeBtn = document.querySelector('.volume');
+
+      const progressBar = document.querySelector('.progress-bar');
+
+      const progressContainer = document.querySelector('.progress-container');
+
+      const timeDisplay = document.querySelector('.time');
+
+      const qualityBtn = document.querySelector('.quality-btn');
+
+      const qualitySelector = document.querySelector('.quality-selector');
+
+      const fullscreenBtn = document.querySelector('.fullscreen');
+
+
+
+      // BongoBD/Chorki-style HLS stream (example)
+
+      const streamUrl = 'http://stvlive.net:8080/starjalsha/tracks-v1a1/mono.m3u8'; // Replace with actual HLS stream
+
+
+
+      let hls = new Hls();
+
+      
+
+      if (Hls.isSupported()) {
+
+        hls.loadSource(streamUrl);
+
+        hls.attachMedia(video);
+
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+
+          video.play();
+
+        });
+
+        
+
+        // Quality levels
+
+        hls.on(Hls.Events.MANIFEST_PARSED, function(event, data) {
+
+          const qualityLevels = hls.levels;
+
+          console.log('Available quality levels:', qualityLevels);
+
+        });
+
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+
+        // For Safari which supports native HLS
+
+        video.src = streamUrl;
+
+        video.addEventListener('loadedmetadata', function() {
+
+          video.play();
+
+        });
+
+      }
+
+
+
+      // Play/Pause
+
+      playPauseBtn.addEventListener('click', function() {
+
+        if (video.paused) {
+
+          video.play();
+
+          playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+
+        } else {
+
+          video.pause();
+
+          playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+
+        }
+
+      });
+
+
+
+      // Volume
+
+      volumeBtn.addEventListener('click', function() {
+
+        if (video.volume > 0) {
+
+          video.volume = 0;
+
+          volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+
+        } else {
+
+          video.volume = 1;
+
+          volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+
+        }
+
+      });
+
+
+
+      // Progress bar
+
+      video.addEventListener('timeupdate', function() {
+
+        const progress = (video.currentTime / video.duration) * 100;
+
+        progressBar.style.width = progress + '%';
+
+        
+
+        // Update time display
+
+        const currentMinutes = Math.floor(video.currentTime / 60);
+
+        const currentSeconds = Math.floor(video.currentTime % 60);
+
+        const durationMinutes = Math.floor(video.duration / 60);
+
+        const durationSeconds = Math.floor(video.duration % 60);
+
+        
+
+        timeDisplay.textContent = 
+
+          `${currentMinutes}:${currentSeconds < 10 ? '0' + currentSeconds : currentSeconds} / 
+
+           ${durationMinutes}:${durationSeconds < 10 ? '0' + durationSeconds : durationSeconds}`;
+
+      });
+
+
+
+      // Click on progress bar to seek
+
+      progressContainer.addEventListener('click', function(e) {
+
+        const pos = (e.pageX - this.offsetLeft) / this.offsetWidth;
+
+        video.currentTime = pos * video.duration;
+
+      });
+
+
+
+      // Quality selector
+
+      qualityBtn.addEventListener('click', function() {
+
+        qualitySelector.style.display = qualitySelector.style.display === 'block' ? 'none' : 'block';
+
+      });
+
+
+
+      // Fullscreen
+
+      fullscreenBtn.addEventListener('click', function() {
+
+        if (!document.fullscreenElement) {
+
+          video.requestFullscreen().catch(err => {
+
+            console.error('Fullscreen error:', err);
+
+          });
+
+        } else {
+
+          document.exitFullscreen();
+
+        }
+
+      });
+
+    });
+
+  </script>
+
+  
+
+  <script type='text/javascript' src='//pl26377172.profitableratecpm.com/d7/8b/93/d78b9343b29d8ff89244b094b359e591.js'></script>
+
+</body>
+
+</html>
