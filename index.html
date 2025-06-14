@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <title>Free IPTV</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
@@ -13,10 +15,20 @@
       padding-bottom: 68px;
       background-color: #000000;
       color: #ffffff;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    html {
+      overflow: hidden;
+      height: 100%;
     }
     
     main {
       padding-bottom: 100px;
+      height: calc(100vh - 68px);
+      overflow-y: auto;
     }
     
     .active-tab {
@@ -111,6 +123,37 @@
     .nav-btn:hover {
       transform: translateY(-3px);
     }
+    
+    /* Section Header Styles */
+    .section-header {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      padding-left: 0.5rem;
+      background: linear-gradient(90deg, #ef4444, transparent);
+      padding: 0.5rem;
+      border-left: 4px solid #ef4444;
+    }
+    
+    .live-header {
+      background: linear-gradient(90deg, #ef4444, transparent);
+      border-left-color: #ef4444;
+    }
+    
+    .movies-header {
+      background: linear-gradient(90deg, #3b82f6, transparent);
+      border-left-color: #3b82f6;
+    }
+    
+    .tv-header {
+      background: linear-gradient(90deg, #10b981, transparent);
+      border-left-color: #10b981;
+    }
+    
+    /* Fullscreen styles */
+    :fullscreen, ::backdrop {
+      background-color: #000000;
+    }
   </style>
 </head>
 <body>
@@ -130,14 +173,14 @@
       <!-- Banner will be inserted here by JavaScript -->
       
       <!-- Carousel Section -->
-      <div class="text-xl font-semibold mb-2">Live Events</div>
+      <div class="section-header live-header">Live Events</div>
       <div class="flex justify-center gap-4 mb-4" id="carouselContainer">
         <a href="toffee1.html"><img src="toffee1.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
         <a href="toffee2.html"><img src="toffee2.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
         <a href="btv.html"><img src="banvzim.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
       </div>
 
-      <div class="text-xl font-semibold mb-2">Sports Channels</div>
+      <div class="section-header live-header">Sports Channels</div>
       <div class="grid grid-cols-3 gap-4 mb-4" id="carouselContainer">
         <a href="tsports.html"><img src="tsports.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
         <a href="stars1.html"><img src="stars1.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
@@ -150,6 +193,7 @@
 
     <!-- Movies Section -->
     <div id="moviesSection" class="grid grid-cols-2 md:grid-cols-4 gap-4 hidden">
+      <div class="section-header movies-header">Latest Movies</div>
       <a href="taandob.html" class="text-center">
         <img src="taandob.jpg" class="w-full rounded-xl" />
         <p class="mt-2 font-semibold">Taandob Full HD<span class="text-gray-400 text-sm"> | 2025 Eid Movie</span></p>
@@ -182,6 +226,7 @@
 
     <!-- TV Section -->
     <div id="tvSection" class="grid grid-cols-3 gap-4 hidden">
+      <div class="section-header tv-header">TV Channels</div>
       <a href="btv.html"><img src="btv.jpg" class="w-full aspect-square rounded-full" /></a>
       <a href="atnbangla.html"><img src="atnbangla.jpg" class="w-full aspect-square rounded-full" /></a>
       <a href="atnnews.html"><img src="atnnews.jpg" class="w-full aspect-square rounded-full" /></a>
@@ -279,6 +324,13 @@
     
     // Check for active tab in localStorage on page load
     document.addEventListener('DOMContentLoaded', () => {
+      // Enter fullscreen mode
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(err => {
+          console.log(`Error attempting to enable fullscreen: ${err.message}`);
+        });
+      }
+      
       const savedTab = localStorage.getItem('activeTab') || 'live';
       activateTab(savedTab);
       
@@ -337,6 +389,13 @@
         const activeTabId = localStorage.getItem('activeTab') || 'liveBtn';
         localStorage.setItem('activeTab', activeTabId);
       });
+    });
+    
+    // Hide address bar on mobile
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        window.scrollTo(0, 1);
+      }, 0);
     });
   </script>
 </body>
