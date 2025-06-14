@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>প্রিমিয়াম আইপিটিভি - HD স্ট্রিমিং</title>
+  <title>StreamVision HD - Premium IPTV</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --primary: #FF5E5E;
-      --secondary: #FF2D2D;
-      --dark: #0F0F13;
-      --light-dark: #1E1E28;
-      --light: #F0F0F5;
+      --primary: #6366f1;
+      --secondary: #8b5cf6;
+      --dark: #0f172a;
+      --light-dark: #1e293b;
+      --light: #f8fafc;
     }
     
     body {
-      font-family: 'Hind Siliguri', sans-serif;
+      font-family: 'Poppins', sans-serif;
       background-color: var(--dark);
       color: var(--light);
       padding-bottom: 80px;
@@ -25,32 +25,38 @@
     
     .active-tab {
       color: var(--primary);
-      transform: scale(1.1);
-      transition: all 0.2s ease;
       position: relative;
     }
     
     .active-tab::after {
       content: '';
       position: absolute;
-      bottom: -5px;
+      bottom: -8px;
       left: 50%;
       transform: translateX(-50%);
       width: 6px;
       height: 6px;
       background: var(--primary);
       border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: translateX(-50%) scale(1); opacity: 1; }
+      50% { transform: translateX(-50%) scale(1.3); opacity: 0.7; }
+      100% { transform: translateX(-50%) scale(1); opacity: 1; }
     }
     
     .card {
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      border-radius: 12px;
     }
     
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(255, 45, 45, 0.2);
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
     }
     
     .card::before {
@@ -64,51 +70,21 @@
     }
     
     .channel-logo {
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       transition: all 0.3s ease;
       border: 2px solid var(--light-dark);
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
     }
     
     .channel-logo:hover {
       transform: scale(1.05);
       border-color: var(--primary);
-    }
-    
-    .banner {
-      height: 200px;
-      background-size: cover;
-      background-position: center;
-      border-radius: 16px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-    
-    .banner::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 60%;
-      background: linear-gradient(transparent, rgba(0,0,0,0.9));
-    }
-    
-    .banner-text {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      z-index: 2;
-      max-width: 80%;
-    }
-    
-    .badge {
-      background: linear-gradient(to right, var(--primary), var(--secondary));
-      font-size: 0.7rem;
-      padding: 3px 10px;
-      border-radius: 20px;
-      display: inline-block;
-      font-weight: 600;
+      animation: none;
     }
     
     .section-title {
@@ -126,21 +102,37 @@
       width: 5px;
       background: linear-gradient(to bottom, var(--primary), var(--secondary));
       border-radius: 5px;
+      animation: colorChange 8s infinite alternate;
+    }
+    
+    @keyframes colorChange {
+      0% { background: linear-gradient(to bottom, #6366f1, #8b5cf6); }
+      25% { background: linear-gradient(to bottom, #ec4899, #f43f5e); }
+      50% { background: linear-gradient(to bottom, #f59e0b, #ef4444); }
+      75% { background: linear-gradient(to bottom, #10b981, #3b82f6); }
+      100% { background: linear-gradient(to bottom, #8b5cf6, #6366f1); }
     }
     
     .category-btn {
       transition: all 0.2s ease;
       border: 1px solid var(--light-dark);
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     
     .category-btn.active {
       background: linear-gradient(to right, var(--primary), var(--secondary));
       border-color: transparent;
       color: white;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
     }
     
     .footer {
-      background: rgba(15,15,19,0.95);
+      background: rgba(15, 23, 42, 0.95);
       backdrop-filter: blur(10px);
       border-top: 1px solid rgba(255,255,255,0.1);
       box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
@@ -154,7 +146,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(15,15,19,0.98);
+      background: rgba(15, 23, 42, 0.98);
       z-index: 1000;
       padding: 20px;
       overflow-y: auto;
@@ -169,6 +161,12 @@
       width: 100%;
       padding: 15px 10px;
       margin-bottom: 20px;
+      animation: borderGlow 2s infinite alternate;
+    }
+    
+    @keyframes borderGlow {
+      from { border-bottom-color: var(--primary); }
+      to { border-bottom-color: var(--secondary); }
     }
     
     .search-input:focus {
@@ -193,6 +191,7 @@
     
     .search-close:hover {
       background: rgba(255,255,255,0.2);
+      transform: rotate(90deg);
     }
     
     /* Loading animation */
@@ -205,41 +204,51 @@
       animation: spin 1s linear infinite;
     }
     
-    /* Notification */
-    .notification {
-      position: fixed;
-      bottom: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--primary);
-      color: white;
-      padding: 10px 20px;
-      border-radius: 30px;
-      font-size: 14px;
-      box-shadow: 0 5px 15px rgba(255, 45, 45, 0.3);
-      z-index: 100;
-      opacity: 0;
+    /* Featured content animation */
+    .featured-content {
+      animation: slideIn 0.8s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateX(-20px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    /* Content hover effect */
+    .content-item {
       transition: all 0.3s ease;
     }
     
-    .notification.show {
-      opacity: 1;
-      bottom: 90px;
+    .content-item:hover {
+      transform: scale(1.03);
+      z-index: 10;
+    }
+    
+    /* Gradient background animation */
+    .gradient-bg {
+      animation: gradientShift 12s ease infinite;
+      background-size: 200% 200%;
+    }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
   </style>
 </head>
-<body>
+<body class="gradient-bg" style="background: linear-gradient(-45deg, #0f172a, #1e293b, #0f172a);">
   <!-- Header -->
   <header class="p-4 flex justify-between items-center bg-gradient-to-b from-black to-transparent sticky top-0 z-50">
     <div class="flex items-center">
-      <i class="fas fa-play-circle text-2xl text-red-500 mr-2"></i>
-      <h1 class="text-xl font-bold">প্রিমিয়াম আইপিটিভি</h1>
+      <i class="fas fa-play-circle text-2xl text-indigo-500 mr-2"></i>
+      <h1 class="text-xl font-bold">StreamVision <span class="text-indigo-400">HD</span></h1>
     </div>
     <div class="flex space-x-4">
-      <button id="searchBtn" class="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition">
+      <button id="searchBtn" class="p-2 rounded-full bg-gray-800 hover:bg-indigo-600 transition">
         <i class="fas fa-search"></i>
       </button>
-      <button id="userBtn" class="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition">
+      <button id="userBtn" class="p-2 rounded-full bg-gray-800 hover:bg-indigo-600 transition">
         <i class="fas fa-user"></i>
       </button>
     </div>
@@ -250,11 +259,11 @@
     <button id="searchClose" class="search-close">
       <i class="fas fa-times"></i>
     </button>
-    <input type="text" id="searchInput" class="search-input" placeholder="আপনি কি খুঁজছেন...">
+    <input type="text" id="searchInput" class="search-input" placeholder="Search for channels, movies...">
     <div id="searchResults" class="text-white">
       <div class="text-center py-10">
         <i class="fas fa-search text-3xl text-gray-500 mb-3"></i>
-        <p class="text-gray-400">খুঁজতে টাইপ করুন</p>
+        <p class="text-gray-400">Start typing to search</p>
       </div>
     </div>
   </div>
@@ -270,49 +279,67 @@
           <i class="fas fa-user text-2xl"></i>
         </div>
         <div>
-          <h3 class="font-bold text-lg">অতিথি ব্যবহারকারী</h3>
-          <p class="text-gray-400 text-sm">ফ্রি অ্যাকাউন্ট</p>
+          <h3 class="font-bold text-lg">Guest User</h3>
+          <p class="text-gray-400 text-sm">Free Account</p>
         </div>
       </div>
       <ul class="space-y-4">
         <li class="border-b border-gray-800 pb-4">
-          <a href="#" class="flex items-center">
+          <a href="#" class="flex items-center hover:text-indigo-400 transition">
             <i class="fas fa-user-edit mr-3 w-6 text-center"></i>
-            <span>প্রোফাইল</span>
+            <span>Profile</span>
           </a>
         </li>
         <li class="border-b border-gray-800 pb-4">
-          <a href="#" class="flex items-center">
+          <a href="#" class="flex items-center hover:text-indigo-400 transition">
             <i class="fas fa-cog mr-3 w-6 text-center"></i>
-            <span>সেটিংস</span>
+            <span>Settings</span>
           </a>
         </li>
         <li>
-          <a href="#" class="flex items-center text-red-400">
+          <a href="#" class="flex items-center text-red-400 hover:text-red-300 transition">
             <i class="fas fa-sign-out-alt mr-3 w-6 text-center"></i>
-            <span>লগ আউট</span>
+            <span>Logout</span>
           </a>
         </li>
       </ul>
     </div>
   </div>
 
-  <!-- Notification -->
-  <div id="notification" class="notification">
-    <span id="notificationText"></span>
-  </div>
-
   <!-- Main Content -->
   <main class="p-4">
-    <!-- Hero Banner -->
-    <div class="banner mb-6" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://i.ytimg.com/vi/DV-B5ywmGqI/hq720.jpg')">
-      <div class="banner-text">
-        <span class="badge">লাইভ এখন</span>
-        <h2 class="text-xl font-bold mt-2">প্রিমিয়ার লিগ ফুটবল</h2>
-        <p class="text-sm text-gray-300">ম্যানচেস্টার ইউনাইটেড বনাম লিভারপুল</p>
-        <button class="mt-3 bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded-full text-sm font-medium transition">
-          <i class="fas fa-play mr-1"></i> এখনই দেখুন
-        </button>
+    <!-- Featured Content -->
+    <div class="featured-content mb-8 bg-gradient-to-r from-indigo-900/30 to-purple-900/30 rounded-xl p-6">
+      <h2 class="text-2xl font-bold mb-3">Featured Today</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="premier-league.html" class="content-item bg-gray-800 rounded-lg overflow-hidden">
+          <img src="https://via.placeholder.com/300x170/333333/FFFFFF?text=Premier+League" class="w-full h-32 object-cover" />
+          <div class="p-3">
+            <h4 class="text-sm font-medium">Premier League</h4>
+            <p class="text-xs text-gray-400">Live • Football</p>
+          </div>
+        </a>
+        <a href="new-movie.html" class="content-item bg-gray-800 rounded-lg overflow-hidden">
+          <img src="https://via.placeholder.com/300x170/333333/FFFFFF?text=New+Movie" class="w-full h-32 object-cover" />
+          <div class="p-3">
+            <h4 class="text-sm font-medium">The Last Journey</h4>
+            <p class="text-xs text-gray-400">2023 • Action</p>
+          </div>
+        </a>
+        <a href="tv-series.html" class="content-item bg-gray-800 rounded-lg overflow-hidden">
+          <img src="https://via.placeholder.com/300x170/333333/FFFFFF?text=TV+Series" class="w-full h-32 object-cover" />
+          <div class="p-3">
+            <h4 class="text-sm font-medium">Dark Shadows</h4>
+            <p class="text-xs text-gray-400">Season 3 • Drama</p>
+          </div>
+        </a>
+        <a href="music.html" class="content-item bg-gray-800 rounded-lg overflow-hidden">
+          <img src="https://via.placeholder.com/300x170/333333/FFFFFF?text=Music" class="w-full h-32 object-cover" />
+          <div class="p-3">
+            <h4 class="text-sm font-medium">Top Hits 2023</h4>
+            <p class="text-xs text-gray-400">Music Channel</p>
+          </div>
+        </a>
       </div>
     </div>
 
@@ -321,89 +348,59 @@
       <!-- Live Channels -->
       <div class="mb-8">
         <div class="flex justify-between items-center mb-4">
-          <h3 class="section-title text-lg">লাইভ চ্যানেল</h3>
-          <a href="#" class="text-xs text-gray-400 hover:text-white transition">সব দেখুন</a>
+          <h3 class="section-title text-lg">Live Channels</h3>
+          <a href="#" class="text-xs text-gray-400 hover:text-indigo-400 transition">View All</a>
         </div>
-        <div class="channel-scroll flex space-x-4 pb-4 overflow-x-auto">
-          <a href="toffee1.html" class="flex flex-col items-center min-w-max">
-            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=TSPORTS" class="w-20 h-20 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">টফি স্পোর্টস</span>
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+          <a href="sports.html" class="flex flex-col items-center">
+            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=SPORTS" class="w-16 h-16 rounded-full object-cover channel-logo" />
+            <span class="text-xs mt-2">Sports</span>
           </a>
-          <a href="btv.html" class="flex flex-col items-center min-w-max">
-            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=BTV" class="w-20 h-20 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">বিটিভি</span>
+          <a href="news.html" class="flex flex-col items-center">
+            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=NEWS" class="w-16 h-16 rounded-full object-cover channel-logo" />
+            <span class="text-xs mt-2">News</span>
           </a>
-          <a href="tsports.html" class="flex flex-col items-center min-w-max">
-            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=TS" class="w-20 h-20 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">টি স্পোর্টস</span>
+          <a href="movies.html" class="flex flex-col items-center">
+            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=MOVIES" class="w-16 h-16 rounded-full object-cover channel-logo" />
+            <span class="text-xs mt-2">Movies</span>
           </a>
-          <a href="stars1.html" class="flex flex-col items-center min-w-max">
-            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=SS" class="w-20 h-20 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">স্টার স্পোর্টস</span>
+          <a href="music.html" class="flex flex-col items-center">
+            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=MUSIC" class="w-16 h-16 rounded-full object-cover channel-logo" />
+            <span class="text-xs mt-2">Music</span>
           </a>
-          <a href="willow.html" class="flex flex-col items-center min-w-max">
-            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=WILLOW" class="w-20 h-20 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">উইলো টিভি</span>
+          <a href="kids.html" class="flex flex-col items-center">
+            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=KIDS" class="w-16 h-16 rounded-full object-cover channel-logo" />
+            <span class="text-xs mt-2">Kids</span>
+          </a>
+          <a href="entertainment.html" class="flex flex-col items-center">
+            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=ENT" class="w-16 h-16 rounded-full object-cover channel-logo" />
+            <span class="text-xs mt-2">Entertainment</span>
           </a>
         </div>
       </div>
 
       <!-- Categories -->
       <div class="mb-8">
-        <h3 class="section-title text-lg mb-4">ক্যাটাগরি</h3>
-        <div class="grid grid-cols-3 gap-3">
+        <h3 class="section-title text-lg mb-4">Categories</h3>
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
           <button class="category-btn py-2 rounded-lg text-sm" data-category="sports">
-            <i class="fas fa-futbol mr-1"></i> খেলা
+            <i class="fas fa-futbol mr-1"></i> Sports
           </button>
           <button class="category-btn py-2 rounded-lg text-sm" data-category="movies">
-            <i class="fas fa-film mr-1"></i> সিনেমা
+            <i class="fas fa-film mr-1"></i> Movies
           </button>
           <button class="category-btn py-2 rounded-lg text-sm" data-category="tv">
-            <i class="fas fa-tv mr-1"></i> টিভি শো
+            <i class="fas fa-tv mr-1"></i> TV Shows
           </button>
           <button class="category-btn py-2 rounded-lg text-sm" data-category="music">
-            <i class="fas fa-music mr-1"></i> গান
+            <i class="fas fa-music mr-1"></i> Music
           </button>
           <button class="category-btn py-2 rounded-lg text-sm" data-category="news">
-            <i class="fas fa-newspaper mr-1"></i> খবর
+            <i class="fas fa-newspaper mr-1"></i> News
           </button>
           <button class="category-btn py-2 rounded-lg text-sm" data-category="kids">
-            <i class="fas fa-child mr-1"></i> বাচ্চাদের
+            <i class="fas fa-child mr-1"></i> Kids
           </button>
-        </div>
-      </div>
-
-      <!-- Popular Events -->
-      <div class="mb-8">
-        <div class="flex justify-between items-center mb-4">
-          <h3 class="section-title text-lg">জনপ্রিয় ইভেন্ট</h3>
-          <a href="#" class="text-xs text-gray-400 hover:text-white transition">সব দেখুন</a>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div class="bg-gray-800 rounded-lg overflow-hidden card">
-            <img src="https://via.placeholder.com/300x170/333333/FFFFFF?text=ICC+WC" class="w-full h-32 object-cover" />
-            <div class="p-3">
-              <h4 class="text-sm font-medium">আইসিসি বিশ্বকাপ ২০২৩</h4>
-              <div class="flex justify-between items-center mt-2">
-                <span class="text-xs text-gray-400">লাইভ • ক্রিকেট</span>
-                <button class="favorite-btn text-gray-400 hover:text-red-500" data-id="icc2023">
-                  <i class="far fa-heart"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="bg-gray-800 rounded-lg overflow-hidden card">
-            <img src="https://via.placeholder.com/300x170/333333/FFFFFF?text=EPL" class="w-full h-32 object-cover" />
-            <div class="p-3">
-              <h4 class="text-sm font-medium">প্রিমিয়ার লিগ</h4>
-              <div class="flex justify-between items-center mt-2">
-                <span class="text-xs text-gray-400">লাইভ • ফুটবল</span>
-                <button class="favorite-btn text-gray-400 hover:text-red-500" data-id="epl2023">
-                  <i class="far fa-heart"></i>
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -411,55 +408,67 @@
     <!-- Movies Section -->
     <div id="moviesSection" class="hidden">
       <div class="flex justify-between items-center mb-4">
-        <h3 class="section-title text-lg">নতুন মুভি</h3>
+        <h3 class="section-title text-lg">Latest Movies</h3>
         <div class="flex space-x-2">
           <button class="category-btn active px-3 py-1 rounded-full text-xs" data-movie-category="all">
-            সব
+            All
           </button>
           <button class="category-btn px-3 py-1 rounded-full text-xs" data-movie-category="action">
-            অ্যাকশন
+            Action
           </button>
           <button class="category-btn px-3 py-1 rounded-full text-xs" data-movie-category="comedy">
-            কমেডি
+            Comedy
           </button>
           <button class="category-btn px-3 py-1 rounded-full text-xs" data-movie-category="drama">
-            ড্রামা
+            Drama
           </button>
         </div>
       </div>
       
-      <div class="grid grid-cols-2 gap-4">
-        <div class="bg-gray-800 rounded-lg overflow-hidden card relative">
-          <button class="favorite-btn absolute top-2 right-2 z-10" data-id="taandob">
-            <i class="far fa-heart text-xl text-gray-300 hover:text-red-500"></i>
-          </button>
-          <a href="taandob.html">
-            <img src="https://via.placeholder.com/300x450/333333/FFFFFF?text=Taandob" class="w-full h-48 object-cover" />
-            <div class="p-3">
-              <h4 class="text-sm font-medium">টানডব</h4>
-              <div class="flex justify-between items-center mt-2">
-                <span class="text-xs text-gray-400">২০২৫ • ঈদ মুভি</span>
-                <span class="text-xs bg-red-600 px-2 py-0.5 rounded">এইচডি</span>
-              </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <a href="action-movie.html" class="content-item bg-gray-800 rounded-lg overflow-hidden">
+          <img src="https://via.placeholder.com/300x450/333333/FFFFFF?text=Action+Movie" class="w-full h-48 object-cover" />
+          <div class="p-3">
+            <h4 class="text-sm font-medium">The Last Stand</h4>
+            <div class="flex justify-between items-center mt-2">
+              <span class="text-xs text-gray-400">2023 • Action</span>
+              <span class="text-xs bg-indigo-600 px-2 py-0.5 rounded">HD</span>
             </div>
-          </a>
-        </div>
+          </div>
+        </a>
         
-        <div class="bg-gray-800 rounded-lg overflow-hidden card relative">
-          <button class="favorite-btn absolute top-2 right-2 z-10" data-id="jongli">
-            <i class="far fa-heart text-xl text-gray-300 hover:text-red-500"></i>
-          </button>
-          <a href="jongli.html">
-            <img src="https://via.placeholder.com/300x450/333333/FFFFFF?text=Jongli" class="w-full h-48 object-cover" />
-            <div class="p-3">
-              <h4 class="text-sm font-medium">জংলি</h4>
-              <div class="flex justify-between items-center mt-2">
-                <span class="text-xs text-gray-400">২০২৫ • চরকি</span>
-                <span class="text-xs bg-red-600 px-2 py-0.5 rounded">এইচডি</span>
-              </div>
+        <a href="comedy-movie.html" class="content-item bg-gray-800 rounded-lg overflow-hidden">
+          <img src="https://via.placeholder.com/300x450/333333/FFFFFF?text=Comedy+Movie" class="w-full h-48 object-cover" />
+          <div class="p-3">
+            <h4 class="text-sm font-medium">Laugh Out Loud</h4>
+            <div class="flex justify-between items-center mt-2">
+              <span class="text-xs text-gray-400">2023 • Comedy</span>
+              <span class="text-xs bg-indigo-600 px-2 py-0.5 rounded">HD</span>
             </div>
-          </a>
-        </div>
+          </div>
+        </a>
+        
+        <a href="drama-movie.html" class="content-item bg-gray-800 rounded-lg overflow-hidden">
+          <img src="https://via.placeholder.com/300x450/333333/FFFFFF?text=Drama+Movie" class="w-full h-48 object-cover" />
+          <div class="p-3">
+            <h4 class="text-sm font-medium">The Long Road</h4>
+            <div class="flex justify-between items-center mt-2">
+              <span class="text-xs text-gray-400">2023 • Drama</span>
+              <span class="text-xs bg-indigo-600 px-2 py-0.5 rounded">HD</span>
+            </div>
+          </div>
+        </a>
+        
+        <a href="sci-fi-movie.html" class="content-item bg-gray-800 rounded-lg overflow-hidden">
+          <img src="https://via.placeholder.com/300x450/333333/FFFFFF?text=Sci-Fi+Movie" class="w-full h-48 object-cover" />
+          <div class="p-3">
+            <h4 class="text-sm font-medium">Galactic War</h4>
+            <div class="flex justify-between items-center mt-2">
+              <span class="text-xs text-gray-400">2023 • Sci-Fi</span>
+              <span class="text-xs bg-indigo-600 px-2 py-0.5 rounded">4K</span>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
 
@@ -467,77 +476,34 @@
     <div id="tvSection" class="hidden">
       <div class="mb-6">
         <div class="flex justify-between items-center mb-4">
-          <h3 class="section-title text-lg">টিভি চ্যানেল</h3>
-          <a href="#" class="text-xs text-gray-400 hover:text-white transition">সব দেখুন</a>
+          <h3 class="section-title text-lg">TV Channels</h3>
+          <a href="#" class="text-xs text-gray-400 hover:text-indigo-400 transition">View All</a>
         </div>
-        <div class="grid grid-cols-3 gap-4">
-          <div class="flex flex-col items-center relative">
-            <button class="favorite-btn absolute top-0 right-0 text-gray-300 z-10" data-id="btv">
-              <i class="far fa-heart hover:text-red-500"></i>
-            </button>
-            <a href="btv.html">
-              <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=BTV" class="w-full aspect-square rounded-lg object-cover channel-logo" />
-              <span class="text-xs mt-2">বিটিভি</span>
-            </a>
-          </div>
-          <div class="flex flex-col items-center relative">
-            <button class="favorite-btn absolute top-0 right-0 text-gray-300 z-10" data-id="atnbangla">
-              <i class="far fa-heart hover:text-red-500"></i>
-            </button>
-            <a href="atnbangla.html">
-              <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=ATN" class="w-full aspect-square rounded-lg object-cover channel-logo" />
-              <span class="text-xs mt-2">এটিএন বাংলা</span>
-            </a>
-          </div>
-          <div class="flex flex-col items-center relative">
-            <button class="favorite-btn absolute top-0 right-0 text-gray-300 z-10" data-id="atnnews">
-              <i class="far fa-heart hover:text-red-500"></i>
-            </button>
-            <a href="atnnews.html">
-              <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=ATN+News" class="w-full aspect-square rounded-lg object-cover channel-logo" />
-              <span class="text-xs mt-2">এটিএন নিউজ</span>
-            </a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="mb-6">
-        <div class="flex justify-between items-center mb-4">
-          <h3 class="section-title text-lg">মিউজিক চ্যানেল</h3>
-          <a href="#" class="text-xs text-gray-400 hover:text-white transition">সব দেখুন</a>
-        </div>
-        <div class="grid grid-cols-3 gap-4">
-          <div class="flex flex-col items-center relative">
-            <button class="favorite-btn absolute top-0 right-0 text-gray-300 z-10" data-id="b4umusic">
-              <i class="far fa-heart hover:text-red-500"></i>
-            </button>
-            <a href="b4umusic.html">
-              <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=B4U" class="w-full aspect-square rounded-lg object-cover channel-logo" />
-              <span class="text-xs mt-2">বিফোর ইউ মিউজিক</span>
-            </a>
-          </div>
-          <div class="flex flex-col items-center relative">
-            <button class="favorite-btn absolute top-0 right-0 text-gray-300 z-10" data-id="9xjalwa">
-              <i class="far fa-heart hover:text-red-500"></i>
-            </button>
-            <a href="9xjalwa.html">
-              <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=9X" class="w-full aspect-square rounded-lg object-cover channel-logo" />
-              <span class="text-xs mt-2">৯এক্স জলওয়া</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Favorites Section -->
-    <div id="favoritesSection" class="hidden">
-      <div class="mb-6">
-        <h3 class="section-title text-lg mb-4">আপনার পছন্দসমূহ</h3>
-        <div id="favoritesList" class="grid grid-cols-2 gap-4">
-          <p class="text-gray-400 col-span-2 text-center py-10">
-            <i class="far fa-star text-3xl mb-3"></i><br>
-            আপনি এখনো কোনো কন্টেন্ট পছন্দ করেননি
-          </p>
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+          <a href="toffee1.html" class="flex flex-col items-center">
+            <img src="toffee1.jpg" class="w-16 h-16 rounded-full object-cover channel-logo" />
+            <span class="text-xs mt-2">IPL</span>
+          </a>
+          <a href="toffee2.html" class="flex flex-col items-center">
+            <img src="toffee2.jpg" class="w-16 h-16 rounded-full object-cover channel-logo" />
+            <span class="text-xs mt-2">Psl</span>
+          </a>
+          <a href="btv.html" class="flex flex-col items-center">
+            <img src="btv.jpg" class="w-16 h-16 rounded-full object-cover channel-logo" />
+            <span class="text-xs mt-2">Ban Vs Zim</span>
+          </a>
+          <a href="kids-channel.html" class="flex flex-col items-center">
+            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=CN" class="w-16 h-16 rounded-full object-cover channel-logo" />
+            <span class="text-xs mt-2">Cartoon Network</span>
+          </a>
+          <a href="music-channel.html" class="flex flex-col items-center">
+            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=MTV" class="w-16 h-16 rounded-full object-cover channel-logo" />
+            <span class="text-xs mt-2">MTV</span>
+          </a>
+          <a href="ent-channel.html" class="flex flex-col items-center">
+            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=E!" class="w-16 h-16 rounded-full object-cover channel-logo" />
+            <span class="text-xs mt-2">E!</span>
+          </a>
         </div>
       </div>
     </div>
@@ -548,25 +514,21 @@
     <div class="flex justify-around">
       <button id="liveBtn" class="text-center active-tab flex flex-col items-center px-2">
         <i class="fas fa-broadcast-tower text-xl"></i>
-        <span class="text-xs mt-1">লাইভ</span>
+        <span class="text-xs mt-1">Live</span>
       </button>
       <button id="moviesBtn" class="text-center text-gray-400 flex flex-col items-center px-2">
         <i class="fas fa-film text-xl"></i>
-        <span class="text-xs mt-1">মুভি</span>
+        <span class="text-xs mt-1">Movies</span>
       </button>
       <button id="tvBtn" class="text-center text-gray-400 flex flex-col items-center px-2">
         <i class="fas fa-tv text-xl"></i>
-        <span class="text-xs mt-1">টিভি</span>
-      </button>
-      <button id="favoritesBtn" class="text-center text-gray-400 flex flex-col items-center px-2">
-        <i class="fas fa-heart text-xl"></i>
-        <span class="text-xs mt-1">পছন্দ</span>
+        <span class="text-xs mt-1">TV</span>
       </button>
     </div>
   </footer>
 
   <script>
-    // ট্যাব ম্যানেজমেন্ট
+    // Tab Management
     const tabs = {
       live: {
         btn: document.getElementById('liveBtn'),
@@ -579,57 +541,38 @@
       tv: {
         btn: document.getElementById('tvBtn'),
         section: document.getElementById('tvSection')
-      },
-      favorites: {
-        btn: document.getElementById('favoritesBtn'),
-        section: document.getElementById('favoritesSection')
       }
     };
     
-    // ট্যাব অ্যাক্টিভেট ফাংশন
+    // Activate tab function
     function activateTab(tabName) {
-      // সব ট্যাব ডিঅ্যাক্টিভেট করুন
+      // Deactivate all tabs
       Object.keys(tabs).forEach(key => {
-        tabs[key].btn.classList.remove('active-tab', 'text-red-500');
+        tabs[key].btn.classList.remove('active-tab', 'text-indigo-400');
         tabs[key].btn.classList.add('text-gray-400');
         tabs[key].section.classList.add('hidden');
       });
       
-      // সিলেক্টেড ট্যাব অ্যাক্টিভেট করুন
-      tabs[tabName].btn.classList.add('active-tab', 'text-red-500');
+      // Activate selected tab
+      tabs[tabName].btn.classList.add('active-tab', 'text-indigo-400');
       tabs[tabName].btn.classList.remove('text-gray-400');
       tabs[tabName].section.classList.remove('hidden');
       
-      // লোকাল স্টোরেজে সেভ করুন
+      // Save to localStorage
       localStorage.setItem('activeTab', tabName);
-      
-      // ফেভারিট ট্যাব হলে ফেভারিট লোড করুন
-      if (tabName === 'favorites') {
-        loadFavorites();
-      }
     }
     
-    // ট্যাব বাটনে ইভেন্ট লিসেনার যোগ করুন
+    // Event listeners for tabs
     tabs.live.btn.addEventListener('click', () => activateTab('live'));
     tabs.movies.btn.addEventListener('click', () => activateTab('movies'));
     tabs.tv.btn.addEventListener('click', () => activateTab('tv'));
-    tabs.favorites.btn.addEventListener('click', () => activateTab('favorites'));
     
-    // পেজ লোড হওয়ার সময় অ্যাক্টিভ ট্যাব চেক করুন
+    // On page load, check for active tab
     document.addEventListener('DOMContentLoaded', () => {
       const savedTab = localStorage.getItem('activeTab') || 'live';
       activateTab(savedTab);
       
-      // ফেভারিট বাটন ইভেন্ট হ্যান্ডলার
-      document.querySelectorAll('.favorite-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          toggleFavorite(this);
-        });
-      });
-      
-      // ক্যাটাগরি বাটন ইভেন্ট হ্যান্ডলার
+      // Category button event handlers
       document.querySelectorAll('.category-btn').forEach(btn => {
         btn.addEventListener('click', function() {
           // Remove active class from all buttons in the same container
@@ -638,13 +581,10 @@
           });
           // Add active class to clicked button
           this.classList.add('active');
-          
-          // Here you would filter content based on category
-          showNotification(`ক্যাটাগরি: ${this.textContent.trim()}`);
         });
       });
       
-      // ইউজার মোডাল
+      // User modal
       const userBtn = document.getElementById('userBtn');
       const userModal = document.getElementById('userModal');
       const userClose = document.getElementById('userClose');
@@ -658,94 +598,7 @@
       });
     });
     
-    // ফেভারিট টগল ফাংশন
-    function toggleFavorite(btn) {
-      const itemId = btn.getAttribute('data-id');
-      let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-      const icon = btn.querySelector('i');
-      
-      if (favorites.includes(itemId)) {
-        // রিমুভ ফ্রম ফেভারিট
-        favorites = favorites.filter(id => id !== itemId);
-        icon.classList.remove('fas', 'text-red-500');
-        icon.classList.add('far');
-        showNotification('পছন্দ থেকে সরানো হয়েছে');
-      } else {
-        // অ্যাড টু ফেভারিট
-        favorites.push(itemId);
-        icon.classList.remove('far');
-        icon.classList.add('fas', 'text-red-500');
-        showNotification('পছন্দ তালিকায় যোগ করা হয়েছে');
-      }
-      
-      localStorage.setItem('favorites', JSON.stringify(favorites));
-      
-      // যদি ফেভারিট ট্যাব অ্যাক্টিভ থাকে, আপডেট করুন
-      if (!tabs.favorites.section.classList.contains('hidden')) {
-        loadFavorites();
-      }
-    }
-    
-    // ফেভারিট লোড ফাংশন
-    function loadFavorites() {
-      const favoritesList = document.getElementById('favoritesList');
-      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-      
-      if (favorites.length === 0) {
-        favoritesList.innerHTML = `
-          <p class="text-gray-400 col-span-2 text-center py-10">
-            <i class="far fa-star text-3xl mb-3"></i><br>
-            আপনি এখনো কোনো কন্টেন্ট পছন্দ করেননি
-          </p>
-        `;
-        return;
-      }
-      
-      // এখানে আপনার ফেভারিট আইটেমগুলো ডাইনামিক্যালি লোড করুন
-      // উদাহরণ:
-      let html = '';
-      favorites.forEach(id => {
-        // আইডি অনুযায়ী কন্টেন্ট ডিটেইলস যোগ করুন
-        if (id === 'taandob') {
-          html += `
-            <div class="bg-gray-800 rounded-lg overflow-hidden card relative">
-              <button class="favorite-btn absolute top-2 right-2 z-10" data-id="taandob">
-                <i class="fas fa-heart text-xl text-red-500"></i>
-              </button>
-              <a href="taandob.html">
-                <img src="https://via.placeholder.com/300x450/333333/FFFFFF?text=Taandob" class="w-full h-40 object-cover" />
-                <div class="p-3">
-                  <h4 class="text-sm font-medium">টানডব</h4>
-                  <div class="flex justify-between items-center mt-2">
-                    <span class="text-xs text-gray-400">২০২৫ • ঈদ মুভি</span>
-                    <span class="text-xs bg-red-600 px-2 py-0.5 rounded">এইচডি</span>
-                  </div>
-                </div>
-              </a>
-            </div>
-          `;
-        }
-        // অন্যান্য আইটেমগুলোর জন্য একইভাবে যোগ করুন
-      });
-      
-      favoritesList.innerHTML = html || `
-        <p class="text-gray-400 col-span-2 text-center py-10">
-          <i class="far fa-star text-3xl mb-3"></i><br>
-          আপনি এখনো কোনো কন্টেন্ট পছন্দ করেননি
-        </p>
-      `;
-      
-      // নতুন যোগ করা ফেভারিট বাটনে ইভেন্ট লিসেনার যোগ করুন
-      document.querySelectorAll('#favoritesList .favorite-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          toggleFavorite(this);
-        });
-      });
-    }
-    
-    // সার্চ ফাংশনালিটি
+    // Search functionality
     const searchBtn = document.getElementById('searchBtn');
     const searchModal = document.getElementById('searchModal');
     const searchClose = document.getElementById('searchClose');
@@ -763,7 +616,7 @@
       searchResults.innerHTML = `
         <div class="text-center py-10">
           <i class="fas fa-search text-3xl text-gray-500 mb-3"></i>
-          <p class="text-gray-400">খুঁজতে টাইপ করুন</p>
+          <p class="text-gray-400">Start typing to search</p>
         </div>
       `;
     });
@@ -774,26 +627,26 @@
         searchResults.innerHTML = `
           <div class="text-center py-10">
             <i class="fas fa-search text-3xl text-gray-500 mb-3"></i>
-            <p class="text-gray-400">খুঁজতে টাইপ করুন</p>
+            <p class="text-gray-400">Start typing to search</p>
           </div>
         `;
         return;
       }
       
-      // লোডিং স্টেট
+      // Loading state
       searchResults.innerHTML = `
         <div class="text-center py-10">
           <i class="fas fa-circle-notch text-3xl text-gray-500 mb-3 loading"></i>
-          <p class="text-gray-400">খুঁজছি...</p>
+          <p class="text-gray-400">Searching...</p>
         </div>
       `;
       
-      // সিমুলেটেড সার্চ রেজাল্ট (বাস্তবে এখানে API কল করা হবে)
+      // Simulated search results (in real app this would be API call)
       setTimeout(() => {
         const mockResults = [
-          { title: 'টানডব', type: 'মুভি', year: '২০২৫', image: 'https://via.placeholder.com/100x100/333333/FFFFFF?text=T', link: 'taandob.html', id: 'taandob' },
-          { title: 'বিটিভি', type: 'চ্যানেল', category: 'নিউজ', image: 'https://via.placeholder.com/100x100/333333/FFFFFF?text=BTV', link: 'btv.html', id: 'btv' },
-          { title: 'প্রিমিয়ার লিগ', type: 'ইভেন্ট', category: 'ফুটবল', image: 'https://via.placeholder.com/100x100/333333/FFFFFF?text=EPL', link: 'epl.html', id: 'epl2023' }
+          { title: 'Premier League', type: 'Sports', category: 'Football', image: 'https://via.placeholder.com/100x100/333333/FFFFFF?text=EPL', link: 'premier-league.html' },
+          { title: 'The Last Stand', type: 'Movie', year: '2023', image: 'https://via.placeholder.com/100x100/333333/FFFFFF?text=Movie', link: 'action-movie.html' },
+          { title: 'CNN', type: 'Channel', category: 'News', image: 'https://via.placeholder.com/100x100/333333/FFFFFF?text=CNN', link: 'news-channel.html' }
         ];
         
         const filtered = mockResults.filter(item => 
@@ -806,7 +659,7 @@
           searchResults.innerHTML = `
             <div class="text-center py-10">
               <i class="far fa-frown text-3xl text-gray-500 mb-3"></i>
-              <p class="text-gray-400">কোনো ফলাফল পাওয়া যায়নি</p>
+              <p class="text-gray-400">No results found</p>
             </div>
           `;
           return;
@@ -814,7 +667,6 @@
         
         let html = '<div class="grid gap-3">';
         filtered.forEach(item => {
-          const isFavorite = JSON.parse(localStorage.getItem('favorites') || []).includes(item.id);
           html += `
             <a href="${item.link}" class="flex items-center bg-gray-800 p-3 rounded-lg hover:bg-gray-700 transition">
               <img src="${item.image}" class="w-12 h-12 object-cover rounded" />
@@ -822,93 +674,14 @@
                 <h4 class="font-medium">${item.title}</h4>
                 <p class="text-xs text-gray-400">${item.type} • ${item.year || item.category}</p>
               </div>
-              <button class="favorite-btn ml-2 p-2" data-id="${item.id}">
-                <i class="${isFavorite ? 'fas text-red-500' : 'far'} fa-heart"></i>
-              </button>
             </a>
           `;
         });
         html += '</div>';
         
         searchResults.innerHTML = html;
-        
-        // সার্চ রেজাল্টের ফেভারিট বাটনে ইভেন্ট যোগ
-        document.querySelectorAll('#searchResults .favorite-btn').forEach(btn => {
-          btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleFavorite(this);
-          });
-        });
       }, 800);
     });
-    
-    // নোটিফিকেশন শো ফাংশন
-    function showNotification(message) {
-      const notification = document.getElementById('notification');
-      const notificationText = document.getElementById('notificationText');
-      
-      notificationText.textContent = message;
-      notification.classList.add('show');
-      
-      setTimeout(() => {
-        notification.classList.remove('show');
-      }, 3000);
-    }
-    
-    // ব্যানার রোটেশন
-    const banners = [
-      {
-        image: "https://i.ytimg.com/vi/DV-B5ywmGqI/hq720.jpg",
-        title: "প্রিমিয়ার লিগ ফুটবল",
-        subtitle: "ম্যানচেস্টার ইউনাইটেড বনাম লিভারপুল"
-      },
-      {
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXryAfG6ynDOGG1iOAmJ1oXkdNsEMd2LLdOxrZkmuCcJ-VY-Cl58zQAv0&s=10",
-        title: "আইসিসি বিশ্বকাপ ২০২৩",
-        subtitle: "ভারত বনাম অস্ট্রেলিয়া ফাইনাল"
-      },
-      {
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbxn4iH3L8mRIvq7158DTa2Quj-NJJhHpdLP62nBNOgJ7CSDDi5Zt4TL-Z&s=10",
-        title: "নতুন মুভি রিলিজ",
-        subtitle: "টানডব - ঈদ স্পেশাল"
-      }
-    ];
-    
-    let currentBanner = 0;
-    const bannerElement = document.querySelector('.banner');
-    const bannerTitle = bannerElement.querySelector('h2');
-    const bannerSubtitle = bannerElement.querySelector('p');
-    
-    function rotateBanner() {
-      currentBanner = (currentBanner + 1) % banners.length;
-      const banner = banners[currentBanner];
-      
-      bannerElement.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${banner.image}')`;
-      bannerTitle.textContent = banner.title;
-      bannerSubtitle.textContent = banner.subtitle;
-    }
-    
-    setInterval(rotateBanner, 5000);
-    
-    // পেজ লোড হওয়ার সময় ফেভারিট আইকন আপডেট করুন
-    function updateFavoriteIcons() {
-      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-      document.querySelectorAll('.favorite-btn').forEach(btn => {
-        const itemId = btn.getAttribute('data-id');
-        const icon = btn.querySelector('i');
-        if (favorites.includes(itemId)) {
-          icon.classList.remove('far');
-          icon.classList.add('fas', 'text-red-500');
-        } else {
-          icon.classList.remove('fas', 'text-red-500');
-          icon.classList.add('far');
-        }
-      });
-    }
-    
-    // পেজ লোড হওয়ার সময় ফেভারিট আইকন আপডেট করুন
-    updateFavoriteIcons();
   </script>
 </body>
-              </html>
+</html>
