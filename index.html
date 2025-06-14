@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StreamHub - Free IPTV</title>
+  <title>স্টিমহাব - বিনামূল্যে আইপিটিভি</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --primary: #e50914;
@@ -17,7 +17,7 @@
     }
     
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Hind Siliguri', sans-serif;
       background-color: var(--dark);
       color: var(--light);
       padding-bottom: 80px;
@@ -96,7 +96,7 @@
       border-radius: 2px;
     }
     
-    /* Custom scrollbar for channels */
+    /* Custom scrollbar */
     .channel-scroll {
       scrollbar-width: thin;
       scrollbar-color: var(--primary) var(--dark);
@@ -120,17 +120,53 @@
       backdrop-filter: blur(5px);
       border-top: 1px solid rgba(255,255,255,0.1);
     }
+    
+    /* Search modal */
+    .search-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 100;
+      padding: 20px;
+    }
+    
+    .search-input {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid var(--primary);
+      color: white;
+      font-size: 1.5rem;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .search-input:focus {
+      outline: none;
+    }
+    
+    .search-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 1.5rem;
+    }
   </style>
 </head>
 <body>
-  <!-- Header -->
+  <!-- হেডার -->
   <header class="p-4 flex justify-between items-center bg-gradient-to-b from-black to-transparent">
     <div class="flex items-center">
       <i class="fas fa-play-circle text-2xl text-red-600 mr-2"></i>
-      <h1 class="text-xl font-bold">StreamHub</h1>
+      <h1 class="text-xl font-bold">স্টিমহাব</h1>
     </div>
     <div class="flex space-x-4">
-      <button class="p-2 rounded-full bg-gray-800">
+      <button id="searchBtn" class="p-2 rounded-full bg-gray-800">
         <i class="fas fa-search"></i>
       </button>
       <button class="p-2 rounded-full bg-gray-800">
@@ -139,236 +175,285 @@
     </div>
   </header>
 
-  <!-- Main Content -->
+  <!-- সার্চ মোডাল -->
+  <div id="searchModal" class="search-modal">
+    <button id="searchClose" class="search-close">
+      <i class="fas fa-times"></i>
+    </button>
+    <input type="text" id="searchInput" class="search-input" placeholder="আপনি কি খুঁজছেন...">
+    <div id="searchResults" class="text-white"></div>
+  </div>
+
+  <!-- মূল কন্টেন্ট -->
   <main class="p-4">
-    <!-- Hero Banner -->
+    <!-- হিরো ব্যানার -->
     <div class="banner mb-6" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://i.ytimg.com/vi/DV-B5ywmGqI/hq720.jpg')">
       <div class="banner-text">
-        <span class="badge">LIVE NOW</span>
-        <h2 class="text-xl font-bold mt-2">Premier League Football</h2>
-        <p class="text-sm text-gray-300">Manchester United vs Liverpool</p>
+        <span class="badge">লাইভ এখন</span>
+        <h2 class="text-xl font-bold mt-2">প্রিমিয়ার লিগ ফুটবল</h2>
+        <p class="text-sm text-gray-300">ম্যানচেস্টার ইউনাইটেড বনাম লিভারপুল</p>
       </div>
     </div>
 
-    <!-- Live Section -->
+    <!-- লাইভ সেকশন -->
     <div id="liveSection">
-      <!-- Live Channels -->
+      <!-- লাইভ চ্যানেল -->
       <div class="mb-8">
-        <h3 class="section-title text-lg font-semibold mb-4">Live Channels</h3>
+        <h3 class="section-title text-lg font-semibold mb-4">লাইভ চ্যানেল</h3>
         <div class="channel-scroll flex space-x-4 pb-2 overflow-x-auto">
           <a href="toffee1.html" class="flex flex-col items-center min-w-max">
             <img src="toffee1.jpg" class="w-20 h-20 rounded-full object-cover channel-logo border-2 border-gray-700" />
-            <span class="text-xs mt-2">Toffee Sports</span>
+            <span class="text-xs mt-2">টফি স্পোর্টস</span>
           </a>
           <a href="btv.html" class="flex flex-col items-center min-w-max">
             <img src="banvzim.jpg" class="w-20 h-20 rounded-full object-cover channel-logo border-2 border-gray-700" />
-            <span class="text-xs mt-2">BTV</span>
+            <span class="text-xs mt-2">বিটিভি</span>
           </a>
           <a href="tsports.html" class="flex flex-col items-center min-w-max">
             <img src="tsports.jpg" class="w-20 h-20 rounded-full object-cover channel-logo border-2 border-gray-700" />
-            <span class="text-xs mt-2">T Sports</span>
+            <span class="text-xs mt-2">টি স্পোর্টস</span>
           </a>
           <a href="stars1.html" class="flex flex-col items-center min-w-max">
             <img src="stars1.jpg" class="w-20 h-20 rounded-full object-cover channel-logo border-2 border-gray-700" />
-            <span class="text-xs mt-2">Star Sports</span>
+            <span class="text-xs mt-2">স্টার স্পোর্টস</span>
           </a>
           <a href="willow.html" class="flex flex-col items-center min-w-max">
             <img src="willow.jpg" class="w-20 h-20 rounded-full object-cover channel-logo border-2 border-gray-700" />
-            <span class="text-xs mt-2">Willow TV</span>
+            <span class="text-xs mt-2">উইলো টিভি</span>
           </a>
         </div>
       </div>
 
-      <!-- Categories -->
+      <!-- ক্যাটাগরি -->
       <div class="mb-8">
-        <h3 class="section-title text-lg font-semibold mb-4">Categories</h3>
+        <h3 class="section-title text-lg font-semibold mb-4">ক্যাটাগরি</h3>
         <div class="grid grid-cols-3 gap-4">
           <a href="#" class="bg-gray-800 rounded-lg p-3 text-center">
             <i class="fas fa-futbol text-xl mb-1"></i>
-            <span class="text-xs">Sports</span>
+            <span class="text-xs">খেলা</span>
           </a>
           <a href="#" class="bg-gray-800 rounded-lg p-3 text-center">
             <i class="fas fa-film text-xl mb-1"></i>
-            <span class="text-xs">Movies</span>
+            <span class="text-xs">সিনেমা</span>
           </a>
           <a href="#" class="bg-gray-800 rounded-lg p-3 text-center">
             <i class="fas fa-tv text-xl mb-1"></i>
-            <span class="text-xs">TV Shows</span>
+            <span class="text-xs">টিভি শো</span>
           </a>
           <a href="#" class="bg-gray-800 rounded-lg p-3 text-center">
             <i class="fas fa-music text-xl mb-1"></i>
-            <span class="text-xs">Music</span>
+            <span class="text-xs">গান</span>
           </a>
           <a href="#" class="bg-gray-800 rounded-lg p-3 text-center">
             <i class="fas fa-newspaper text-xl mb-1"></i>
-            <span class="text-xs">News</span>
+            <span class="text-xs">খবর</span>
           </a>
           <a href="#" class="bg-gray-800 rounded-lg p-3 text-center">
             <i class="fas fa-child text-xl mb-1"></i>
-            <span class="text-xs">Kids</span>
+            <span class="text-xs">বাচ্চাদের</span>
           </a>
         </div>
       </div>
 
-      <!-- Popular Events -->
+      <!-- জনপ্রিয় ইভেন্ট -->
       <div class="mb-8">
         <div class="flex justify-between items-center mb-4">
-          <h3 class="section-title text-lg font-semibold">Popular Events</h3>
-          <a href="#" class="text-xs text-gray-400">View All</a>
+          <h3 class="section-title text-lg font-semibold">জনপ্রিয় ইভেন্ট</h3>
+          <a href="#" class="text-xs text-gray-400">সব দেখুন</a>
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div class="bg-gray-800 rounded-lg overflow-hidden card">
             <img src="https://via.placeholder.com/300x170" class="w-full h-24 object-cover" />
             <div class="p-2">
-              <h4 class="text-sm font-medium truncate">ICC World Cup 2023</h4>
-              <p class="text-xs text-gray-400">Live • Cricket</p>
+              <h4 class="text-sm font-medium truncate">আইসিসি বিশ্বকাপ ২০২৩</h4>
+              <p class="text-xs text-gray-400">লাইভ • ক্রিকেট</p>
             </div>
           </div>
           <div class="bg-gray-800 rounded-lg overflow-hidden card">
             <img src="https://via.placeholder.com/300x170" class="w-full h-24 object-cover" />
             <div class="p-2">
-              <h4 class="text-sm font-medium truncate">Premier League</h4>
-              <p class="text-xs text-gray-400">Live • Football</p>
+              <h4 class="text-sm font-medium truncate">প্রিমিয়ার লিগ</h4>
+              <p class="text-xs text-gray-400">লাইভ • ফুটবল</p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Movies Section -->
+    <!-- মুভি সেকশন -->
     <div id="moviesSection" class="hidden">
       <div class="flex justify-between items-center mb-4">
-        <h3 class="section-title text-lg font-semibold">Latest Movies</h3>
+        <h3 class="section-title text-lg font-semibold">নতুন মুভি</h3>
         <div class="flex space-x-2">
-          <button class="text-xs bg-gray-800 px-3 py-1 rounded-full">All</button>
-          <button class="text-xs bg-gray-800 px-3 py-1 rounded-full">Action</button>
-          <button class="text-xs bg-gray-800 px-3 py-1 rounded-full">Comedy</button>
+          <button class="text-xs bg-gray-800 px-3 py-1 rounded-full">সব</button>
+          <button class="text-xs bg-gray-800 px-3 py-1 rounded-full">অ্যাকশন</button>
+          <button class="text-xs bg-gray-800 px-3 py-1 rounded-full">কমেডি</button>
         </div>
       </div>
       
       <div class="grid grid-cols-2 gap-4">
-        <a href="taandob.html" class="bg-gray-800 rounded-lg overflow-hidden card">
-          <img src="taandob.jpg" class="w-full h-40 object-cover" />
-          <div class="p-3">
-            <h4 class="text-sm font-medium">Taandob</h4>
-            <div class="flex justify-between items-center mt-1">
-              <span class="text-xs text-gray-400">2025 • Eid Movie</span>
-              <span class="text-xs bg-red-600 px-2 py-0.5 rounded">HD</span>
+        <div class="bg-gray-800 rounded-lg overflow-hidden card relative">
+          <button class="favorite-btn absolute top-2 right-2 text-gray-300 z-10" data-id="taandob">
+            <i class="far fa-heart text-xl"></i>
+          </button>
+          <a href="taandob.html">
+            <img src="taandob.jpg" class="w-full h-40 object-cover" />
+            <div class="p-3">
+              <h4 class="text-sm font-medium">টানডব</h4>
+              <div class="flex justify-between items-center mt-1">
+                <span class="text-xs text-gray-400">২০২৫ • ঈদ মুভি</span>
+                <span class="text-xs bg-red-600 px-2 py-0.5 rounded">এইচডি</span>
+              </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
         
-        <a href="jongli.html" class="bg-gray-800 rounded-lg overflow-hidden card">
-          <img src="jongli.jpg" class="w-full h-40 object-cover" />
-          <div class="p-3">
-            <h4 class="text-sm font-medium">Jongli</h4>
-            <div class="flex justify-between items-center mt-1">
-              <span class="text-xs text-gray-400">2025 • Chorki</span>
-              <span class="text-xs bg-red-600 px-2 py-0.5 rounded">HD</span>
+        <div class="bg-gray-800 rounded-lg overflow-hidden card relative">
+          <button class="favorite-btn absolute top-2 right-2 text-gray-300 z-10" data-id="jongli">
+            <i class="far fa-heart text-xl"></i>
+          </button>
+          <a href="jongli.html">
+            <img src="jongli.jpg" class="w-full h-40 object-cover" />
+            <div class="p-3">
+              <h4 class="text-sm font-medium">জংলি</h4>
+              <div class="flex justify-between items-center mt-1">
+                <span class="text-xs text-gray-400">২০২৫ • চরকি</span>
+                <span class="text-xs bg-red-600 px-2 py-0.5 rounded">এইচডি</span>
+              </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
         
-        <a href="aynabaji.html" class="bg-gray-800 rounded-lg overflow-hidden card">
-          <img src="aynabaji.jpg" class="w-full h-40 object-cover" />
-          <div class="p-3">
-            <h4 class="text-sm font-medium">Ayna Baji</h4>
-            <div class="flex justify-between items-center mt-1">
-              <span class="text-xs text-gray-400">2024 • Drama</span>
-              <span class="text-xs bg-red-600 px-2 py-0.5 rounded">HD</span>
+        <div class="bg-gray-800 rounded-lg overflow-hidden card relative">
+          <button class="favorite-btn absolute top-2 right-2 text-gray-300 z-10" data-id="aynabaji">
+            <i class="far fa-heart text-xl"></i>
+          </button>
+          <a href="aynabaji.html">
+            <img src="aynabaji.jpg" class="w-full h-40 object-cover" />
+            <div class="p-3">
+              <h4 class="text-sm font-medium">আয়না বাজি</h4>
+              <div class="flex justify-between items-center mt-1">
+                <span class="text-xs text-gray-400">২০২৪ • ড্রামা</span>
+                <span class="text-xs bg-red-600 px-2 py-0.5 rounded">এইচডি</span>
+              </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
         
-        <a href="haldaa.html" class="bg-gray-800 rounded-lg overflow-hidden card">
-          <img src="haldaa.jpg" class="w-full h-40 object-cover" />
-          <div class="p-3">
-            <h4 class="text-sm font-medium">Haldaa</h4>
-            <div class="flex justify-between items-center mt-1">
-              <span class="text-xs text-gray-400">2023 • Romance</span>
-              <span class="text-xs bg-red-600 px-2 py-0.5 rounded">HD</span>
+        <div class="bg-gray-800 rounded-lg overflow-hidden card relative">
+          <button class="favorite-btn absolute top-2 right-2 text-gray-300 z-10" data-id="haldaa">
+            <i class="far fa-heart text-xl"></i>
+          </button>
+          <a href="haldaa.html">
+            <img src="haldaa.jpg" class="w-full h-40 object-cover" />
+            <div class="p-3">
+              <h4 class="text-sm font-medium">হালদা</h4>
+              <div class="flex justify-between items-center mt-1">
+                <span class="text-xs text-gray-400">২০২৩ • রোমান্স</span>
+                <span class="text-xs bg-red-600 px-2 py-0.5 rounded">এইচডি</span>
+              </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
       </div>
     </div>
 
-    <!-- TV Section -->
+    <!-- টিভি সেকশন -->
     <div id="tvSection" class="hidden">
       <div class="mb-6">
-        <h3 class="section-title text-lg font-semibold mb-4">TV Channels</h3>
+        <h3 class="section-title text-lg font-semibold mb-4">টিভি চ্যানেল</h3>
         <div class="grid grid-cols-3 gap-4">
-          <a href="btv.html" class="flex flex-col items-center">
-            <img src="btv.jpg" class="w-full aspect-square rounded-lg object-cover channel-logo" />
-            <span class="text-xs mt-2">BTV</span>
-          </a>
-          <a href="atnbangla.html" class="flex flex-col items-center">
-            <img src="atnbangla.jpg" class="w-full aspect-square rounded-lg object-cover channel-logo" />
-            <span class="text-xs mt-2">ATN Bangla</span>
-          </a>
-          <a href="atnnews.html" class="flex flex-col items-center">
-            <img src="atnnews.jpg" class="w-full aspect-square rounded-lg object-cover channel-logo" />
-            <span class="text-xs mt-2">ATN News</span>
-          </a>
-          <a href="starjalsha.html" class="flex flex-col items-center">
-            <img src="masranga.jpg" class="w-full aspect-square rounded-lg object-cover channel-logo" />
-            <span class="text-xs mt-2">Star Jalsha</span>
-          </a>
-          <a href="jamuna.html" class="flex flex-col items-center">
-            <img src="jamuna.jpg" class="w-full aspect-square rounded-lg object-cover channel-logo" />
-            <span class="text-xs mt-2">Jamuna TV</span>
-          </a>
-          <a href="somoy.html" class="flex flex-col items-center">
-            <img src="somoy.jpg" class="w-full aspect-square rounded-lg object-cover channel-logo" />
-            <span class="text-xs mt-2">Somoy TV</span>
-          </a>
+          <div class="flex flex-col items-center relative">
+            <button class="favorite-btn absolute top-0 right-0 text-gray-300 z-10" data-id="btv">
+              <i class="far fa-heart"></i>
+            </button>
+            <a href="btv.html">
+              <img src="btv.jpg" class="w-full aspect-square rounded-lg object-cover channel-logo" />
+              <span class="text-xs mt-2">বিটিভি</span>
+            </a>
+          </div>
+          <div class="flex flex-col items-center relative">
+            <button class="favorite-btn absolute top-0 right-0 text-gray-300 z-10" data-id="atnbangla">
+              <i class="far fa-heart"></i>
+            </button>
+            <a href="atnbangla.html">
+              <img src="atnbangla.jpg" class="w-full aspect-square rounded-lg object-cover channel-logo" />
+              <span class="text-xs mt-2">এটিএন বাংলা</span>
+            </a>
+          </div>
+          <div class="flex flex-col items-center relative">
+            <button class="favorite-btn absolute top-0 right-0 text-gray-300 z-10" data-id="atnnews">
+              <i class="far fa-heart"></i>
+            </button>
+            <a href="atnnews.html">
+              <img src="atnnews.jpg" class="w-full aspect-square rounded-lg object-cover channel-logo" />
+              <span class="text-xs mt-2">এটিএন নিউজ</span>
+            </a>
+          </div>
         </div>
       </div>
       
       <div class="mb-6">
-        <h3 class="section-title text-lg font-semibold mb-4">Music Channels</h3>
+        <h3 class="section-title text-lg font-semibold mb-4">মিউজিক চ্যানেল</h3>
         <div class="grid grid-cols-3 gap-4">
-          <a href="b4umusic.html" class="flex flex-col items-center">
-            <img src="b4umusic.png" class="w-full aspect-square rounded-lg object-cover channel-logo" />
-            <span class="text-xs mt-2">B4U Music</span>
-          </a>
-          <a href="9xjalwa.html" class="flex flex-col items-center">
-            <img src="9xjalwa.png" class="w-full aspect-square rounded-lg object-cover channel-logo" />
-            <span class="text-xs mt-2">9X Jalwa</span>
-          </a>
-          <a href="yrfmusic.html" class="flex flex-col items-center">
-            <img src="yrfmusic.jpg" class="w-full aspect-square rounded-lg object-cover channel-logo" />
-            <span class="text-xs mt-2">YRF Music</span>
-          </a>
+          <div class="flex flex-col items-center relative">
+            <button class="favorite-btn absolute top-0 right-0 text-gray-300 z-10" data-id="b4umusic">
+              <i class="far fa-heart"></i>
+            </button>
+            <a href="b4umusic.html">
+              <img src="b4umusic.png" class="w-full aspect-square rounded-lg object-cover channel-logo" />
+              <span class="text-xs mt-2">বিফোর ইউ মিউজিক</span>
+            </a>
+          </div>
+          <div class="flex flex-col items-center relative">
+            <button class="favorite-btn absolute top-0 right-0 text-gray-300 z-10" data-id="9xjalwa">
+              <i class="far fa-heart"></i>
+            </button>
+            <a href="9xjalwa.html">
+              <img src="9xjalwa.png" class="w-full aspect-square rounded-lg object-cover channel-logo" />
+              <span class="text-xs mt-2">৯এক্স জলওয়া</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ফেভারিট সেকশন -->
+    <div id="favoritesSection" class="hidden">
+      <div class="mb-6">
+        <h3 class="section-title text-lg font-semibold mb-4">আপনার পছন্দসমূহ</h3>
+        <div id="favoritesList" class="grid grid-cols-2 gap-4">
+          <!-- ফেভারিট আইটেমগুলো এখানে জাভাস্ক্রিপ্ট দ্বারা লোড হবে -->
+          <p class="text-gray-400 col-span-2 text-center py-10">আপনি এখনো কোনো কন্টেন্ট পছন্দ করেননি</p>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- Footer Navigation -->
+  <!-- ফুটার নেভিগেশন -->
   <footer class="footer fixed bottom-0 left-0 right-0 p-3 z-10">
     <div class="flex justify-around">
       <button id="liveBtn" class="text-center active-tab flex flex-col items-center">
         <i class="fas fa-broadcast-tower text-xl"></i>
-        <span class="text-xs mt-1">Live</span>
+        <span class="text-xs mt-1">লাইভ</span>
       </button>
       <button id="moviesBtn" class="text-center text-gray-400 flex flex-col items-center">
         <i class="fas fa-film text-xl"></i>
-        <span class="text-xs mt-1">Movies</span>
+        <span class="text-xs mt-1">মুভি</span>
       </button>
       <button id="tvBtn" class="text-center text-gray-400 flex flex-col items-center">
         <i class="fas fa-tv text-xl"></i>
-        <span class="text-xs mt-1">TV</span>
+        <span class="text-xs mt-1">টিভি</span>
       </button>
-      <button class="text-center text-gray-400 flex flex-col items-center">
+      <button id="favoritesBtn" class="text-center text-gray-400 flex flex-col items-center">
         <i class="fas fa-bookmark text-xl"></i>
-        <span class="text-xs mt-1">Favorites</span>
+        <span class="text-xs mt-1">পছন্দ</span>
       </button>
     </div>
   </footer>
 
   <script>
-    // Tab Management
+    // ট্যাব ম্যানেজমেন্ট
     const tabs = {
       live: {
         btn: document.getElementById('liveBtn'),
@@ -381,61 +466,195 @@
       tv: {
         btn: document.getElementById('tvBtn'),
         section: document.getElementById('tvSection')
+      },
+      favorites: {
+        btn: document.getElementById('favoritesBtn'),
+        section: document.getElementById('favoritesSection')
       }
     };
     
-    // Activate tab function
+    // ট্যাব অ্যাক্টিভেট ফাংশন
     function activateTab(tabName) {
-      // Deactivate all tabs
+      // সব ট্যাব ডিঅ্যাক্টিভেট করুন
       Object.keys(tabs).forEach(key => {
         tabs[key].btn.classList.remove('active-tab', 'text-red-600');
         tabs[key].btn.classList.add('text-gray-400');
         tabs[key].section.classList.add('hidden');
       });
       
-      // Activate selected tab
+      // সিলেক্টেড ট্যাব অ্যাক্টিভেট করুন
       tabs[tabName].btn.classList.add('active-tab', 'text-red-600');
       tabs[tabName].btn.classList.remove('text-gray-400');
       tabs[tabName].section.classList.remove('hidden');
       
-      // Save to localStorage
+      // লোকাল স্টোরেজে সেভ করুন
       localStorage.setItem('activeTab', tabName);
+      
+      // ফেভারিট ট্যাব হলে ফেভারিট লোড করুন
+      if (tabName === 'favorites') {
+        loadFavorites();
+      }
     }
     
-    // Event listeners for tabs
+    // ট্যাব বাটনে ইভেন্ট লিসেনার যোগ করুন
     tabs.live.btn.addEventListener('click', () => activateTab('live'));
     tabs.movies.btn.addEventListener('click', () => activateTab('movies'));
     tabs.tv.btn.addEventListener('click', () => activateTab('tv'));
+    tabs.favorites.btn.addEventListener('click', () => activateTab('favorites'));
     
-    // On page load, check for active tab
+    // পেজ লোড হওয়ার সময় অ্যাক্টিভ ট্যাব চেক করুন
     document.addEventListener('DOMContentLoaded', () => {
       const savedTab = localStorage.getItem('activeTab') || 'live';
       activateTab(savedTab);
       
-      // Set up link click handlers to preserve tab state
-      document.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          localStorage.setItem('activeTab', savedTab);
+      // ফেভারিট বাটন ইভেন্ট হ্যান্ডলার
+      document.querySelectorAll('.favorite-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleFavorite(this);
         });
       });
+      
+      // ফেভারিট আইটেম লোড করুন
+      loadFavorites();
     });
     
-    // Banner rotation
+    // ফেভারিট টগল ফাংশন
+    function toggleFavorite(btn) {
+      const itemId = btn.getAttribute('data-id');
+      let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+      
+      if (favorites.includes(itemId)) {
+        // রিমুভ ফ্রম ফেভারিট
+        favorites = favorites.filter(id => id !== itemId);
+        btn.innerHTML = '<i class="far fa-heart text-xl"></i>';
+      } else {
+        // অ্যাড টু ফেভারিট
+        favorites.push(itemId);
+        btn.innerHTML = '<i class="fas fa-heart text-xl text-red-600"></i>';
+      }
+      
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      
+      // যদি ফেভারিট ট্যাব অ্যাক্টিভ থাকে, আপডেট করুন
+      if (tabs.favorites.section.classList.contains('hidden') === false) {
+        loadFavorites();
+      }
+    }
+    
+    // ফেভারিট লোড ফাংশন
+    function loadFavorites() {
+      const favoritesList = document.getElementById('favoritesList');
+      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+      
+      if (favorites.length === 0) {
+        favoritesList.innerHTML = '<p class="text-gray-400 col-span-2 text-center py-10">আপনি এখনো কোনো কন্টেন্ট পছন্দ করেননি</p>';
+        return;
+      }
+      
+      // এখানে আপনার ফেভারিট আইটেমগুলো ডাইনামিক্যালি লোড করুন
+      // উদাহরণ:
+      let html = '';
+      favorites.forEach(id => {
+        // আইডি অনুযায়ী কন্টেন্ট ডিটেইলস যোগ করুন
+        if (id === 'taandob') {
+          html += `
+            <div class="bg-gray-800 rounded-lg overflow-hidden card">
+              <a href="taandob.html">
+                <img src="taandob.jpg" class="w-full h-40 object-cover" />
+                <div class="p-3">
+                  <h4 class="text-sm font-medium">টানডব</h4>
+                  <div class="flex justify-between items-center mt-1">
+                    <span class="text-xs text-gray-400">২০২৫ • ঈদ মুভি</span>
+                    <span class="text-xs bg-red-600 px-2 py-0.5 rounded">এইচডি</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          `;
+        }
+        // অন্যান্য আইটেমগুলোর জন্য একইভাবে যোগ করুন
+      });
+      
+      favoritesList.innerHTML = html || '<p class="text-gray-400 col-span-2 text-center py-10">আপনি এখনো কোনো কন্টেন্ট পছন্দ করেননি</p>';
+    }
+    
+    // সার্চ ফাংশনালিটি
+    const searchBtn = document.getElementById('searchBtn');
+    const searchModal = document.getElementById('searchModal');
+    const searchClose = document.getElementById('searchClose');
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    
+    searchBtn.addEventListener('click', () => {
+      searchModal.style.display = 'block';
+      searchInput.focus();
+    });
+    
+    searchClose.addEventListener('click', () => {
+      searchModal.style.display = 'none';
+      searchInput.value = '';
+      searchResults.innerHTML = '';
+    });
+    
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase();
+      if (query.length < 2) {
+        searchResults.innerHTML = '';
+        return;
+      }
+      
+      // এখানে আপনার সার্চ লজিক ইমপ্লিমেন্ট করুন
+      // উদাহরণ:
+      const mockResults = [
+        { title: 'টানডব', type: 'মুভি', year: '২০২৫', image: 'taandob.jpg', link: 'taandob.html' },
+        { title: 'বিটিভি', type: 'চ্যানেল', category: 'নিউজ', image: 'btv.jpg', link: 'btv.html' }
+      ];
+      
+      const filtered = mockResults.filter(item => 
+        item.title.toLowerCase().includes(query) || 
+        (item.type && item.type.toLowerCase().includes(query))
+      );
+      
+      if (filtered.length === 0) {
+        searchResults.innerHTML = '<p class="text-gray-400 text-center py-10">কোনো ফলাফল পাওয়া যায়নি</p>';
+        return;
+      }
+      
+      let html = '<div class="grid gap-4">';
+      filtered.forEach(item => {
+        html += `
+          <a href="${item.link}" class="flex items-center bg-gray-800 p-3 rounded-lg">
+            <img src="${item.image}" class="w-16 h-16 object-cover rounded" />
+            <div class="ml-3">
+              <h4 class="font-medium">${item.title}</h4>
+              <p class="text-xs text-gray-400">${item.type} • ${item.year || item.category}</p>
+            </div>
+          </a>
+        `;
+      });
+      html += '</div>';
+      
+      searchResults.innerHTML = html;
+    });
+    
+    // ব্যানার রোটেশন
     const banners = [
       {
         image: "https://i.ytimg.com/vi/DV-B5ywmGqI/hq720.jpg",
-        title: "Premier League Football",
-        subtitle: "Manchester United vs Liverpool"
+        title: "প্রিমিয়ার লিগ ফুটবল",
+        subtitle: "ম্যানচেস্টার ইউনাইটেড বনাম লিভারপুল"
       },
       {
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXryAfG6ynDOGG1iOAmJ1oXkdNsEMd2LLdOxrZkmuCcJ-VY-Cl58zQAv0&s=10",
-        title: "ICC World Cup 2023",
-        subtitle: "India vs Australia Final"
+        title: "আইসিসি বিশ্বকাপ ২০২৩",
+        subtitle: "ভারত বনাম অস্ট্রেলিয়া ফাইনাল"
       },
       {
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbxn4iH3L8mRIvq7158DTa2Quj-NJJhHpdLP62nBNOgJ7CSDDi5Zt4TL-Z&s=10",
-        title: "New Movie Release",
-        subtitle: "Taandob - Eid Special"
+        title: "নতুন মুভি রিলিজ",
+        subtitle: "টানডব - ঈদ স্পেশাল"
       }
     ];
     
@@ -454,6 +673,22 @@
     }
     
     setInterval(rotateBanner, 5000);
+    
+    // ফেভারিট আইটেমগুলো লোড করার সময় হার্ট আইকন আপডেট করুন
+    function updateFavoriteIcons() {
+      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+      document.querySelectorAll('.favorite-btn').forEach(btn => {
+        const itemId = btn.getAttribute('data-id');
+        if (favorites.includes(itemId)) {
+          btn.innerHTML = '<i class="fas fa-heart text-xl text-red-600"></i>';
+        } else {
+          btn.innerHTML = '<i class="far fa-heart text-xl"></i>';
+        }
+      });
+    }
+    
+    // পেজ লোড হওয়ার সময় ফেভারিট আইকন আপডেট করুন
+    updateFavoriteIcons();
   </script>
 </body>
 </html>
