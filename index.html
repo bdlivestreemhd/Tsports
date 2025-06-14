@@ -3,28 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Elite IPTV - HD Streaming</title>
+  <title>Free IPTV</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --primary: #ef4444;
-      --secondary: #dc2626;
-      --dark: #000000;
-      --light-dark: #1a1a1a;
-      --light: #f5f5f5;
-    }
-    
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: var(--dark);
-      color: var(--light);
-      padding-bottom: 80px;
+      padding-bottom: 68px;
+      background-color: #000000;
+      color: #ffffff;
+    }
+    
+    main {
+      padding-bottom: 100px;
     }
     
     .active-tab {
-      color: var(--primary);
+      color: #ef4444;
       position: relative;
     }
     
@@ -36,7 +32,7 @@
       transform: translateX(-50%);
       width: 6px;
       height: 6px;
-      background: var(--primary);
+      background: #ef4444;
       border-radius: 50%;
       animation: pulse 1.5s infinite;
     }
@@ -47,6 +43,20 @@
       100% { transform: translateX(-50%) scale(1); }
     }
     
+    .scroll-x {
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    
+    .scroll-x::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    /* New Banner Styles */
     .banner {
       height: 180px;
       background-size: cover;
@@ -55,7 +65,7 @@
       position: relative;
       overflow: hidden;
       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-      transition: all 0.5s ease;
+      margin-bottom: 1.5rem;
     }
     
     .banner::after {
@@ -77,7 +87,7 @@
     }
     
     .badge {
-      background: var(--primary);
+      background: #ef4444;
       font-size: 0.7rem;
       padding: 3px 10px;
       border-radius: 20px;
@@ -85,101 +95,7 @@
       font-weight: 600;
     }
     
-    .section-title {
-      position: relative;
-      padding-left: 15px;
-      font-weight: 600;
-    }
-    
-    .section-title::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 5px;
-      bottom: 5px;
-      width: 4px;
-      background: var(--primary);
-      border-radius: 4px;
-    }
-    
-    .channel-card {
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-    }
-    
-    .channel-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 15px rgba(239, 68, 68, 0.2);
-    }
-    
-    .channel-logo {
-      transition: all 0.3s ease;
-      border: 2px solid var(--light-dark);
-    }
-    
-    .channel-logo:hover {
-      transform: scale(1.05);
-      border-color: var(--primary);
-    }
-    
-    /* Enhanced TV Section Styles */
-    .tv-section {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-      gap: 1.5rem;
-    }
-    
-    .tv-channel {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-    
-    .tv-channel:hover {
-      transform: translateY(-5px);
-    }
-    
-    .tv-channel-img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 2px solid var(--light-dark);
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    
-    .tv-channel:hover .tv-channel-img {
-      border-color: var(--primary);
-      box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
-    }
-    
-    .tv-channel-name {
-      margin-top: 0.5rem;
-      font-size: 0.75rem;
-      text-align: center;
-      transition: all 0.3s ease;
-    }
-    
-    .tv-channel:hover .tv-channel-name {
-      color: var(--primary);
-    }
-    
-    .tv-category {
-      margin-bottom: 2rem;
-    }
-    
-    .tv-category-title {
-      font-size: 1.25rem;
-      margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    
+    /* Modified Footer Styles */
     .footer {
       background: rgba(0, 0, 0, 0.95);
       backdrop-filter: blur(10px);
@@ -187,30 +103,21 @@
       box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
     }
     
-    .scroll-container {
-      scrollbar-width: thin;
-      scrollbar-color: var(--primary) var(--dark);
+    .nav-btn {
+      transition: all 0.3s ease;
+      padding: 0.5rem;
     }
     
-    .scroll-container::-webkit-scrollbar {
-      height: 6px;
-    }
-    
-    .scroll-container::-webkit-scrollbar-track {
-      background: var(--dark);
-    }
-    
-    .scroll-container::-webkit-scrollbar-thumb {
-      background-color: var(--primary);
-      border-radius: 3px;
+    .nav-btn:hover {
+      transform: translateY(-3px);
     }
   </style>
 </head>
 <body>
-  <!-- Main Content -->
+  <!-- Main -->
   <main class="p-4">
-    <!-- Slide Banner -->
-    <div class="banner mb-6" id="mainBanner">
+    <!-- New Banner Design - Only in Live Section -->
+    <div class="banner hidden" id="mainBanner">
       <div class="banner-content">
         <span class="badge">LIVE NOW</span>
         <h2 class="text-xl font-bold mt-2">Premier League Football</h2>
@@ -220,237 +127,100 @@
 
     <!-- LIVE Section -->
     <div id="liveSection">
-      <!-- Live Channels -->
-      <div class="mb-8">
-        <h3 class="section-title text-lg mb-4">Live Channels</h3>
-        <div class="scroll-container flex space-x-4 overflow-x-auto pb-4">
-          <a href="toffee1.html" class="flex flex-col items-center flex-shrink-0">
-            <img src="toffee1.jpg" class="w-20 h-20 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">Toffee Sports</span>
-          </a>
-          <a href="toffee2.html" class="flex flex-col items-center flex-shrink-0">
-            <img src="toffee2.jpg" class="w-20 h-20 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">Toffee Sports 2</span>
-          </a>
-          <a href="btv.html" class="flex flex-col items-center flex-shrink-0">
-            <img src="banvzim.jpg" class="w-20 h-20 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">BTV</span>
-          </a>
-        </div>
+      <!-- Banner will be inserted here by JavaScript -->
+      
+      <!-- Carousel Section -->
+      <div class="text-xl font-semibold mb-2">Live Events</div>
+      <div class="flex justify-center gap-4 mb-4" id="carouselContainer">
+        <a href="toffee1.html"><img src="toffee1.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
+        <a href="toffee2.html"><img src="toffee2.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
+        <a href="btv.html"><img src="banvzim.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
       </div>
 
-      <!-- Sports Channels -->
-      <div class="mb-8">
-        <h3 class="section-title text-lg mb-4">Sports Channels</h3>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-          <a href="tsports.html" class="channel-card">
-            <img src="tsports.jpg" class="w-full h-24 object-cover" />
-            <div class="p-2">
-              <h4 class="text-sm font-medium truncate">T Sports</h4>
-              <p class="text-xs text-gray-400">Live Sports</p>
-            </div>
-          </a>
-          <a href="stars1.html" class="channel-card">
-            <img src="stars1.jpg" class="w-full h-24 object-cover" />
-            <div class="p-2">
-              <h4 class="text-sm font-medium truncate">Star Sports</h4>
-              <p class="text-xs text-gray-400">Live Sports</p>
-            </div>
-          </a>
-          <a href="willow.html" class="channel-card">
-            <img src="willow.jpg" class="w-full h-24 object-cover" />
-            <div class="p-2">
-              <h4 class="text-sm font-medium truncate">Willow TV</h4>
-              <p class="text-xs text-gray-400">Cricket</p>
-            </div>
-          </a>
-          <a href="wwe.html" class="channel-card">
-            <img src="wwe.jpg" class="w-full h-24 object-cover" />
-            <div class="p-2">
-              <h4 class="text-sm font-medium truncate">WWE Network</h4>
-              <p class="text-xs text-gray-400">Wrestling</p>
-            </div>
-          </a>
-          <a href="tencricket.html" class="channel-card">
-            <img src="tencricket.jpg" class="w-full h-24 object-cover" />
-            <div class="p-2">
-              <h4 class="text-sm font-medium truncate">Ten Cricket</h4>
-              <p class="text-xs text-gray-400">Cricket</p>
-            </div>
-          </a>
-          <a href="fancode.html" class="channel-card">
-            <img src="fancode.jpg" class="w-full h-24 object-cover" />
-            <div class="p-2">
-              <h4 class="text-sm font-medium truncate">FanCode</h4>
-              <p class="text-xs text-gray-400">Sports</p>
-            </div>
-          </a>
-        </div>
+      <div class="text-xl font-semibold mb-2">Sports Channels</div>
+      <div class="grid grid-cols-3 gap-4 mb-4" id="carouselContainer">
+        <a href="tsports.html"><img src="tsports.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
+        <a href="stars1.html"><img src="stars1.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
+        <a href="willow.html"><img src="willow.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
+        <a href="wwe.html"><img src="wwe.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
+        <a href="tencricket.html"><img src="tencricket.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
+        <a href="fancode.html"><img src="fancode.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
       </div>
     </div>
 
     <!-- Movies Section -->
-    <div id="moviesSection" class="hidden">
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        <a href="taandob.html" class="content-item">
-          <img src="taandob.jpg" class="w-full rounded-lg h-48 object-cover" />
-          <div class="mt-2">
-            <p class="font-semibold">Taandob Full HD</p>
-            <p class="text-gray-400 text-sm">2025 Eid Movie</p>
-          </div>
-        </a>
-        <a href="jongli.html" class="content-item">
-          <img src="jongli.jpg" class="w-full rounded-lg h-48 object-cover" />
-          <div class="mt-2">
-            <p class="font-semibold">Jongli Full HD</p>
-            <p class="text-gray-400 text-sm">2025 Chorki</p>
-          </div>
-        </a>
-        <a href="daagi.html" class="content-item">
-          <img src="daagi.jpg" class="w-full rounded-lg h-48 object-cover" />
-          <div class="mt-2">
-            <p class="font-semibold">Daagi Full HD</p>
-            <p class="text-gray-400 text-sm">2025 Chorki</p>
-          </div>
-        </a>
-        <a href="aynabaji.html" class="content-item">
-          <img src="aynabaji.jpg" class="w-full rounded-lg h-48 object-cover" />
-          <div class="mt-2">
-            <p class="font-semibold">Aynabaji</p>
-            <p class="text-gray-400 text-sm">Full Movie বাংলা ডাবিং</p>
-          </div>
-        </a>
-        <a href="haldaa.html" class="content-item">
-          <img src="haldaa.jpg" class="w-full rounded-lg h-48 object-cover" />
-          <div class="mt-2">
-            <p class="font-semibold">Haldaa</p>
-            <p class="text-gray-400 text-sm">Full Movie</p>
-          </div>
-        </a>
-        <a href="cuteprotibeshi.html" class="content-item">
-          <img src="cuteprotibeshi.jpg" class="w-full rounded-lg h-48 object-cover" />
-          <div class="mt-2">
-            <p class="font-semibold">Cute Protibeshi</p>
-            <p class="text-gray-400 text-sm">BD Natok</p>
-          </div>
-        </a>
-        <a href="natunbou.html" class="content-item">
-          <img src="natunbou.jpg" class="w-full rounded-lg h-48 object-cover" />
-          <div class="mt-2">
-            <p class="font-semibold">Natun Bou</p>
-            <p class="text-gray-400 text-sm">BD Natok</p>
-          </div>
-        </a>
-      </div>
+    <div id="moviesSection" class="grid grid-cols-2 md:grid-cols-4 gap-4 hidden">
+      <a href="taandob.html" class="text-center">
+        <img src="taandob.jpg" class="w-full rounded-xl" />
+        <p class="mt-2 font-semibold">Taandob Full HD<span class="text-gray-400 text-sm"> | 2025 Eid Movie</span></p>
+      </a>
+      <a href="jongli.html" class="text-center">
+        <img src="jongli.jpg" class="w-full rounded-xl" />
+        <p class="mt-2 font-semibold">Jongli Full HD<span class="text-gray-400 text-sm"> | 2025 Chorki</span></p>
+      </a>
+      <a href="daagi.html" class="text-center">
+        <img src="daagi.jpg" class="w-full rounded-xl" />
+        <p class="mt-2 font-semibold">Daagi Full HD<span class="text-gray-400 text-sm"> | 2025 Chorki</span></p>
+      </a>
+      <a href="aynabaji.html" class="text-center">
+        <img src="aynabaji.jpg" class="w-full rounded-xl" />
+        <p class="mt-2 font-semibold">Solid Politics<span class="text-gray-400 text-sm"> | Full Movie বাংলা ডাবিং</span></p>
+      </a>
+      <a href="haldaa.html" class="text-center">
+        <img src="haldaa.jpg" class="w-full rounded-xl" />
+        <p class="mt-2 font-semibold">Haldaa<span class="text-gray-400 text-sm"> | Full Movie</span></p>
+      </a>
+      <a href="cuteprotibeshi.html" class="text-center">
+        <img src="cuteprotibeshi.jpg" class="w-full rounded-xl" />
+        <p class="mt-2 font-semibold">Cute Protibeshi<span class="text-gray-400 text-sm"> | BD Natok</span></p>
+      </a>
+      <a href="natunbou.html" class="text-center">
+        <img src="natunbou.jpg" class="w-full rounded-xl" />
+        <p class="mt-2 font-semibold">Natun Bou<span class="text-gray-400 text-sm"> | BD Natok</span></p>
+      </a>
     </div>
 
-    <!-- TV Section - Redesigned -->
-    <div id="tvSection" class="hidden">
-      <!-- News Channels -->
-      <div class="tv-category">
-        <h3 class="tv-category-title">News Channels</h3>
-        <div class="tv-section">
-          <a href="btv.html" class="tv-channel">
-            <img src="btv.jpg" class="tv-channel-img" />
-            <span class="tv-channel-name">BTV</span>
-          </a>
-          <a href="atnnews.html" class="tv-channel">
-            <img src="atnnews.jpg" class="tv-channel-img" />
-            <span class="tv-channel-name">ATN News</span>
-          </a>
-          <a href="somoy.html" class="tv-channel">
-            <img src="somoy.jpg" class="tv-channel-img" />
-            <span class="tv-channel-name">Somoy TV</span>
-          </a>
-          <a href="news24.html" class="tv-channel">
-            <img src="news24.jpg" class="tv-channel-img" />
-            <span class="tv-channel-name">News24</span>
-          </a>
-          <a href="independent.html" class="tv-channel">
-            <img src="independent.jpg" class="tv-channel-img" />
-            <span class="tv-channel-name">Independent</span>
-          </a>
-          <a href="ekattor.html" class="tv-channel">
-            <img src="ekattor.jpg" class="tv-channel-img" />
-            <span class="tv-channel-name">Ekattor TV</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Entertainment Channels -->
-      <div class="tv-category">
-        <h3 class="tv-category-title">Entertainment</h3>
-        <div class="tv-section">
-          <a href="starjalsha.html" class="tv-channel">
-            <img src="masranga.jpg" class="tv-channel-img" />
-            <span class="tv-channel-name">Star Jalsha</span>
-          </a>
-          <a href="jamuna.html" class="tv-channel">
-            <img src="jamuna.jpg" class="tv-channel-img" />
-            <span class="tv-channel-name">Jamuna TV</span>
-          </a>
-          <a href="ntv.html" class="tv-channel">
-            <img src="ntv.jpg" class="tv-channel-img" />
-            <span class="tv-channel-name">NTV</span>
-          </a>
-          <a href="channeli.html" class="tv-channel">
-            <img src="channeli.jpg" class="tv-channel-img" />
-            <span class="tv-channel-name">Channel i</span>
-          </a>
-          <a href="deepto.html" class="tv-channel">
-            <img src="deepto.jpg" class="tv-channel-img" />
-            <span class="tv-channel-name">Deepto TV</span>
-          </a>
-          <a href="zeebangla.html" class="tv-channel">
-            <img src="zeebangla.jpg" class="tv-channel-img" />
-            <span class="tv-channel-name">Zee Bangla</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Music Channels -->
-      <div class="tv-category">
-        <h3 class="tv-category-title">Music Channels</h3>
-        <div class="tv-section">
-          <a href="b4umusic.html" class="tv-channel">
-            <img src="b4umusic.png" class="tv-channel-img" />
-            <span class="tv-channel-name">B4U Music</span>
-          </a>
-          <a href="masti.html" class="tv-channel">
-            <img src="masti.jpg" class="tv-channel-img" />
-            <span class="tv-channel-name">Masti</span>
-          </a>
-          <a href="9xjalwa.html" class="tv-channel">
-            <img src="9xjalwa.png" class="tv-channel-img" />
-            <span class="tv-channel-name">9X Jalwa</span>
-          </a>
-          <a href="yrfmusic.html" class="tv-channel">
-            <img src="yrfmusic.jpg" class="tv-channel-img" />
-            <span class="tv-channel-name">YRF Music</span>
-          </a>
-          <a href="joomusic.html" class="tv-channel">
-            <img src="joomusic.jpg" class="tv-channel-img" />
-            <span class="tv-channel-name">Joo Music</span>
-          </a>
-        </div>
-      </div>
+    <!-- TV Section -->
+    <div id="tvSection" class="grid grid-cols-3 gap-4 hidden">
+      <a href="btv.html"><img src="btv.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="atnbangla.html"><img src="atnbangla.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="atnnews.html"><img src="atnnews.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="starjalsha.html"><img src="masranga.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="jamuna.html"><img src="jamuna.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="somoy.html"><img src="somoy.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="news24.html"><img src="news24.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="independent.html"><img src="independent.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="ekattor.html"><img src="ekattor.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="mytv.html"><img src="mytv.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="ntv.html"><img src="ntv.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="channeli.html"><img src="channeli.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="deepto.html"><img src="deepto.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="zeebangla.html"><img src="zeebangla.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="zeebanglac.html"><img src="zeebanglac.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="enter10bangla.html"><img src="enter10bangla.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="masti.html"><img src="masti.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="b4umusic.html"><img src="b4umusic.png" class="w-full aspect-square rounded-full" /></a>
+      <a href="showbox"><img src="showbox.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="9xjalwa.html"><img src="9xjalwa.png" class="w-full aspect-square rounded-full" /></a>
+      <a href="yrfmusic.html"><img src="yrfmusic.jpg" class="w-full aspect-square rounded-full" /></a>
+      <a href="joomusic.html"><img src="joomusic.jpg" class="w-full aspect-square rounded-full" /></a>
     </div>
   </main>
 
-  <!-- Footer Navigation -->
+  <!-- Modified Footer Navigation -->
   <footer class="footer fixed bottom-0 left-0 right-0 p-3 z-50">
     <div class="flex justify-around">
-      <button id="liveBtn" class="text-center active-tab flex flex-col items-center px-2">
+      <button id="liveBtn" class="text-center active-tab flex flex-col items-center px-2 nav-btn">
         <i class="fas fa-broadcast-tower text-xl"></i>
-        <span class="text-xs mt-1">Live</span>
+        <span class="text-xs mt-1">Live TV</span>
       </button>
-      <button id="moviesBtn" class="text-center text-gray-400 flex flex-col items-center px-2">
+      <button id="moviesBtn" class="text-center text-gray-400 flex flex-col items-center px-2 nav-btn">
         <i class="fas fa-film text-xl"></i>
         <span class="text-xs mt-1">Movies</span>
       </button>
-      <button id="tvBtn" class="text-center text-gray-400 flex flex-col items-center px-2">
+      <button id="tvBtn" class="text-center text-gray-400 flex flex-col items-center px-2 nav-btn">
         <i class="fas fa-tv text-xl"></i>
-        <span class="text-xs mt-1">TV</span>
+        <span class="text-xs mt-1">Channels</span>
       </button>
     </div>
   </footer>
@@ -472,6 +242,9 @@
       }
     };
     
+    // Banner element
+    const bannerElement = document.getElementById('mainBanner');
+    
     // Activate tab function
     function activateTab(tabName) {
       // Deactivate all tabs
@@ -486,16 +259,25 @@
       tabs[tabName].btn.classList.remove('text-gray-400');
       tabs[tabName].section.classList.remove('hidden');
       
-      // Save to localStorage
+      // Show banner only in Live section
+      if (tabName === 'live') {
+        bannerElement.classList.remove('hidden');
+        // Move banner to the top of live section
+        tabs.live.section.insertBefore(bannerElement, tabs.live.section.firstChild);
+      } else {
+        bannerElement.classList.add('hidden');
+      }
+      
+      // Store the active tab in localStorage
       localStorage.setItem('activeTab', tabName);
     }
     
-    // Event listeners for tabs
+    // Add click event listeners to tab buttons
     tabs.live.btn.addEventListener('click', () => activateTab('live'));
     tabs.movies.btn.addEventListener('click', () => activateTab('movies'));
     tabs.tv.btn.addEventListener('click', () => activateTab('tv'));
     
-    // On page load, check for active tab
+    // Check for active tab in localStorage on page load
     document.addEventListener('DOMContentLoaded', () => {
       const savedTab = localStorage.getItem('activeTab') || 'live';
       activateTab(savedTab);
@@ -504,7 +286,7 @@
       initBannerRotation();
     });
     
-    // Banner Rotation with Your Images
+    // Banner Rotation Logic with Your Images
     function initBannerRotation() {
       const bannerImages = [
         {
@@ -525,17 +307,19 @@
       ];
       
       let currentBanner = 0;
-      const bannerElement = document.getElementById('mainBanner');
       const bannerTitle = bannerElement.querySelector('h2');
       const bannerSubtitle = bannerElement.querySelector('p');
       
       function rotateBanner() {
-        currentBanner = (currentBanner + 1) % bannerImages.length;
-        const banner = bannerImages[currentBanner];
-        
-        bannerElement.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${banner.image}')`;
-        bannerTitle.textContent = banner.title;
-        bannerSubtitle.textContent = banner.subtitle;
+        // Only rotate if banner is visible (in Live section)
+        if (!bannerElement.classList.contains('hidden')) {
+          currentBanner = (currentBanner + 1) % bannerImages.length;
+          const banner = bannerImages[currentBanner];
+          
+          bannerElement.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${banner.image}')`;
+          bannerTitle.textContent = banner.title;
+          bannerSubtitle.textContent = banner.subtitle;
+        }
       }
       
       // Set initial banner
