@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StreamVision HD - Premium IPTV</title>
+  <title>Premium IPTV Streaming</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --primary: #6366f1;
-      --secondary: #8b5cf6;
-      --dark: #0f172a;
-      --light-dark: #1e293b;
-      --light: #f8fafc;
+      --primary: #ef4444;
+      --secondary: #dc2626;
+      --dark: #000000;
+      --light-dark: #1a1a1a;
+      --light: #f5f5f5;
     }
     
     body {
@@ -26,12 +26,13 @@
     .active-tab {
       color: var(--primary);
       position: relative;
+      transition: all 0.3s ease;
     }
     
     .active-tab::after {
       content: '';
       position: absolute;
-      bottom: -8px;
+      bottom: -5px;
       left: 50%;
       transform: translateX(-50%);
       width: 6px;
@@ -47,44 +48,63 @@
       100% { transform: translateX(-50%) scale(1); opacity: 1; }
     }
     
-    .card {
+    .channel-card {
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
       border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     
-    .card:hover {
+    .channel-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
-    }
-    
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(to right, var(--primary), var(--secondary));
+      box-shadow: 0 10px 15px rgba(239, 68, 68, 0.2);
     }
     
     .channel-logo {
       transition: all 0.3s ease;
       border: 2px solid var(--light-dark);
-      animation: float 6s ease-in-out infinite;
-    }
-    
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-      100% { transform: translateY(0px); }
     }
     
     .channel-logo:hover {
       transform: scale(1.05);
       border-color: var(--primary);
-      animation: none;
+    }
+    
+    .banner {
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .banner::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60%;
+      background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    }
+    
+    .banner-text {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      z-index: 2;
+    }
+    
+    .badge {
+      background: var(--primary);
+      font-size: 0.7rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+      display: inline-block;
+      font-weight: 600;
     }
     
     .section-title {
@@ -99,119 +119,68 @@
       left: 0;
       top: 5px;
       bottom: 5px;
-      width: 5px;
-      background: linear-gradient(to bottom, var(--primary), var(--secondary));
-      border-radius: 5px;
-      animation: colorChange 8s infinite alternate;
-    }
-    
-    @keyframes colorChange {
-      0% { background: linear-gradient(to bottom, #6366f1, #8b5cf6); }
-      25% { background: linear-gradient(to bottom, #ec4899, #f43f5e); }
-      50% { background: linear-gradient(to bottom, #f59e0b, #ef4444); }
-      75% { background: linear-gradient(to bottom, #10b981, #3b82f6); }
-      100% { background: linear-gradient(to bottom, #8b5cf6, #6366f1); }
-    }
-    
-    .category-btn {
-      transition: all 0.2s ease;
-      border: 1px solid var(--light-dark);
-      animation: fadeIn 0.5s ease-out;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .category-btn.active {
-      background: linear-gradient(to right, var(--primary), var(--secondary));
-      border-color: transparent;
-      color: white;
-      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+      width: 4px;
+      background: var(--primary);
+      border-radius: 4px;
     }
     
     .footer {
-      background: rgba(15, 23, 42, 0.95);
+      background: rgba(0, 0, 0, 0.95);
       backdrop-filter: blur(10px);
       border-top: 1px solid rgba(255,255,255,0.1);
       box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
     }
     
-    /* Search modal */
-    .search-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(15, 23, 42, 0.98);
-      z-index: 1000;
-      padding: 20px;
-      overflow-y: auto;
+    /* TV Section Specific Styles */
+    .tv-category {
+      margin-bottom: 2rem;
     }
     
-    .search-input {
-      background: transparent;
-      border: none;
-      border-bottom: 2px solid var(--primary);
-      color: white;
-      font-size: 1.5rem;
-      width: 100%;
-      padding: 15px 10px;
-      margin-bottom: 20px;
-      animation: borderGlow 2s infinite alternate;
+    .tv-category-title {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
     
-    @keyframes borderGlow {
-      from { border-bottom-color: var(--primary); }
-      to { border-bottom-color: var(--secondary); }
+    .tv-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 1.5rem;
     }
     
-    .search-input:focus {
-      outline: none;
-    }
-    
-    .search-close {
-      position: absolute;
-      top: 25px;
-      right: 25px;
-      color: white;
-      font-size: 1.5rem;
-      background: rgba(255,255,255,0.1);
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+    .tv-channel {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
+      text-decoration: none;
+      transition: all 0.3s ease;
     }
     
-    .search-close:hover {
-      background: rgba(255,255,255,0.2);
-      transform: rotate(90deg);
+    .tv-channel:hover .channel-name {
+      color: var(--primary);
     }
     
-    /* Loading animation */
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    .channel-img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid var(--light-dark);
+      transition: all 0.3s ease;
     }
     
-    .loading {
-      animation: spin 1s linear infinite;
+    .tv-channel:hover .channel-img {
+      transform: scale(1.1);
+      border-color: var(--primary);
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
     }
     
-    /* Featured content animation */
-    .featured-content {
-      animation: slideIn 0.8s ease-out;
-    }
-    
-    @keyframes slideIn {
-      from { transform: translateX(-20px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
+    .channel-name {
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      text-align: center;
+      transition: all 0.3s ease;
     }
     
     /* Content hover effect */
@@ -221,288 +190,213 @@
     
     .content-item:hover {
       transform: scale(1.03);
-      z-index: 10;
     }
     
-    /* Gradient background animation */
-    .gradient-bg {
-      animation: gradientShift 12s ease infinite;
-      background-size: 200% 200%;
+    /* Scrollbar styling */
+    .scroll-container {
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) var(--dark);
     }
     
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    .scroll-container::-webkit-scrollbar {
+      height: 6px;
+    }
+    
+    .scroll-container::-webkit-scrollbar-track {
+      background: var(--dark);
+    }
+    
+    .scroll-container::-webkit-scrollbar-thumb {
+      background-color: var(--primary);
+      border-radius: 3px;
     }
   </style>
 </head>
-<body class="gradient-bg" style="background: linear-gradient(-45deg, #0f172a, #1e293b, #0f172a);">
-  <!-- Header -->
-  <header class="p-4 flex justify-between items-center bg-gradient-to-b from-black to-transparent sticky top-0 z-50">
-    <div class="flex items-center">
-      <i class="fas fa-play-circle text-2xl text-indigo-500 mr-2"></i>
-      <h1 class="text-xl font-bold">StreamVision <span class="text-indigo-400">HD</span></h1>
-    </div>
-    <div class="flex space-x-4">
-      <button id="searchBtn" class="p-2 rounded-full bg-gray-800 hover:bg-indigo-600 transition">
-        <i class="fas fa-search"></i>
-      </button>
-      <button id="userBtn" class="p-2 rounded-full bg-gray-800 hover:bg-indigo-600 transition">
-        <i class="fas fa-user"></i>
-      </button>
-    </div>
-  </header>
-
-  <!-- Search Modal -->
-  <div id="searchModal" class="search-modal">
-    <button id="searchClose" class="search-close">
-      <i class="fas fa-times"></i>
-    </button>
-    <input type="text" id="searchInput" class="search-input" placeholder="Search for channels, movies...">
-    <div id="searchResults" class="text-white">
-      <div class="text-center py-10">
-        <i class="fas fa-search text-3xl text-gray-500 mb-3"></i>
-        <p class="text-gray-400">Start typing to search</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- User Modal -->
-  <div id="userModal" class="search-modal hidden">
-    <button id="userClose" class="search-close">
-      <i class="fas fa-times"></i>
-    </button>
-    <div class="text-white p-4">
-      <div class="flex items-center mb-6">
-        <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
-          <i class="fas fa-user text-2xl"></i>
-        </div>
-        <div>
-          <h3 class="font-bold text-lg">Guest User</h3>
-          <p class="text-gray-400 text-sm">Free Account</p>
-        </div>
-      </div>
-      <ul class="space-y-4">
-        <li class="border-b border-gray-800 pb-4">
-          <a href="#" class="flex items-center hover:text-indigo-400 transition">
-            <i class="fas fa-user-edit mr-3 w-6 text-center"></i>
-            <span>Profile</span>
-          </a>
-        </li>
-        <li class="border-b border-gray-800 pb-4">
-          <a href="#" class="flex items-center hover:text-indigo-400 transition">
-            <i class="fas fa-cog mr-3 w-6 text-center"></i>
-            <span>Settings</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="flex items-center text-red-400 hover:text-red-300 transition">
-            <i class="fas fa-sign-out-alt mr-3 w-6 text-center"></i>
-            <span>Logout</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-
+<body>
   <!-- Main Content -->
   <main class="p-4">
-    <!-- Featured Content -->
-    <div class="featured-content mb-8 bg-gradient-to-r from-indigo-900/30 to-purple-900/30 rounded-xl p-6">
-      <h2 class="text-2xl font-bold mb-3">Featured Today</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <a href="premier-league.html" class="content-item bg-gray-800 rounded-lg overflow-hidden">
-          <img src="https://via.placeholder.com/300x170/333333/FFFFFF?text=Premier+League" class="w-full h-32 object-cover" />
-          <div class="p-3">
-            <h4 class="text-sm font-medium">Premier League</h4>
-            <p class="text-xs text-gray-400">Live • Football</p>
-          </div>
-        </a>
-        <a href="new-movie.html" class="content-item bg-gray-800 rounded-lg overflow-hidden">
-          <img src="https://via.placeholder.com/300x170/333333/FFFFFF?text=New+Movie" class="w-full h-32 object-cover" />
-          <div class="p-3">
-            <h4 class="text-sm font-medium">The Last Journey</h4>
-            <p class="text-xs text-gray-400">2023 • Action</p>
-          </div>
-        </a>
-        <a href="tv-series.html" class="content-item bg-gray-800 rounded-lg overflow-hidden">
-          <img src="https://via.placeholder.com/300x170/333333/FFFFFF?text=TV+Series" class="w-full h-32 object-cover" />
-          <div class="p-3">
-            <h4 class="text-sm font-medium">Dark Shadows</h4>
-            <p class="text-xs text-gray-400">Season 3 • Drama</p>
-          </div>
-        </a>
-        <a href="music.html" class="content-item bg-gray-800 rounded-lg overflow-hidden">
-          <img src="https://via.placeholder.com/300x170/333333/FFFFFF?text=Music" class="w-full h-32 object-cover" />
-          <div class="p-3">
-            <h4 class="text-sm font-medium">Top Hits 2023</h4>
-            <p class="text-xs text-gray-400">Music Channel</p>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Live Section -->
+    <!-- LIVE Section -->
     <div id="liveSection">
+      <!-- Banner -->
+      <div class="banner mb-6" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80')">
+        <div class="banner-text">
+          <span class="badge">LIVE NOW</span>
+          <h2 class="text-xl font-bold mt-2">Premier League Football</h2>
+          <p class="text-sm text-gray-300">Manchester United vs Liverpool</p>
+        </div>
+      </div>
+
       <!-- Live Channels -->
       <div class="mb-8">
-        <div class="flex justify-between items-center mb-4">
-          <h3 class="section-title text-lg">Live Channels</h3>
-          <a href="#" class="text-xs text-gray-400 hover:text-indigo-400 transition">View All</a>
-        </div>
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
-          <a href="sports.html" class="flex flex-col items-center">
-            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=SPORTS" class="w-16 h-16 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">Sports</span>
+        <h3 class="section-title text-lg mb-4">Live Channels</h3>
+        <div class="scroll-container flex space-x-4 overflow-x-auto pb-4">
+          <a href="toffee1.html" class="flex flex-col items-center flex-shrink-0">
+            <img src="https://via.placeholder.com/150/ef4444/ffffff?text=TSPORTS" class="w-20 h-20 rounded-full object-cover channel-logo" />
+            <span class="text-xs mt-2">Toffee Sports</span>
           </a>
-          <a href="news.html" class="flex flex-col items-center">
-            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=NEWS" class="w-16 h-16 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">News</span>
+          <a href="btv.html" class="flex flex-col items-center flex-shrink-0">
+            <img src="https://via.placeholder.com/150/ef4444/ffffff?text=BTV" class="w-20 h-20 rounded-full object-cover channel-logo" />
+            <span class="text-xs mt-2">BTV</span>
           </a>
-          <a href="movies.html" class="flex flex-col items-center">
-            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=MOVIES" class="w-16 h-16 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">Movies</span>
+          <a href="tsports.html" class="flex flex-col items-center flex-shrink-0">
+            <img src="https://via.placeholder.com/150/ef4444/ffffff?text=TS" class="w-20 h-20 rounded-full object-cover channel-logo" />
+            <span class="text-xs mt-2">T Sports</span>
           </a>
-          <a href="music.html" class="flex flex-col items-center">
-            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=MUSIC" class="w-16 h-16 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">Music</span>
+          <a href="stars1.html" class="flex flex-col items-center flex-shrink-0">
+            <img src="https://via.placeholder.com/150/ef4444/ffffff?text=SS" class="w-20 h-20 rounded-full object-cover channel-logo" />
+            <span class="text-xs mt-2">Star Sports</span>
           </a>
-          <a href="kids.html" class="flex flex-col items-center">
-            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=KIDS" class="w-16 h-16 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">Kids</span>
-          </a>
-          <a href="entertainment.html" class="flex flex-col items-center">
-            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=ENT" class="w-16 h-16 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">Entertainment</span>
+          <a href="willow.html" class="flex flex-col items-center flex-shrink-0">
+            <img src="https://via.placeholder.com/150/ef4444/ffffff?text=WILLOW" class="w-20 h-20 rounded-full object-cover channel-logo" />
+            <span class="text-xs mt-2">Willow TV</span>
           </a>
         </div>
       </div>
 
-      <!-- Categories -->
+      <!-- Sports Channels -->
       <div class="mb-8">
-        <h3 class="section-title text-lg mb-4">Categories</h3>
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
-          <button class="category-btn py-2 rounded-lg text-sm" data-category="sports">
-            <i class="fas fa-futbol mr-1"></i> Sports
-          </button>
-          <button class="category-btn py-2 rounded-lg text-sm" data-category="movies">
-            <i class="fas fa-film mr-1"></i> Movies
-          </button>
-          <button class="category-btn py-2 rounded-lg text-sm" data-category="tv">
-            <i class="fas fa-tv mr-1"></i> TV Shows
-          </button>
-          <button class="category-btn py-2 rounded-lg text-sm" data-category="music">
-            <i class="fas fa-music mr-1"></i> Music
-          </button>
-          <button class="category-btn py-2 rounded-lg text-sm" data-category="news">
-            <i class="fas fa-newspaper mr-1"></i> News
-          </button>
-          <button class="category-btn py-2 rounded-lg text-sm" data-category="kids">
-            <i class="fas fa-child mr-1"></i> Kids
-          </button>
+        <h3 class="section-title text-lg mb-4">Sports Channels</h3>
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+          <a href="tsports.html" class="channel-card">
+            <img src="https://via.placeholder.com/300/ef4444/ffffff?text=T+SPORTS" class="w-full h-24 object-cover" />
+            <div class="p-2">
+              <h4 class="text-sm font-medium truncate">T Sports</h4>
+              <p class="text-xs text-gray-400">Live Sports</p>
+            </div>
+          </a>
+          <a href="stars1.html" class="channel-card">
+            <img src="https://via.placeholder.com/300/ef4444/ffffff?text=STAR" class="w-full h-24 object-cover" />
+            <div class="p-2">
+              <h4 class="text-sm font-medium truncate">Star Sports</h4>
+              <p class="text-xs text-gray-400">Live Sports</p>
+            </div>
+          </a>
+          <a href="willow.html" class="channel-card">
+            <img src="https://via.placeholder.com/300/ef4444/ffffff?text=WILLOW" class="w-full h-24 object-cover" />
+            <div class="p-2">
+              <h4 class="text-sm font-medium truncate">Willow TV</h4>
+              <p class="text-xs text-gray-400">Cricket</p>
+            </div>
+          </a>
+          <a href="wwe.html" class="channel-card">
+            <img src="https://via.placeholder.com/300/ef4444/ffffff?text=WWE" class="w-full h-24 object-cover" />
+            <div class="p-2">
+              <h4 class="text-sm font-medium truncate">WWE Network</h4>
+              <p class="text-xs text-gray-400">Wrestling</p>
+            </div>
+          </a>
         </div>
       </div>
     </div>
 
     <!-- Movies Section -->
     <div id="moviesSection" class="hidden">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="section-title text-lg">Latest Movies</h3>
-        <div class="flex space-x-2">
-          <button class="category-btn active px-3 py-1 rounded-full text-xs" data-movie-category="all">
-            All
-          </button>
-          <button class="category-btn px-3 py-1 rounded-full text-xs" data-movie-category="action">
-            Action
-          </button>
-          <button class="category-btn px-3 py-1 rounded-full text-xs" data-movie-category="comedy">
-            Comedy
-          </button>
-          <button class="category-btn px-3 py-1 rounded-full text-xs" data-movie-category="drama">
-            Drama
-          </button>
-        </div>
-      </div>
-      
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-        <a href="action-movie.html" class="content-item bg-gray-800 rounded-lg overflow-hidden">
-          <img src="https://via.placeholder.com/300x450/333333/FFFFFF?text=Action+Movie" class="w-full h-48 object-cover" />
-          <div class="p-3">
-            <h4 class="text-sm font-medium">The Last Stand</h4>
-            <div class="flex justify-between items-center mt-2">
-              <span class="text-xs text-gray-400">2023 • Action</span>
-              <span class="text-xs bg-indigo-600 px-2 py-0.5 rounded">HD</span>
-            </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <a href="taandob.html" class="content-item">
+          <img src="https://via.placeholder.com/300x450/ef4444/ffffff?text=Taandob" class="w-full rounded-lg" />
+          <div class="mt-2">
+            <p class="font-semibold">Taandob</p>
+            <p class="text-gray-400 text-sm">2025 Eid Movie</p>
           </div>
         </a>
-        
-        <a href="comedy-movie.html" class="content-item bg-gray-800 rounded-lg overflow-hidden">
-          <img src="https://via.placeholder.com/300x450/333333/FFFFFF?text=Comedy+Movie" class="w-full h-48 object-cover" />
-          <div class="p-3">
-            <h4 class="text-sm font-medium">Laugh Out Loud</h4>
-            <div class="flex justify-between items-center mt-2">
-              <span class="text-xs text-gray-400">2023 • Comedy</span>
-              <span class="text-xs bg-indigo-600 px-2 py-0.5 rounded">HD</span>
-            </div>
+        <a href="jongli.html" class="content-item">
+          <img src="https://via.placeholder.com/300x450/ef4444/ffffff?text=Jongli" class="w-full rounded-lg" />
+          <div class="mt-2">
+            <p class="font-semibold">Jongli</p>
+            <p class="text-gray-400 text-sm">2025 Chorki</p>
           </div>
         </a>
-        
-        <a href="drama-movie.html" class="content-item bg-gray-800 rounded-lg overflow-hidden">
-          <img src="https://via.placeholder.com/300x450/333333/FFFFFF?text=Drama+Movie" class="w-full h-48 object-cover" />
-          <div class="p-3">
-            <h4 class="text-sm font-medium">The Long Road</h4>
-            <div class="flex justify-between items-center mt-2">
-              <span class="text-xs text-gray-400">2023 • Drama</span>
-              <span class="text-xs bg-indigo-600 px-2 py-0.5 rounded">HD</span>
-            </div>
+        <a href="daagi.html" class="content-item">
+          <img src="https://via.placeholder.com/300x450/ef4444/ffffff?text=Daagi" class="w-full rounded-lg" />
+          <div class="mt-2">
+            <p class="font-semibold">Daagi</p>
+            <p class="text-gray-400 text-sm">2025 Chorki</p>
           </div>
         </a>
-        
-        <a href="sci-fi-movie.html" class="content-item bg-gray-800 rounded-lg overflow-hidden">
-          <img src="https://via.placeholder.com/300x450/333333/FFFFFF?text=Sci-Fi+Movie" class="w-full h-48 object-cover" />
-          <div class="p-3">
-            <h4 class="text-sm font-medium">Galactic War</h4>
-            <div class="flex justify-between items-center mt-2">
-              <span class="text-xs text-gray-400">2023 • Sci-Fi</span>
-              <span class="text-xs bg-indigo-600 px-2 py-0.5 rounded">4K</span>
-            </div>
+        <a href="aynabaji.html" class="content-item">
+          <img src="https://via.placeholder.com/300x450/ef4444/ffffff?text=Aynabaji" class="w-full rounded-lg" />
+          <div class="mt-2">
+            <p class="font-semibold">Aynabaji</p>
+            <p class="text-gray-400 text-sm">Bangla Dubbing</p>
+          </div>
+        </a>
+        <a href="haldaa.html" class="content-item">
+          <img src="https://via.placeholder.com/300x450/ef4444/ffffff?text=Haldaa" class="w-full rounded-lg" />
+          <div class="mt-2">
+            <p class="font-semibold">Haldaa</p>
+            <p class="text-gray-400 text-sm">Full Movie</p>
           </div>
         </a>
       </div>
     </div>
 
-    <!-- TV Section -->
+    <!-- TV Section - Enhanced Version -->
     <div id="tvSection" class="hidden">
-      <div class="mb-6">
-        <div class="flex justify-between items-center mb-4">
-          <h3 class="section-title text-lg">TV Channels</h3>
-          <a href="#" class="text-xs text-gray-400 hover:text-indigo-400 transition">View All</a>
+      <!-- News Channels -->
+      <div class="tv-category">
+        <h3 class="tv-category-title">News Channels</h3>
+        <div class="tv-grid">
+          <a href="btv.html" class="tv-channel">
+            <img src="https://via.placeholder.com/150/ef4444/ffffff?text=BTV" class="channel-img" />
+            <span class="channel-name">BTV</span>
+          </a>
+          <a href="atnnews.html" class="tv-channel">
+            <img src="https://via.placeholder.com/150/ef4444/ffffff?text=ATN" class="channel-img" />
+            <span class="channel-name">ATN News</span>
+          </a>
+          <a href="somoy.html" class="tv-channel">
+            <img src="https://via.placeholder.com/150/ef4444/ffffff?text=SOMOY" class="channel-img" />
+            <span class="channel-name">Somoy TV</span>
+          </a>
+          <a href="news24.html" class="tv-channel">
+            <img src="https://via.placeholder.com/150/ef4444/ffffff?text=NEWS24" class="channel-img" />
+            <span class="channel-name">News24</span>
+          </a>
         </div>
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
-          <a href="toffee1.html" class="flex flex-col items-center">
-            <img src="toffee1.jpg" class="w-16 h-16 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">IPL</span>
+      </div>
+
+      <!-- Entertainment Channels -->
+      <div class="tv-category">
+        <h3 class="tv-category-title">Entertainment</h3>
+        <div class="tv-grid">
+          <a href="starjalsha.html" class="tv-channel">
+            <img src="https://via.placeholder.com/150/ef4444/ffffff?text=STAR" class="channel-img" />
+            <span class="channel-name">Star Jalsha</span>
           </a>
-          <a href="toffee2.html" class="flex flex-col items-center">
-            <img src="toffee2.jpg" class="w-16 h-16 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">Psl</span>
+          <a href="zeebangla.html" class="tv-channel">
+            <img src="https://via.placeholder.com/150/ef4444/ffffff?text=ZEE" class="channel-img" />
+            <span class="channel-name">Zee Bangla</span>
           </a>
-          <a href="btv.html" class="flex flex-col items-center">
-            <img src="btv.jpg" class="w-16 h-16 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">Ban Vs Zim</span>
+          <a href="jamuna.html" class="tv-channel">
+            <img src="https://via.placeholder.com/150/ef4444/ffffff?text=JAMUNA" class="channel-img" />
+            <span class="channel-name">Jamuna TV</span>
           </a>
-          <a href="kids-channel.html" class="flex flex-col items-center">
-            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=CN" class="w-16 h-16 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">Cartoon Network</span>
+          <a href="ntv.html" class="tv-channel">
+            <img src="https://via.placeholder.com/150/ef4444/ffffff?text=NTV" class="channel-img" />
+            <span class="channel-name">NTV</span>
           </a>
-          <a href="music-channel.html" class="flex flex-col items-center">
-            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=MTV" class="w-16 h-16 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">MTV</span>
+        </div>
+      </div>
+
+      <!-- Music Channels -->
+      <div class="tv-category">
+        <h3 class="tv-category-title">Music Channels</h3>
+        <div class="tv-grid">
+          <a href="b4umusic.html" class="tv-channel">
+            <img src="https://via.placeholder.com/150/ef4444/ffffff?text=B4U" class="channel-img" />
+            <span class="channel-name">B4U Music</span>
           </a>
-          <a href="ent-channel.html" class="flex flex-col items-center">
-            <img src="https://via.placeholder.com/100x100/333333/FFFFFF?text=E!" class="w-16 h-16 rounded-full object-cover channel-logo" />
-            <span class="text-xs mt-2">E!</span>
+          <a href="9xjalwa.html" class="tv-channel">
+            <img src="https://via.placeholder.com/150/ef4444/ffffff?text=9X" class="channel-img" />
+            <span class="channel-name">9X Jalwa</span>
+          </a>
+          <a href="masti.html" class="tv-channel">
+            <img src="https://via.placeholder.com/150/ef4444/ffffff?text=MASTI" class="channel-img" />
+            <span class="channel-name">Masti</span>
+          </a>
+          <a href="joomusic.html" class="tv-channel">
+            <img src="https://via.placeholder.com/150/ef4444/ffffff?text=JOO" class="channel-img" />
+            <span class="channel-name">Joo Music</span>
           </a>
         </div>
       </div>
@@ -548,13 +442,13 @@
     function activateTab(tabName) {
       // Deactivate all tabs
       Object.keys(tabs).forEach(key => {
-        tabs[key].btn.classList.remove('active-tab', 'text-indigo-400');
+        tabs[key].btn.classList.remove('active-tab', 'text-red-500');
         tabs[key].btn.classList.add('text-gray-400');
         tabs[key].section.classList.add('hidden');
       });
       
       // Activate selected tab
-      tabs[tabName].btn.classList.add('active-tab', 'text-indigo-400');
+      tabs[tabName].btn.classList.add('active-tab', 'text-red-500');
       tabs[tabName].btn.classList.remove('text-gray-400');
       tabs[tabName].section.classList.remove('hidden');
       
@@ -571,116 +465,14 @@
     document.addEventListener('DOMContentLoaded', () => {
       const savedTab = localStorage.getItem('activeTab') || 'live';
       activateTab(savedTab);
-      
-      // Category button event handlers
-      document.querySelectorAll('.category-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          // Remove active class from all buttons in the same container
-          this.parentElement.querySelectorAll('.category-btn').forEach(b => {
-            b.classList.remove('active');
-          });
-          // Add active class to clicked button
-          this.classList.add('active');
-        });
-      });
-      
-      // User modal
-      const userBtn = document.getElementById('userBtn');
-      const userModal = document.getElementById('userModal');
-      const userClose = document.getElementById('userClose');
-      
-      userBtn.addEventListener('click', () => {
-        userModal.classList.remove('hidden');
-      });
-      
-      userClose.addEventListener('click', () => {
-        userModal.classList.add('hidden');
-      });
     });
     
-    // Search functionality
-    const searchBtn = document.getElementById('searchBtn');
-    const searchModal = document.getElementById('searchModal');
-    const searchClose = document.getElementById('searchClose');
-    const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('searchResults');
-    
-    searchBtn.addEventListener('click', () => {
-      searchModal.style.display = 'block';
-      searchInput.focus();
-    });
-    
-    searchClose.addEventListener('click', () => {
-      searchModal.style.display = 'none';
-      searchInput.value = '';
-      searchResults.innerHTML = `
-        <div class="text-center py-10">
-          <i class="fas fa-search text-3xl text-gray-500 mb-3"></i>
-          <p class="text-gray-400">Start typing to search</p>
-        </div>
-      `;
-    });
-    
-    searchInput.addEventListener('input', () => {
-      const query = searchInput.value.toLowerCase();
-      if (query.length < 2) {
-        searchResults.innerHTML = `
-          <div class="text-center py-10">
-            <i class="fas fa-search text-3xl text-gray-500 mb-3"></i>
-            <p class="text-gray-400">Start typing to search</p>
-          </div>
-        `;
-        return;
-      }
-      
-      // Loading state
-      searchResults.innerHTML = `
-        <div class="text-center py-10">
-          <i class="fas fa-circle-notch text-3xl text-gray-500 mb-3 loading"></i>
-          <p class="text-gray-400">Searching...</p>
-        </div>
-      `;
-      
-      // Simulated search results (in real app this would be API call)
-      setTimeout(() => {
-        const mockResults = [
-          { title: 'Premier League', type: 'Sports', category: 'Football', image: 'https://via.placeholder.com/100x100/333333/FFFFFF?text=EPL', link: 'premier-league.html' },
-          { title: 'The Last Stand', type: 'Movie', year: '2023', image: 'https://via.placeholder.com/100x100/333333/FFFFFF?text=Movie', link: 'action-movie.html' },
-          { title: 'CNN', type: 'Channel', category: 'News', image: 'https://via.placeholder.com/100x100/333333/FFFFFF?text=CNN', link: 'news-channel.html' }
-        ];
-        
-        const filtered = mockResults.filter(item => 
-          item.title.toLowerCase().includes(query) || 
-          (item.type && item.type.toLowerCase().includes(query)) ||
-          (item.category && item.category.toLowerCase().includes(query))
-        );
-        
-        if (filtered.length === 0) {
-          searchResults.innerHTML = `
-            <div class="text-center py-10">
-              <i class="far fa-frown text-3xl text-gray-500 mb-3"></i>
-              <p class="text-gray-400">No results found</p>
-            </div>
-          `;
-          return;
-        }
-        
-        let html = '<div class="grid gap-3">';
-        filtered.forEach(item => {
-          html += `
-            <a href="${item.link}" class="flex items-center bg-gray-800 p-3 rounded-lg hover:bg-gray-700 transition">
-              <img src="${item.image}" class="w-12 h-12 object-cover rounded" />
-              <div class="ml-3 flex-1">
-                <h4 class="font-medium">${item.title}</h4>
-                <p class="text-xs text-gray-400">${item.type} • ${item.year || item.category}</p>
-              </div>
-            </a>
-          `;
-        });
-        html += '</div>';
-        
-        searchResults.innerHTML = html;
-      }, 800);
+    // Store the active section when clicking on any link
+    document.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const activeTabId = localStorage.getItem('activeTab') || 'liveBtn';
+        localStorage.setItem('activeTab', activeTabId);
+      });
     });
   </script>
 </body>
