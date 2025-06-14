@@ -3,265 +3,457 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Free IPTV</title>
+  <title>StreamHub - Free IPTV</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      padding-bottom: 68px;
+    :root {
+      --primary: #e50914;
+      --secondary: #b81d24;
+      --dark: #221f1f;
+      --light-dark: #3d3d3d;
+      --light: #f5f5f1;
     }
     
-    main {
-      padding-bottom: 100px;
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark);
+      color: var(--light);
+      padding-bottom: 80px;
     }
     
     .active-tab {
-      color: #ef4444;
-      transform: scale(1.2);
-      transition: all 0.3s ease-in-out;
+      color: var(--primary);
+      transform: scale(1.1);
+      transition: all 0.2s ease;
     }
     
-    .scroll-x {
-      overflow-x: auto;
-      white-space: nowrap;
+    .card {
+      transition: transform 0.3s ease;
     }
     
-    .scroll-x::-webkit-scrollbar {
-      display: none;
+    .card:hover {
+      transform: scale(1.05);
+      z-index: 10;
     }
     
-    .hidden {
-      display: none;
+    .channel-logo {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .channel-logo:hover {
+      box-shadow: 0 6px 12px rgba(229,9,20,0.4);
+    }
+    
+    .banner {
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .banner::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    }
+    
+    .banner-text {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      z-index: 2;
+    }
+    
+    .badge {
+      background-color: var(--primary);
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    
+    .section-title {
+      position: relative;
+      padding-left: 12px;
+    }
+    
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 5px;
+      bottom: 5px;
+      width: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    /* Custom scrollbar for channels */
+    .channel-scroll {
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) var(--dark);
+    }
+    
+    .channel-scroll::-webkit-scrollbar {
+      height: 6px;
+    }
+    
+    .channel-scroll::-webkit-scrollbar-track {
+      background: var(--dark);
+    }
+    
+    .channel-scroll::-webkit-scrollbar-thumb {
+      background-color: var(--primary);
+      border-radius: 3px;
+    }
+    
+    .footer {
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(5px);
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
   </style>
 </head>
-<body class="bg-black text-white">
-  <!-- Main -->
+<body>
+  <!-- Header -->
+  <header class="p-4 flex justify-between items-center bg-gradient-to-b from-black to-transparent">
+    <div class="flex items-center">
+      <i class="fas fa-play-circle text-2xl text-red-600 mr-2"></i>
+      <h1 class="text-xl font-bold">StreamHub</h1>
+    </div>
+    <div class="flex space-x-4">
+      <button class="p-2 rounded-full bg-gray-800">
+        <i class="fas fa-search"></i>
+      </button>
+      <button class="p-2 rounded-full bg-gray-800">
+        <i class="fas fa-user"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
   <main class="p-4">
-    <!-- LIVE Section -->
+    <!-- Hero Banner -->
+    <div class="banner mb-6" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://i.ytimg.com/vi/DV-B5ywmGqI/hq720.jpg')">
+      <div class="banner-text">
+        <span class="badge">LIVE NOW</span>
+        <h2 class="text-xl font-bold mt-2">Premier League Football</h2>
+        <p class="text-sm text-gray-300">Manchester United vs Liverpool</p>
+      </div>
+    </div>
+
+    <!-- Live Section -->
     <div id="liveSection">
-      <!-- Rotating Banner -->
-      <div class="mb-6">
-        <a href="aynabaji.html">
-          <img id="rotatingBanner" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxzU52peJjJZ0vh8k5DeB7RJI7pS978HpxqZjCLgu-KiK2OK0_yeZ4Ues&s=10" class="w-full rounded-xl transition duration-700 ease-in-out" />
+      <!-- Live Channels -->
+      <div class="mb-8">
+        <h3 class="section-title text-lg font-semibold mb-4">Live Channels</h3>
+        <div class="channel-scroll flex space-x-4 pb-2 overflow-x-auto">
+          <a href="toffee1.html" class="flex flex-col items-center min-w-max">
+            <img src="toffee1.jpg" class="w-20 h-20 rounded-full object-cover channel-logo border-2 border-gray-700" />
+            <span class="text-xs mt-2">Toffee Sports</span>
+          </a>
+          <a href="btv.html" class="flex flex-col items-center min-w-max">
+            <img src="banvzim.jpg" class="w-20 h-20 rounded-full object-cover channel-logo border-2 border-gray-700" />
+            <span class="text-xs mt-2">BTV</span>
+          </a>
+          <a href="tsports.html" class="flex flex-col items-center min-w-max">
+            <img src="tsports.jpg" class="w-20 h-20 rounded-full object-cover channel-logo border-2 border-gray-700" />
+            <span class="text-xs mt-2">T Sports</span>
+          </a>
+          <a href="stars1.html" class="flex flex-col items-center min-w-max">
+            <img src="stars1.jpg" class="w-20 h-20 rounded-full object-cover channel-logo border-2 border-gray-700" />
+            <span class="text-xs mt-2">Star Sports</span>
+          </a>
+          <a href="willow.html" class="flex flex-col items-center min-w-max">
+            <img src="willow.jpg" class="w-20 h-20 rounded-full object-cover channel-logo border-2 border-gray-700" />
+            <span class="text-xs mt-2">Willow TV</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Categories -->
+      <div class="mb-8">
+        <h3 class="section-title text-lg font-semibold mb-4">Categories</h3>
+        <div class="grid grid-cols-3 gap-4">
+          <a href="#" class="bg-gray-800 rounded-lg p-3 text-center">
+            <i class="fas fa-futbol text-xl mb-1"></i>
+            <span class="text-xs">Sports</span>
+          </a>
+          <a href="#" class="bg-gray-800 rounded-lg p-3 text-center">
+            <i class="fas fa-film text-xl mb-1"></i>
+            <span class="text-xs">Movies</span>
+          </a>
+          <a href="#" class="bg-gray-800 rounded-lg p-3 text-center">
+            <i class="fas fa-tv text-xl mb-1"></i>
+            <span class="text-xs">TV Shows</span>
+          </a>
+          <a href="#" class="bg-gray-800 rounded-lg p-3 text-center">
+            <i class="fas fa-music text-xl mb-1"></i>
+            <span class="text-xs">Music</span>
+          </a>
+          <a href="#" class="bg-gray-800 rounded-lg p-3 text-center">
+            <i class="fas fa-newspaper text-xl mb-1"></i>
+            <span class="text-xs">News</span>
+          </a>
+          <a href="#" class="bg-gray-800 rounded-lg p-3 text-center">
+            <i class="fas fa-child text-xl mb-1"></i>
+            <span class="text-xs">Kids</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Popular Events -->
+      <div class="mb-8">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="section-title text-lg font-semibold">Popular Events</h3>
+          <a href="#" class="text-xs text-gray-400">View All</a>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-gray-800 rounded-lg overflow-hidden card">
+            <img src="https://via.placeholder.com/300x170" class="w-full h-24 object-cover" />
+            <div class="p-2">
+              <h4 class="text-sm font-medium truncate">ICC World Cup 2023</h4>
+              <p class="text-xs text-gray-400">Live • Cricket</p>
+            </div>
+          </div>
+          <div class="bg-gray-800 rounded-lg overflow-hidden card">
+            <img src="https://via.placeholder.com/300x170" class="w-full h-24 object-cover" />
+            <div class="p-2">
+              <h4 class="text-sm font-medium truncate">Premier League</h4>
+              <p class="text-xs text-gray-400">Live • Football</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Movies Section -->
+    <div id="moviesSection" class="hidden">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="section-title text-lg font-semibold">Latest Movies</h3>
+        <div class="flex space-x-2">
+          <button class="text-xs bg-gray-800 px-3 py-1 rounded-full">All</button>
+          <button class="text-xs bg-gray-800 px-3 py-1 rounded-full">Action</button>
+          <button class="text-xs bg-gray-800 px-3 py-1 rounded-full">Comedy</button>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-4">
+        <a href="taandob.html" class="bg-gray-800 rounded-lg overflow-hidden card">
+          <img src="taandob.jpg" class="w-full h-40 object-cover" />
+          <div class="p-3">
+            <h4 class="text-sm font-medium">Taandob</h4>
+            <div class="flex justify-between items-center mt-1">
+              <span class="text-xs text-gray-400">2025 • Eid Movie</span>
+              <span class="text-xs bg-red-600 px-2 py-0.5 rounded">HD</span>
+            </div>
+          </div>
+        </a>
+        
+        <a href="jongli.html" class="bg-gray-800 rounded-lg overflow-hidden card">
+          <img src="jongli.jpg" class="w-full h-40 object-cover" />
+          <div class="p-3">
+            <h4 class="text-sm font-medium">Jongli</h4>
+            <div class="flex justify-between items-center mt-1">
+              <span class="text-xs text-gray-400">2025 • Chorki</span>
+              <span class="text-xs bg-red-600 px-2 py-0.5 rounded">HD</span>
+            </div>
+          </div>
+        </a>
+        
+        <a href="aynabaji.html" class="bg-gray-800 rounded-lg overflow-hidden card">
+          <img src="aynabaji.jpg" class="w-full h-40 object-cover" />
+          <div class="p-3">
+            <h4 class="text-sm font-medium">Ayna Baji</h4>
+            <div class="flex justify-between items-center mt-1">
+              <span class="text-xs text-gray-400">2024 • Drama</span>
+              <span class="text-xs bg-red-600 px-2 py-0.5 rounded">HD</span>
+            </div>
+          </div>
+        </a>
+        
+        <a href="haldaa.html" class="bg-gray-800 rounded-lg overflow-hidden card">
+          <img src="haldaa.jpg" class="w-full h-40 object-cover" />
+          <div class="p-3">
+            <h4 class="text-sm font-medium">Haldaa</h4>
+            <div class="flex justify-between items-center mt-1">
+              <span class="text-xs text-gray-400">2023 • Romance</span>
+              <span class="text-xs bg-red-600 px-2 py-0.5 rounded">HD</span>
+            </div>
+          </div>
         </a>
       </div>
-      
-      <!-- Carousel Section -->
-      <div class="text-xl font-semibold mb-2">Live Events</div>
-      <div class="flex justify-center gap-4 mb-4" id="carouselContainer">
-        <a href="toffee1.html"><img src="toffee1.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
-        <a href="toffee2.html"><img src="toffee2.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
-        <a href="btv.html"><img src="banvzim.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
-      </div>
-      
-      <div class="text-xl font-semibold mb-2">Sports Channels</div>
-      <div class="grid grid-cols-3 gap-4 mb-4" id="carouselContainer">
-        <a href="tsports.html"><img src="tsports.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
-        <a href="stars1.html"><img src="stars1.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
-        <a href="willow.html"><img src="willow.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
-        <a href="wwe.html"><img src="wwe.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
-        <a href="tencricket.html"><img src="tencricket.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
-        <a href="fancode.html"><img src="fancode.jpg" class="w-24 h-24 rounded-full object-cover" /></a>
-      </div>
     </div>
-    
-    <!-- Movies Section -->
-    <div id="moviesSection" class="grid grid-cols-2 md:grid-cols-4 gap-4 hidden">
-      <a href="taandob.html" class="text-center">
-        <img src="taandob.jpg" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">Taandob Full HD<span class="text-gray-400 text-sm"> | 2025 Eid Movie</span></p>
-      </a>
-      <a href="jongli.html" class="text-center">
-        <img src="jongli.jpg" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">Jongli Full HD<span class="text-gray-400 text-sm"> | 2025 Chorki</span></p>
-      </a>
-      <a href="daagi.html" class="text-center">
-        <img src="daagi.jpg" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">Daagi Full HD<span class="text-gray-400 text-sm"> | 2025 Chorki</span></p>
-      </a>
-      <a href="aynabaji.html" class="text-center">
-        <img src="aynabaji.jpg" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">Solid Politics<span class="text-gray-400 text-sm"> | Full Movie বাংলা ডাবিং</span></p>
-      </a>
-      <a href="haldaa.html" class="text-center">
-        <img src="haldaa.jpg" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">Haldaa<span class="text-gray-400 text-sm"> | Full Movie</span></p>
-      </a>
-      <a href="cuteprotibeshi.html" class="text-center">
-        <img src="cuteprotibeshi.jpg" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">Cute Protibeshi<span class="text-gray-400 text-sm"> | BD Natok</span></p>
-      </a>
-      <a href="natunbou.html" class="text-center">
-        <img src="natunbou.jpg" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">Natun Bou<span class="text-gray-400 text-sm"> | BD Natok</span></p>
-      </a>
-      <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/16.html" class="text-center">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNKI_Jmr60j-qi_6EHFF9DnoTEgLwM6PuGNLYv-wGzfdJ_0Dfkkr04RZc&s=10" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">Surya's Saturday<span class="text-gray-400 text-sm"> | 2024</span></p>
-      </a>
-      <a href="deadbody.html" class="text-center">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaleK4EgV8rytpH-ugaYbQ9rbv7USM9sLkXWuiLcxV7H70KpxsuRDBWQQ&s=10" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">DeadBody<span class="text-gray-400 text-sm"> | 2024</span></p>
-      </a>
-      <a href="tofaan.html" class="text-center">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0NwQowHPtXB-KABF9LLIxKAlGPs7GRZ-yFJHrN0R4nhtrkzRWi6PxNq4&s=10" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">Tofaan<span class="text-gray-400 text-sm"> | 2024</span></p>
-      </a>
-      <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/8.html" class="text-center">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDlKVtSj82cs_btdX9sAqqQ1HVAq3rkokvNHM-anVdBdG6PtzL51xD3rU&s=10" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">Checkmate<span class="text-gray-400 text-sm"> | 2021</span></p>
-      </a>
-      <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/9.html" class="text-center">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4zKpyRUefXrv-kDuZ-zCaxOXO6BpiSYeGdWLqFRWThvwcg88yNOQohj5d&s=10" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">Aditya Varma<span class="text-gray-400 text-sm"> | 2019</span></p>
-      </a>
-      <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/1.html" class="text-center">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpvLsfsnNtPDDUyIZEaf1YhZj_NUYlNcu7vD6A31Fbsu9uEIamfS1OJp0&s=10" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">Michael - Gangster<span class="text-gray-400 text-sm"> | 2024</span></p>
-      </a>
-      <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/15.html" class="text-center">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZajFvb5YVT63lRTzqmB9yEFKOn9fryc0K7eZYmRWaweejSeRe8TqZb4nc&s=10" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">Borbad<span class="text-gray-400 text-sm"> | 2025</span></p>
-      </a>
-      <a href="premi.html" class="text-center">
-        <img src="premi.jpg" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">A Aa Premi<span class="text-gray-400 text-sm"> | 2017</span></p>
-      </a>
-      <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/m2.html" class="text-center">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa4g7IFHvIl4VlrjmbmMKldUbjOevoxtJ5ZD3pYpxeepLC0uBzM2dvdH0&s=10" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">Double Dot Com<span class="text-gray-400 text-sm"> | 2018</span></p>
-      </a>
-      <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/m3.html" class="text-center">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBccdeUWQ8MB1cuab5IHLZPpacRE9ISgxsriQVCcYiTBYbDb7uW5lHMCY&s=10" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">Savysachi<span class="text-gray-400 text-sm"> | 2019</span></p>
-      </a>
-      <a href="https://taohid21.github.io/Ti-SPORTS---Watch-Movies-Free/th3.html" class="text-center">
-        <img src="https://asset.bioscopelive.com/uploads/images/2025/03/12/posters_11f51ed791637f26ddc4e549838938f7_goplay_800x1200.jpg?w=640&q=75" class="w-full rounded-xl" />
-        <p class="mt-2 font-semibold">Vir<span class="text-gray-400 text-sm"> | 2023</span></p>
-      </a>
-    </div>
-    
+
     <!-- TV Section -->
-    <div id="tvSection" class="grid grid-cols-3 gap-4 hidden">
-      <a href="btv.html"><img src="btv.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="atnbangla.html"><img src="atnbangla.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="atnnews.html"><img src="atnnews.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="starjalsha.html"><img src="masranga.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="jamuna.html"><img src="jamuna.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="somoy.html"><img src="somoy.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="news24.html"><img src="news24.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="independent.html"><img src="independent.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="ekattor.html"><img src="ekattor.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="mytv.html"><img src="mytv.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="ntv.html"><img src="ntv.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="channeli.html"><img src="channeli.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="deepto.html"><img src="deepto.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="zeebangla.html"><img src="zeebangla.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="zeebanglac.html"><img src="zeebanglac.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="enter10bangla.html"><img src="enter10bangla.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="masti.html"><img src="masti.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="b4umusic.html"><img src="b4umusic.png" class="w-full aspect-square rounded-full" /></a>
-      <a href="showbox"><img src="showbox.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="9xjalwa.html"><img src="9xjalwa.png" class="w-full aspect-square rounded-full" /></a>
-      <a href="yrfmusic.html"><img src="yrfmusic.jpg" class="w-full aspect-square rounded-full" /></a>
-      <a href="joomusic.html"><img src="joomusic.jpg" class="w-full aspect-square rounded-full" /></a>
+    <div id="tvSection" class="hidden">
+      <div class="mb-6">
+        <h3 class="section-title text-lg font-semibold mb-4">TV Channels</h3>
+        <div class="grid grid-cols-3 gap-4">
+          <a href="btv.html" class="flex flex-col items-center">
+            <img src="btv.jpg" class="w-full aspect-square rounded-lg object-cover channel-logo" />
+            <span class="text-xs mt-2">BTV</span>
+          </a>
+          <a href="atnbangla.html" class="flex flex-col items-center">
+            <img src="atnbangla.jpg" class="w-full aspect-square rounded-lg object-cover channel-logo" />
+            <span class="text-xs mt-2">ATN Bangla</span>
+          </a>
+          <a href="atnnews.html" class="flex flex-col items-center">
+            <img src="atnnews.jpg" class="w-full aspect-square rounded-lg object-cover channel-logo" />
+            <span class="text-xs mt-2">ATN News</span>
+          </a>
+          <a href="starjalsha.html" class="flex flex-col items-center">
+            <img src="masranga.jpg" class="w-full aspect-square rounded-lg object-cover channel-logo" />
+            <span class="text-xs mt-2">Star Jalsha</span>
+          </a>
+          <a href="jamuna.html" class="flex flex-col items-center">
+            <img src="jamuna.jpg" class="w-full aspect-square rounded-lg object-cover channel-logo" />
+            <span class="text-xs mt-2">Jamuna TV</span>
+          </a>
+          <a href="somoy.html" class="flex flex-col items-center">
+            <img src="somoy.jpg" class="w-full aspect-square rounded-lg object-cover channel-logo" />
+            <span class="text-xs mt-2">Somoy TV</span>
+          </a>
+        </div>
+      </div>
+      
+      <div class="mb-6">
+        <h3 class="section-title text-lg font-semibold mb-4">Music Channels</h3>
+        <div class="grid grid-cols-3 gap-4">
+          <a href="b4umusic.html" class="flex flex-col items-center">
+            <img src="b4umusic.png" class="w-full aspect-square rounded-lg object-cover channel-logo" />
+            <span class="text-xs mt-2">B4U Music</span>
+          </a>
+          <a href="9xjalwa.html" class="flex flex-col items-center">
+            <img src="9xjalwa.png" class="w-full aspect-square rounded-lg object-cover channel-logo" />
+            <span class="text-xs mt-2">9X Jalwa</span>
+          </a>
+          <a href="yrfmusic.html" class="flex flex-col items-center">
+            <img src="yrfmusic.jpg" class="w-full aspect-square rounded-lg object-cover channel-logo" />
+            <span class="text-xs mt-2">YRF Music</span>
+          </a>
+        </div>
+      </div>
     </div>
   </main>
-  
-  <!-- Footer -->
-  <footer class="fixed bottom-0 left-0 right-0 bg-black p-3 shadow-md z-10">
+
+  <!-- Footer Navigation -->
+  <footer class="footer fixed bottom-0 left-0 right-0 p-3 z-10">
     <div class="flex justify-around">
-      <button id="liveBtn" class="text-center active-tab">
+      <button id="liveBtn" class="text-center active-tab flex flex-col items-center">
         <i class="fas fa-broadcast-tower text-xl"></i>
-        <p class="text-xs mt-1">Live</p>
+        <span class="text-xs mt-1">Live</span>
       </button>
-      <button id="moviesBtn" class="text-center text-white">
+      <button id="moviesBtn" class="text-center text-gray-400 flex flex-col items-center">
         <i class="fas fa-film text-xl"></i>
-        <p class="text-xs mt-1">Movies</p>
+        <span class="text-xs mt-1">Movies</span>
       </button>
-      <button id="tvBtn" class="text-center text-white">
+      <button id="tvBtn" class="text-center text-gray-400 flex flex-col items-center">
         <i class="fas fa-tv text-xl"></i>
-        <p class="text-xs mt-1">TV</p>
+        <span class="text-xs mt-1">TV</span>
+      </button>
+      <button class="text-center text-gray-400 flex flex-col items-center">
+        <i class="fas fa-bookmark text-xl"></i>
+        <span class="text-xs mt-1">Favorites</span>
       </button>
     </div>
   </footer>
-  
+
   <script>
-    // Get all tab buttons and sections
-    const liveBtn = document.getElementById('liveBtn');
-    const moviesBtn = document.getElementById('moviesBtn');
-    const tvBtn = document.getElementById('tvBtn');
+    // Tab Management
+    const tabs = {
+      live: {
+        btn: document.getElementById('liveBtn'),
+        section: document.getElementById('liveSection')
+      },
+      movies: {
+        btn: document.getElementById('moviesBtn'),
+        section: document.getElementById('moviesSection')
+      },
+      tv: {
+        btn: document.getElementById('tvBtn'),
+        section: document.getElementById('tvSection')
+      }
+    };
     
-    const liveSection = document.getElementById('liveSection');
-    const moviesSection = document.getElementById('moviesSection');
-    const tvSection = document.getElementById('tvSection');
-    
-    // Function to activate a tab and store the active tab in localStorage
-    function activateTab(button, section) {
-      // Remove active classes from all buttons
-      [liveBtn, moviesBtn, tvBtn].forEach(btn => {
-        btn.classList.remove('active-tab', 'text-red-500');
-        btn.classList.add('text-white');
+    // Activate tab function
+    function activateTab(tabName) {
+      // Deactivate all tabs
+      Object.keys(tabs).forEach(key => {
+        tabs[key].btn.classList.remove('active-tab', 'text-red-600');
+        tabs[key].btn.classList.add('text-gray-400');
+        tabs[key].section.classList.add('hidden');
       });
       
-      // Hide all sections
-      [liveSection, moviesSection, tvSection].forEach(sec => sec.classList.add('hidden'));
+      // Activate selected tab
+      tabs[tabName].btn.classList.add('active-tab', 'text-red-600');
+      tabs[tabName].btn.classList.remove('text-gray-400');
+      tabs[tabName].section.classList.remove('hidden');
       
-      // Add active class to clicked button and show corresponding section
-      button.classList.add('active-tab', 'text-red-500');
-      button.classList.remove('text-white');
-      section.classList.remove('hidden');
-      
-      // Store the active tab in localStorage
-      localStorage.setItem('activeTab', button.id);
+      // Save to localStorage
+      localStorage.setItem('activeTab', tabName);
     }
     
-    // Add click event listeners to tab buttons
-    liveBtn.addEventListener('click', () => activateTab(liveBtn, liveSection));
-    moviesBtn.addEventListener('click', () => activateTab(moviesBtn, moviesSection));
-    tvBtn.addEventListener('click', () => activateTab(tvBtn, tvSection));
+    // Event listeners for tabs
+    tabs.live.btn.addEventListener('click', () => activateTab('live'));
+    tabs.movies.btn.addEventListener('click', () => activateTab('movies'));
+    tabs.tv.btn.addEventListener('click', () => activateTab('tv'));
     
-    // Check for active tab in localStorage on page load
+    // On page load, check for active tab
     document.addEventListener('DOMContentLoaded', () => {
-      const activeTabId = localStorage.getItem('activeTab') || 'liveBtn';
-      const activeTab = document.getElementById(activeTabId);
+      const savedTab = localStorage.getItem('activeTab') || 'live';
+      activateTab(savedTab);
       
-      if (activeTabId === 'liveBtn') {
-        activateTab(liveBtn, liveSection);
-      } else if (activeTabId === 'moviesBtn') {
-        activateTab(moviesBtn, moviesSection);
-      } else if (activeTabId === 'tvBtn') {
-        activateTab(tvBtn, tvSection);
-      }
+      // Set up link click handlers to preserve tab state
+      document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          localStorage.setItem('activeTab', savedTab);
+        });
+      });
     });
     
-    // Banner Rotation Logic
-    const bannerImages = [
-      "https://i.ytimg.com/vi/DV-B5ywmGqI/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDAjZ9W7rI0tP-OQdYQbA5yagJQUw",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXryAfG6ynDOGG1iOAmJ1oXkdNsEMd2LLdOxrZkmuCcJ-VY-Cl58zQAv0&s=10",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbxn4iH3L8mRIvq7158DTa2Quj-NJJhHpdLP62nBNOgJ7CSDDi5Zt4TL-Z&s=10"
+    // Banner rotation
+    const banners = [
+      {
+        image: "https://i.ytimg.com/vi/DV-B5ywmGqI/hq720.jpg",
+        title: "Premier League Football",
+        subtitle: "Manchester United vs Liverpool"
+      },
+      {
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXryAfG6ynDOGG1iOAmJ1oXkdNsEMd2LLdOxrZkmuCcJ-VY-Cl58zQAv0&s=10",
+        title: "ICC World Cup 2023",
+        subtitle: "India vs Australia Final"
+      },
+      {
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbxn4iH3L8mRIvq7158DTa2Quj-NJJhHpdLP62nBNOgJ7CSDDi5Zt4TL-Z&s=10",
+        title: "New Movie Release",
+        subtitle: "Taandob - Eid Special"
+      }
     ];
     
-    let currentImageIndex = 0;
+    let currentBanner = 0;
+    const bannerElement = document.querySelector('.banner');
+    const bannerTitle = bannerElement.querySelector('h2');
+    const bannerSubtitle = bannerElement.querySelector('p');
     
     function rotateBanner() {
-      currentImageIndex = (currentImageIndex + 1) % bannerImages.length;
-      document.getElementById('rotatingBanner').src = bannerImages[currentImageIndex];
+      currentBanner = (currentBanner + 1) % banners.length;
+      const banner = banners[currentBanner];
+      
+      bannerElement.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${banner.image}')`;
+      bannerTitle.textContent = banner.title;
+      bannerSubtitle.textContent = banner.subtitle;
     }
     
-    setInterval(rotateBanner, 3000); // Rotate every 3 seconds
-    
-    // Store the active section when clicking on any link
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', (e) => {
-        const activeTabId = localStorage.getItem('activeTab') || 'liveBtn';
-        // Keep the current active tab in localStorage
-        localStorage.setItem('activeTab', activeTabId);
-      });
-    });
+    setInterval(rotateBanner, 5000);
   </script>
 </body>
-        </html>
+</html>
