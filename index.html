@@ -3,466 +3,463 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Free IPTV - Stream Live TV & Movies</title>
-  <meta name="description" content="Free IPTV streaming service with live TV channels, sports, and movies">
+  <title>BongoTV - Live TV & Movies</title>
+  <meta name="description" content="Watch free live TV channels, sports and movies">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #0a0a0a;
-      color: #ffffff;
-      padding-bottom: 68px;
+    :root {
+      --primary: #ff0000;
+      --secondary: #1a1a1a;
     }
     
-    main {
-      padding-bottom: 100px;
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #000;
+      color: #fff;
+      padding-bottom: 70px;
     }
     
     .active-tab {
-      color: #ef4444;
-      transform: scale(1.1);
-      transition: all 0.3s ease;
+      color: var(--primary);
+      position: relative;
     }
     
-    .scroll-x {
-      overflow-x: auto;
-      white-space: nowrap;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+    .active-tab::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5px;
+      height: 5px;
+      background: var(--primary);
+      border-radius: 50%;
     }
     
-    .scroll-x::-webkit-scrollbar {
-      display: none;
+    .channel-card {
+      transition: transform 0.3s, box-shadow 0.3s;
     }
     
-    .hidden {
-      display: none;
-    }
-    
-    .channel-icon {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      transition: transform 0.2s;
-    }
-    
-    .channel-icon:hover {
+    .channel-card:hover {
       transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
     }
     
     .movie-card {
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: all 0.3s ease;
     }
     
     .movie-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(239, 68, 68, 0.2);
+    }
+    
+    .movie-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+      border-radius: 8px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .movie-card:hover::before {
+      opacity: 1;
     }
     
     .banner {
-      height: 180px;
+      height: 160px;
       object-fit: cover;
       border-radius: 12px;
+      transition: transform 0.5s;
+    }
+    
+    .banner:hover {
+      transform: scale(1.02);
     }
     
     @media (min-width: 768px) {
-      .channel-icon {
-        width: 100px;
-        height: 100px;
-      }
-      
       .banner {
-        height: 220px;
+        height: 200px;
       }
     }
     
-    .loading-spinner {
-      animation: spin 1s linear infinite;
+    .glow {
+      animation: glow 2s infinite alternate;
     }
     
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    @keyframes glow {
+      from {
+        box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+      }
+      to {
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+      }
+    }
+    
+    .live-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--primary);
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+    
+    .scroll-container {
+      scrollbar-width: none;
+    }
+    
+    .scroll-container::-webkit-scrollbar {
+      display: none;
     }
   </style>
 </head>
-<body>
+<body class="bg-black text-white">
   <!-- Header -->
-  <header class="bg-black py-3 px-4 border-b border-gray-800 sticky top-0 z-20">
+  <header class="bg-gradient-to-b from-black to-transparent py-3 px-4 sticky top-0 z-20">
     <div class="flex justify-between items-center">
-      <h1 class="text-xl font-bold text-red-500">Free IPTV</h1>
-      <button id="searchBtn" class="text-white">
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-red-600 rounded-full mr-2"></div>
+        <h1 class="text-xl font-bold bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">BongoTV</h1>
+      </div>
+      <button id="searchBtn" class="text-white hover:text-red-500 transition">
         <i class="fas fa-search text-xl"></i>
       </button>
     </div>
   </header>
 
-  <!-- Search Modal -->
-  <div id="searchModal" class="fixed inset-0 bg-black bg-opacity-90 z-30 hidden">
-    <div class="p-4">
-      <div class="flex items-center mb-4">
-        <input type="text" placeholder="Search channels, movies..." 
-               class="flex-1 bg-gray-800 text-white p-3 rounded-l-lg focus:outline-none">
-        <button class="bg-red-500 p-3 rounded-r-lg">
-          <i class="fas fa-search"></i>
-        </button>
-      </div>
-      <button id="closeSearch" class="absolute top-4 right-4 text-white text-2xl">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-  </div>
-
   <!-- Main Content -->
-  <main class="p-4">
-    <!-- Loading Indicator -->
-    <div id="loadingIndicator" class="text-center py-8 hidden">
-      <i class="fas fa-circle-notch loading-spinner text-4xl text-red-500"></i>
-      <p class="mt-4">Loading content...</p>
+  <main class="px-4 pb-20">
+    <!-- Hero Banner -->
+    <div class="relative mb-6 rounded-xl overflow-hidden glow">
+      <div class="absolute inset-0 bg-gradient-to-r from-black to-transparent z-10"></div>
+      <img src="https://via.placeholder.com/800x300?text=Live+Sports+and+Movies" 
+           class="w-full banner" 
+           alt="Live Sports and Movies">
+      <div class="absolute bottom-4 left-4 z-20">
+        <span class="bg-red-600 text-xs px-2 py-1 rounded">LIVE</span>
+        <h2 class="text-xl font-bold mt-1">Bangladesh vs Zimbabwe</h2>
+        <p class="text-sm opacity-90">T20 World Cup 2024</p>
+      </div>
     </div>
 
-    <!-- LIVE Section -->
+    <!-- Live Section -->
     <div id="liveSection">
-      <!-- Rotating Banner -->
-      <div class="mb-6 relative">
-        <div id="bannerLoader" class="absolute inset-0 flex items-center justify-center">
-          <i class="fas fa-circle-notch loading-spinner text-2xl text-red-500"></i>
+      <!-- Live Channels -->
+      <section class="mb-8">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-lg font-bold flex items-center">
+            <i class="fas fa-satellite-dish text-red-500 mr-2"></i>
+            Live Channels
+          </h2>
+          <a href="#" class="text-sm text-gray-400 hover:text-red-500">See All</a>
         </div>
-        <a href="aynabaji.html">
-          <img id="rotatingBanner" src="https://via.placeholder.com/800x400?text=Loading+Banner" 
-               class="w-full banner transition duration-500 ease-in-out opacity-0" 
-               onload="this.classList.remove('opacity-0'); document.getElementById('bannerLoader').classList.add('hidden')" />
-        </a>
-      </div>
-
-      <!-- Live Events Carousel -->
-      <div class="mb-8">
-        <h2 class="text-xl font-semibold mb-3 flex items-center">
-          <i class="fas fa-bolt text-red-500 mr-2"></i> Live Events
-        </h2>
-        <div class="scroll-x py-2">
-          <div class="inline-flex space-x-4">
-            <a href="toffee1.html" class="inline-block text-center">
-              <img src="toffee1.jpg" class="channel-icon rounded-full" 
-                   onerror="this.src='https://via.placeholder.com/100?text=Toffee1'">
-              <p class="mt-2 text-sm font-medium">Toffee 1</p>
-            </a>
-            <a href="toffee2.html" class="inline-block text-center">
-              <img src="toffee2.jpg" class="channel-icon rounded-full" 
-                   onerror="this.src='https://via.placeholder.com/100?text=Toffee2'">
-              <p class="mt-2 text-sm font-medium">Toffee 2</p>
-            </a>
-            <a href="btv.html" class="inline-block text-center">
-              <img src="banvzim.jpg" class="channel-icon rounded-full" 
-                   onerror="this.src='https://via.placeholder.com/100?text=BANvZIM'">
-              <p class="mt-2 text-sm font-medium">BAN vs ZIM</p>
-            </a>
-            <a href="premiere.html" class="inline-block text-center">
-              <img src="https://via.placeholder.com/100?text=Premiere" class="channel-icon rounded-full">
-              <p class="mt-2 text-sm font-medium">Premiere</p>
-            </a>
+        
+        <div class="relative">
+          <div class="scroll-container overflow-x-auto whitespace-nowrap pb-4">
+            <div class="inline-flex space-x-3">
+              <a href="btv.html" class="channel-card inline-block relative">
+                <div class="w-24 h-24 bg-gray-800 rounded-full flex items-center justify-center overflow-hidden">
+                  <img src="btv.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/100?text=BTV'">
+                </div>
+                <span class="live-badge">LIVE</span>
+                <p class="text-center mt-2 text-sm">BTV</p>
+              </a>
+              
+              <a href="starjalsha.html" class="channel-card inline-block relative">
+                <div class="w-24 h-24 bg-gray-800 rounded-full flex items-center justify-center overflow-hidden">
+                  <img src="starjalsha.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/100?text=Star+Jalsha'">
+                </div>
+                <span class="live-badge">LIVE</span>
+                <p class="text-center mt-2 text-sm">Star Jalsha</p>
+              </a>
+              
+              <a href="tsports.html" class="channel-card inline-block relative">
+                <div class="w-24 h-24 bg-gray-800 rounded-full flex items-center justify-center overflow-hidden">
+                  <img src="tsports.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/100?text=T-Sports'">
+                </div>
+                <span class="live-badge">LIVE</span>
+                <p class="text-center mt-2 text-sm">T-Sports</p>
+              </a>
+              
+              <a href="ntv.html" class="channel-card inline-block relative">
+                <div class="w-24 h-24 bg-gray-800 rounded-full flex items-center justify-center overflow-hidden">
+                  <img src="ntv.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/100?text=NTV'">
+                </div>
+                <span class="live-badge">LIVE</span>
+                <p class="text-center mt-2 text-sm">NTV</p>
+              </a>
+              
+              <a href="somoy.html" class="channel-card inline-block relative">
+                <div class="w-24 h-24 bg-gray-800 rounded-full flex items-center justify-center overflow-hidden">
+                  <img src="somoy.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/100?text=Somoy'">
+                </div>
+                <span class="live-badge">LIVE</span>
+                <p class="text-center mt-2 text-sm">Somoy TV</p>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- Sports Channels -->
-      <div class="mb-8">
-        <h2 class="text-xl font-semibold mb-3 flex items-center">
-          <i class="fas fa-running text-red-500 mr-2"></i> Sports Channels
-        </h2>
+      <section class="mb-8">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-lg font-bold flex items-center">
+            <i class="fas fa-trophy text-red-500 mr-2"></i>
+            Sports Channels
+          </h2>
+          <a href="#" class="text-sm text-gray-400 hover:text-red-500">See All</a>
+        </div>
+        
         <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4">
-          <a href="tsports.html" class="text-center">
-            <img src="tsports.jpg" class="channel-icon rounded-full" 
-                 onerror="this.src='https://via.placeholder.com/100?text=T-Sports'">
-            <p class="mt-2 text-sm font-medium">T-Sports</p>
+          <a href="tsports.html" class="channel-card text-center">
+            <div class="relative">
+              <div class="w-full aspect-square bg-gray-800 rounded-full flex items-center justify-center overflow-hidden">
+                <img src="tsports.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/100?text=T-Sports'">
+              </div>
+              <span class="live-badge">LIVE</span>
+            </div>
+            <p class="mt-2 text-sm">T-Sports</p>
           </a>
-          <a href="stars1.html" class="text-center">
-            <img src="stars1.jpg" class="channel-icon rounded-full" 
-                 onerror="this.src='https://via.placeholder.com/100?text=Star+Sports'">
-            <p class="mt-2 text-sm font-medium">Star Sports</p>
+          
+          <a href="stars1.html" class="channel-card text-center">
+            <div class="relative">
+              <div class="w-full aspect-square bg-gray-800 rounded-full flex items-center justify-center overflow-hidden">
+                <img src="stars1.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/100?text=Star+Sports'">
+              </div>
+              <span class="live-badge">LIVE</span>
+            </div>
+            <p class="mt-2 text-sm">Star Sports</p>
           </a>
-          <a href="willow.html" class="text-center">
-            <img src="willow.jpg" class="channel-icon rounded-full" 
-                 onerror="this.src='https://via.placeholder.com/100?text=Willow'">
-            <p class="mt-2 text-sm font-medium">Willow</p>
+          
+          <a href="willow.html" class="channel-card text-center">
+            <div class="relative">
+              <div class="w-full aspect-square bg-gray-800 rounded-full flex items-center justify-center overflow-hidden">
+                <img src="willow.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/100?text=Willow'">
+              </div>
+              <span class="live-badge">LIVE</span>
+            </div>
+            <p class="mt-2 text-sm">Willow TV</p>
           </a>
-          <a href="wwe.html" class="text-center">
-            <img src="wwe.jpg" class="channel-icon rounded-full" 
-                 onerror="this.src='https://via.placeholder.com/100?text=WWE'">
-            <p class="mt-2 text-sm font-medium">WWE</p>
-          </a>
-          <a href="tencricket.html" class="text-center">
-            <img src="tencricket.jpg" class="channel-icon rounded-full" 
-                 onerror="this.src='https://via.placeholder.com/100?text=Ten+Cricket'">
-            <p class="mt-2 text-sm font-medium">Ten Cricket</p>
+          
+          <a href="tencricket.html" class="channel-card text-center">
+            <div class="relative">
+              <div class="w-full aspect-square bg-gray-800 rounded-full flex items-center justify-center overflow-hidden">
+                <img src="tencricket.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/100?text=Ten+Cricket'">
+              </div>
+              <span class="live-badge">LIVE</span>
+            </div>
+            <p class="mt-2 text-sm">Ten Cricket</p>
           </a>
         </div>
-      </div>
+      </section>
 
-      <!-- Trending Now -->
-      <div class="mb-8">
-        <h2 class="text-xl font-semibold mb-3 flex items-center">
-          <i class="fas fa-fire text-red-500 mr-2"></i> Trending Now
-        </h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-          <a href="trending1.html" class="text-center">
-            <img src="https://via.placeholder.com/200x300?text=Trending+1" class="w-full rounded-lg">
-            <p class="mt-2 font-medium">Trending Show 1</p>
+      <!-- Live Events -->
+      <section class="mb-8">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-lg font-bold flex items-center">
+            <i class="fas fa-bolt text-red-500 mr-2"></i>
+            Live Events
+          </h2>
+          <a href="#" class="text-sm text-gray-400 hover:text-red-500">See All</a>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+          <a href="cricket.html" class="relative rounded-lg overflow-hidden group">
+            <img src="https://via.placeholder.com/400x200?text=Cricket+Match" class="w-full h-32 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-3">
+              <span class="bg-red-600 text-xs px-2 py-1 rounded">LIVE</span>
+              <h3 class="text-sm font-semibold mt-1">BAN vs ZIM T20</h3>
+              <p class="text-xs opacity-80">T20 World Cup 2024</p>
+            </div>
           </a>
-          <a href="trending2.html" class="text-center">
-            <img src="https://via.placeholder.com/200x300?text=Trending+2" class="w-full rounded-lg">
-            <p class="mt-2 font-medium">Trending Show 2</p>
-          </a>
-          <a href="trending3.html" class="text-center">
-            <img src="https://via.placeholder.com/200x300?text=Trending+3" class="w-full rounded-lg">
-            <p class="mt-2 font-medium">Trending Show 3</p>
-          </a>
-          <a href="trending4.html" class="text-center">
-            <img src="https://via.placeholder.com/200x300?text=Trending+4" class="w-full rounded-lg">
-            <p class="mt-2 font-medium">Trending Show 4</p>
+          
+          <a href="football.html" class="relative rounded-lg overflow-hidden group">
+            <img src="https://via.placeholder.com/400x200?text=Football+Match" class="w-full h-32 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-3">
+              <span class="bg-red-600 text-xs px-2 py-1 rounded">LIVE</span>
+              <h3 class="text-sm font-semibold mt-1">UEFA Champions</h3>
+              <p class="text-xs opacity-80">League Final</p>
+            </div>
           </a>
         </div>
-      </div>
+      </section>
     </div>
 
     <!-- Movies Section -->
     <div id="moviesSection" class="hidden">
-      <h2 class="text-2xl font-bold mb-6 flex items-center">
-        <i class="fas fa-film text-red-500 mr-3"></i> Latest Movies
-      </h2>
+      <section class="mb-8">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-lg font-bold flex items-center">
+            <i class="fas fa-film text-red-500 mr-2"></i>
+            Latest Movies
+          </h2>
+          <a href="#" class="text-sm text-gray-400 hover:text-red-500">See All</a>
+        </div>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <a href="taandob.html" class="movie-card relative block">
+            <img src="taandob.jpg" class="w-full rounded-lg" onerror="this.src='https://via.placeholder.com/300x450?text=Taandob'">
+            <div class="absolute bottom-0 left-0 right-0 p-2">
+              <span class="bg-red-600 text-xs px-2 py-1 rounded">HD</span>
+              <h3 class="text-sm font-semibold mt-1">Taandob</h3>
+              <p class="text-xs opacity-80">2025 Eid Movie</p>
+            </div>
+          </a>
+          
+          <a href="jongli.html" class="movie-card relative block">
+            <img src="jongli.jpg" class="w-full rounded-lg" onerror="this.src='https://via.placeholder.com/300x450?text=Jongli'">
+            <div class="absolute bottom-0 left-0 right-0 p-2">
+              <span class="bg-red-600 text-xs px-2 py-1 rounded">HD</span>
+              <h3 class="text-sm font-semibold mt-1">Jongli</h3>
+              <p class="text-xs opacity-80">2025 Chorki</p>
+            </div>
+          </a>
+          
+          <a href="aynabaji.html" class="movie-card relative block">
+            <img src="aynabaji.jpg" class="w-full rounded-lg" onerror="this.src='https://via.placeholder.com/300x450?text=Aynabaji'">
+            <div class="absolute bottom-0 left-0 right-0 p-2">
+              <span class="bg-red-600 text-xs px-2 py-1 rounded">HD</span>
+              <h3 class="text-sm font-semibold mt-1">Aynabaji</h3>
+              <p class="text-xs opacity-80">Bangla Dubbing</p>
+            </div>
+          </a>
+        </div>
+      </section>
       
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
-        <a href="taandob.html" class="movie-card">
-          <div class="relative">
-            <img src="taandob.jpg" class="w-full rounded-lg" 
-                 onerror="this.src='https://via.placeholder.com/300x450?text=Taandob'">
-            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2 rounded-b-lg">
-              <span class="text-xs bg-red-500 px-2 py-1 rounded">HD</span>
+      <section class="mb-8">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-lg font-bold flex items-center">
+            <i class="fas fa-theater-masks text-red-500 mr-2"></i>
+            Bangla Natok
+          </h2>
+          <a href="#" class="text-sm text-gray-400 hover:text-red-500">See All</a>
+        </div>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <a href="cuteprotibeshi.html" class="movie-card relative block">
+            <img src="cuteprotibeshi.jpg" class="w-full rounded-lg" onerror="this.src='https://via.placeholder.com/300x450?text=Cute+Protibeshi'">
+            <div class="absolute bottom-0 left-0 right-0 p-2">
+              <span class="bg-red-600 text-xs px-2 py-1 rounded">HD</span>
+              <h3 class="text-sm font-semibold mt-1">Cute Protibeshi</h3>
+              <p class="text-xs opacity-80">BD Natok</p>
             </div>
-          </div>
-          <p class="mt-2 font-semibold">Taandob</p>
-          <p class="text-gray-400 text-sm">2025 Eid Movie</p>
-        </a>
-        
-        <a href="jongli.html" class="movie-card">
-          <div class="relative">
-            <img src="jongli.jpg" class="w-full rounded-lg" 
-                 onerror="this.src='https://via.placeholder.com/300x450?text=Jongli'">
-            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2 rounded-b-lg">
-              <span class="text-xs bg-red-500 px-2 py-1 rounded">HD</span>
+          </a>
+          
+          <a href="natunbou.html" class="movie-card relative block">
+            <img src="natunbou.jpg" class="w-full rounded-lg" onerror="this.src='https://via.placeholder.com/300x450?text=Natun+Bou'">
+            <div class="absolute bottom-0 left-0 right-0 p-2">
+              <span class="bg-red-600 text-xs px-2 py-1 rounded">HD</span>
+              <h3 class="text-sm font-semibold mt-1">Natun Bou</h3>
+              <p class="text-xs opacity-80">BD Natok</p>
             </div>
-          </div>
-          <p class="mt-2 font-semibold">Jongli</p>
-          <p class="text-gray-400 text-sm">2025 Chorki</p>
-        </a>
-        
-        <a href="daagi.html" class="movie-card">
-          <div class="relative">
-            <img src="daagi.jpg" class="w-full rounded-lg" 
-                 onerror="this.src='https://via.placeholder.com/300x450?text=Daagi'">
-            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2 rounded-b-lg">
-              <span class="text-xs bg-red-500 px-2 py-1 rounded">HD</span>
-            </div>
-          </div>
-          <p class="mt-2 font-semibold">Daagi</p>
-          <p class="text-gray-400 text-sm">2025 Chorki</p>
-        </a>
-        
-        <a href="aynabaji.html" class="movie-card">
-          <div class="relative">
-            <img src="aynabaji.jpg" class="w-full rounded-lg" 
-                 onerror="this.src='https://via.placeholder.com/300x450?text=Aynabaji'">
-            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2 rounded-b-lg">
-              <span class="text-xs bg-red-500 px-2 py-1 rounded">HD</span>
-            </div>
-          </div>
-          <p class="mt-2 font-semibold">Aynabaji</p>
-          <p class="text-gray-400 text-sm">Bangla Dubbing</p>
-        </a>
-        
-        <a href="haldaa.html" class="movie-card">
-          <div class="relative">
-            <img src="haldaa.jpg" class="w-full rounded-lg" 
-                 onerror="this.src='https://via.placeholder.com/300x450?text=Haldaa'">
-            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2 rounded-b-lg">
-              <span class="text-xs bg-red-500 px-2 py-1 rounded">HD</span>
-            </div>
-          </div>
-          <p class="mt-2 font-semibold">Haldaa</p>
-          <p class="text-gray-400 text-sm">Full Movie</p>
-        </a>
-      </div>
-      
-      <h2 class="text-2xl font-bold mt-10 mb-6 flex items-center">
-        <i class="fas fa-theater-masks text-red-500 mr-3"></i> Bangla Natok
-      </h2>
-      
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
-        <a href="cuteprotibeshi.html" class="movie-card">
-          <img src="cuteprotibeshi.jpg" class="w-full rounded-lg" 
-               onerror="this.src='https://via.placeholder.com/300x450?text=Cute+Protibeshi'">
-          <p class="mt-2 font-semibold">Cute Protibeshi</p>
-          <p class="text-gray-400 text-sm">BD Natok</p>
-        </a>
-        
-        <a href="natunbou.html" class="movie-card">
-          <img src="natunbou.jpg" class="w-full rounded-lg" 
-               onerror="this.src='https://via.placeholder.com/300x450?text=Natun+Bou'">
-          <p class="mt-2 font-semibold">Natun Bou</p>
-          <p class="text-gray-400 text-sm">BD Natok</p>
-        </a>
-        
-        <a href="premi.html" class="movie-card">
-          <img src="premi.jpg" class="w-full rounded-lg" 
-               onerror="this.src='https://via.placeholder.com/300x450?text=Premi'">
-          <p class="mt-2 font-semibold">A Aa Premi</p>
-          <p class="text-gray-400 text-sm">2017</p>
-        </a>
-      </div>
+          </a>
+        </div>
+      </section>
     </div>
 
     <!-- TV Section -->
     <div id="tvSection" class="hidden">
-      <h2 class="text-2xl font-bold mb-6 flex items-center">
-        <i class="fas fa-tv text-red-500 mr-3"></i> TV Channels
-      </h2>
-      
-      <div class="mb-10">
-        <h3 class="text-lg font-semibold mb-4 flex items-center">
-          <i class="fas fa-newspaper text-red-500 mr-2"></i> News Channels
-        </h3>
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
-          <a href="btv.html" class="text-center">
-            <img src="btv.jpg" class="channel-icon rounded-full" 
-                 onerror="this.src='https://via.placeholder.com/100?text=BTV'">
-            <p class="mt-2 text-sm font-medium">BTV</p>
+      <section class="mb-8">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-lg font-bold flex items-center">
+            <i class="fas fa-tv text-red-500 mr-2"></i>
+            TV Channels
+          </h2>
+          <a href="#" class="text-sm text-gray-400 hover:text-red-500">See All</a>
+        </div>
+        
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4">
+          <a href="btv.html" class="channel-card text-center">
+            <div class="relative">
+              <div class="w-full aspect-square bg-gray-800 rounded-full flex items-center justify-center overflow-hidden">
+                <img src="btv.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/100?text=BTV'">
+              </div>
+              <span class="live-badge">LIVE</span>
+            </div>
+            <p class="mt-2 text-sm">BTV</p>
           </a>
-          <a href="atnnews.html" class="text-center">
-            <img src="atnnews.jpg" class="channel-icon rounded-full" 
-                 onerror="this.src='https://via.placeholder.com/100?text=ATN+News'">
-            <p class="mt-2 text-sm font-medium">ATN News</p>
+          
+          <a href="ntv.html" class="channel-card text-center">
+            <div class="relative">
+              <div class="w-full aspect-square bg-gray-800 rounded-full flex items-center justify-center overflow-hidden">
+                <img src="ntv.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/100?text=NTV'">
+              </div>
+              <span class="live-badge">LIVE</span>
+            </div>
+            <p class="mt-2 text-sm">NTV</p>
           </a>
-          <a href="somoy.html" class="text-center">
-            <img src="somoy.jpg" class="channel-icon rounded-full" 
-                 onerror="this.src='https://via.placeholder.com/100?text=Somoy'">
-            <p class="mt-2 text-sm font-medium">Somoy</p>
+          
+          <a href="atnnews.html" class="channel-card text-center">
+            <div class="relative">
+              <div class="w-full aspect-square bg-gray-800 rounded-full flex items-center justify-center overflow-hidden">
+                <img src="atnnews.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/100?text=ATN+News'">
+              </div>
+              <span class="live-badge">LIVE</span>
+            </div>
+            <p class="mt-2 text-sm">ATN News</p>
           </a>
-          <a href="news24.html" class="text-center">
-            <img src="news24.jpg" class="channel-icon rounded-full" 
-                 onerror="this.src='https://via.placeholder.com/100?text=News24'">
-            <p class="mt-2 text-sm font-medium">News24</p>
-          </a>
-          <a href="ekattor.html" class="text-center">
-            <img src="ekattor.jpg" class="channel-icon rounded-full" 
-                 onerror="this.src='https://via.placeholder.com/100?text=Ekattor'">
-            <p class="mt-2 text-sm font-medium">Ekattor</p>
+          
+          <a href="somoy.html" class="channel-card text-center">
+            <div class="relative">
+              <div class="w-full aspect-square bg-gray-800 rounded-full flex items-center justify-center overflow-hidden">
+                <img src="somoy.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/100?text=Somoy'">
+              </div>
+              <span class="live-badge">LIVE</span>
+            </div>
+            <p class="mt-2 text-sm">Somoy TV</p>
           </a>
         </div>
-      </div>
-      
-      <div class="mb-10">
-        <h3 class="text-lg font-semibold mb-4 flex items-center">
-          <i class="fas fa-film text-red-500 mr-2"></i> Entertainment
-        </h3>
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
-          <a href="ntv.html" class="text-center">
-            <img src="ntv.jpg" class="channel-icon rounded-full" 
-                 onerror="this.src='https://via.placeholder.com/100?text=NTV'">
-            <p class="mt-2 text-sm font-medium">NTV</p>
-          </a>
-          <a href="channeli.html" class="text-center">
-            <img src="channeli.jpg" class="channel-icon rounded-full" 
-                 onerror="this.src='https://via.placeholder.com/100?text=Channel+I'">
-            <p class="mt-2 text-sm font-medium">Channel I</p>
-          </a>
-          <a href="starjalsha.html" class="text-center">
-            <img src="starjalsha.jpg" class="channel-icon rounded-full" 
-                 onerror="this.src='https://via.placeholder.com/100?text=Star+Jalsha'">
-            <p class="mt-2 text-sm font-medium">Star Jalsha</p>
-          </a>
-          <a href="zeebangla.html" class="text-center">
-            <img src="zeebangla.jpg" class="channel-icon rounded-full" 
-                 onerror="this.src='https://via.placeholder.com/100?text=Zee+Bangla'">
-            <p class="mt-2 text-sm font-medium">Zee Bangla</p>
-          </a>
-        </div>
-      </div>
-      
-      <div class="mb-10">
-        <h3 class="text-lg font-semibold mb-4 flex items-center">
-          <i class="fas fa-music text-red-500 mr-2"></i> Music
-        </h3>
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
-          <a href="b4umusic.html" class="text-center">
-            <img src="b4umusic.png" class="channel-icon rounded-full" 
-                 onerror="this.src='https://via.placeholder.com/100?text=B4U+Music'">
-            <p class="mt-2 text-sm font-medium">B4U Music</p>
-          </a>
-          <a href="9xjalwa.html" class="text-center">
-            <img src="9xjalwa.png" class="channel-icon rounded-full" 
-                 onerror="this.src='https://via.placeholder.com/100?text=9X+Jalwa'">
-            <p class="mt-2 text-sm font-medium">9X Jalwa</p>
-          </a>
-          <a href="yrfmusic.html" class="text-center">
-            <img src="yrfmusic.jpg" class="channel-icon rounded-full" 
-                 onerror="this.src='https://via.placeholder.com/100?text=YRF+Music'">
-            <p class="mt-2 text-sm font-medium">YRF Music</p>
-          </a>
-        </div>
-      </div>
+      </section>
     </div>
   </main>
 
-  <!-- Footer Navigation -->
-  <footer class="fixed bottom-0 left-0 right-0 bg-gray-900 p-3 shadow-lg z-10">
+  <!-- Bottom Navigation -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-800 z-10">
     <div class="flex justify-around">
-      <button id="liveBtn" class="text-center active-tab">
-        <div class="p-2">
-          <i class="fas fa-broadcast-tower text-xl"></i>
-          <p class="text-xs mt-1">Live</p>
-        </div>
+      <button id="liveBtn" class="text-center py-3 active-tab">
+        <i class="fas fa-broadcast-tower block text-xl mb-1"></i>
+        <span class="text-xs">Live</span>
       </button>
-      <button id="moviesBtn" class="text-center text-gray-300 hover:text-white">
-        <div class="p-2">
-          <i class="fas fa-film text-xl"></i>
-          <p class="text-xs mt-1">Movies</p>
-        </div>
+      <button id="moviesBtn" class="text-center py-3 text-gray-400 hover:text-white transition">
+        <i class="fas fa-film block text-xl mb-1"></i>
+        <span class="text-xs">Movies</span>
       </button>
-      <button id="tvBtn" class="text-center text-gray-300 hover:text-white">
-        <div class="p-2">
-          <i class="fas fa-tv text-xl"></i>
-          <p class="text-xs mt-1">TV</p>
-        </div>
-      </button>
-      <button id="favoritesBtn" class="text-center text-gray-300 hover:text-white">
-        <div class="p-2">
-          <i class="fas fa-heart text-xl"></i>
-          <p class="text-xs mt-1">Favorites</p>
-        </div>
+      <button id="tvBtn" class="text-center py-3 text-gray-400 hover:text-white transition">
+        <i class="fas fa-tv block text-xl mb-1"></i>
+        <span class="text-xs">TV</span>
       </button>
     </div>
-  </footer>
+  </nav>
 
   <script>
     // Tab Switching Logic
     document.addEventListener('DOMContentLoaded', function() {
-      // Show loading indicator initially
-      document.getElementById('loadingIndicator').classList.remove('hidden');
+      // Set default active tab
+      const activeTabId = localStorage.getItem('activeTab') || 'liveBtn';
+      const activeTab = document.getElementById(activeTabId);
+      const activeSectionId = activeTabId.replace('Btn', 'Section');
+      const activeSection = document.getElementById(activeSectionId);
       
-      // Simulate content loading
-      setTimeout(function() {
-        document.getElementById('loadingIndicator').classList.add('hidden');
-        
-        // Set default active tab
-        const activeTabId = localStorage.getItem('activeTab') || 'liveBtn';
-        const activeTab = document.getElementById(activeTabId);
-        const activeSectionId = activeTabId.replace('Btn', 'Section');
-        const activeSection = document.getElementById(activeSectionId);
-        
-        activateTab(activeTab, activeSection);
-      }, 800);
+      activateTab(activeTab, activeSection);
       
       // Search functionality
       const searchBtn = document.getElementById('searchBtn');
@@ -476,35 +473,14 @@
       closeSearch.addEventListener('click', function() {
         searchModal.classList.add('hidden');
       });
-      
-      // Banner rotation
-      const bannerImages = [
-        "https://i.ytimg.com/vi/DV-B5ywmGqI/hq720.jpg",
-        "https://via.placeholder.com/800x400?text=Special+Event",
-        "https://via.placeholder.com/800x400?text=New+Releases"
-      ];
-      
-      let currentImageIndex = 0;
-      const banner = document.getElementById('rotatingBanner');
-      
-      function rotateBanner() {
-        currentImageIndex = (currentImageIndex + 1) % bannerImages.length;
-        banner.classList.add('opacity-0');
-        setTimeout(function() {
-          banner.src = bannerImages[currentImageIndex];
-          banner.classList.remove('opacity-0');
-        }, 500);
-      }
-      
-      setInterval(rotateBanner, 5000);
     });
     
     // Activate tab function
     function activateTab(button, section) {
       // Remove active classes from all buttons
-      document.querySelectorAll('footer button').forEach(btn => {
+      document.querySelectorAll('nav button').forEach(btn => {
         btn.classList.remove('active-tab', 'text-red-500');
-        btn.classList.add('text-gray-300');
+        btn.classList.add('text-gray-400');
       });
       
       // Hide all sections
@@ -514,7 +490,7 @@
       
       // Add active class to clicked button and show corresponding section
       button.classList.add('active-tab', 'text-red-500');
-      button.classList.remove('text-gray-300');
+      button.classList.remove('text-gray-400');
       section.classList.remove('hidden');
       
       // Store the active tab in localStorage
@@ -534,19 +510,22 @@
       activateTab(this, document.getElementById('tvSection'));
     });
     
-    // Favorites button functionality (placeholder)
-    document.getElementById('favoritesBtn').addEventListener('click', function() {
-      alert('Favorites feature coming soon!');
-    });
+    // Auto-rotate banner images
+    const bannerImages = [
+      "https://via.placeholder.com/800x300?text=Live+Sports+Event",
+      "https://via.placeholder.com/800x300?text=New+Movie+Releases",
+      "https://via.placeholder.com/800x300?text=Popular+TV+Shows"
+    ];
     
-    // Error handling for images
-    document.querySelectorAll('img').forEach(img => {
-      img.addEventListener('error', function() {
-        if (!this.src.includes('via.placeholder.com')) {
-          this.src = 'https://via.placeholder.com/300x450?text=No+Image';
-        }
-      });
-    });
+    let currentBannerIndex = 0;
+    const banner = document.querySelector('.banner');
+    
+    function rotateBanner() {
+      currentBannerIndex = (currentBannerIndex + 1) % bannerImages.length;
+      banner.src = bannerImages[currentBannerIndex];
+    }
+    
+    setInterval(rotateBanner, 5000);
   </script>
 </body>
-            </html>
+</html>
