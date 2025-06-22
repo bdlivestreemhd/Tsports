@@ -18,7 +18,7 @@
     }
     
     .active-tab {
-      color: #00ff00;
+      color: green;
       transform: scale(1.2);
       transition: all 0.3s ease-in-out;
     }
@@ -204,7 +204,7 @@
     function activateTab(button, section) {
       // Remove active classes from all buttons
       [liveBtn, moviesBtn, tvBtn].forEach(btn => {
-        btn.classList.remove('active-tab', 'text-green500');
+        btn.classList.remove('active-tab', 'text-green-500');
         btn.classList.add('text-white');
       });
       
@@ -212,7 +212,7 @@
       [liveSection, moviesSection, tvSection].forEach(sec => sec.classList.add('hidden'));
       
       // Add active class to clicked button and show corresponding section
-      button.classList.add('active-tab', 'text-red-500');
+      button.classList.add('active-tab', 'text-green-500');
       button.classList.remove('text-white');
       section.classList.remove('hidden');
       
