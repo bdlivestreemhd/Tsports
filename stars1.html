@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="shortcut icon" type="image/x-icon" href="Cric stream Favicon.jpg" />
+
+  <title>Rs Live</title>
+
+
+
+  <script src="https://cdn.jwplayer.com/libraries/SAHhwvZq.js"></script>
+
+  <style>
+
+    body {
+
+      margin: 0;
+
+      padding-top: 1px; /* চিকন */
+
+      font-family: Arial, sans-serif;
+
+      width: 100%;
+
+      background-color: #000;
+
+      color: #fff;
+
+    }
+
+
+
+    #jwplayerDiv {
+
+      width: 100%;
+
+      height: 100%;
+
+      background-color: #000;
+
+    }
+
+
+
+    #telegramWrapper {
+
+      background-color: #006699; /* গাঢ় নীল */
+
+      padding: 1px 0; /* খুব চিকন */
+
+      text-align: center;
+
+      width: 100%;
+
+    }
+
+
+
+    #telegramWrapper a {
+
+      display: block;
+
+      width: 100%;
+
+      max-width: 400px;
+
+      margin: 0 auto;
+
+    }
+
+
+
+    #joinTelegramButton {
+
+      background-color: #006699; /* গাঢ় নীল */
+
+      color: #fff;
+
+      border: none;
+
+      padding: 4px 8px; /* চিকন প্যাডিং */
+
+      font-size: 15px;
+
+      cursor: pointer;
+
+      transition: background-color 0.3s ease;
+
+      width: 100%;
+
+      border-radius: 0;
+
+      font-weight: bold;
+
+      letter-spacing: 1px;
+
+    }
+
+
+
+    #joinTelegramButton:hover {
+
+      background-color: #004466; /* আরও গাঢ় */
+
+    }
+
+  </style>
+
+</head>
+
+
+
+<body>
+
+  <!-- Video Player -->
+
+  <div id="jwplayerDiv"></div>
+
+
+
+  <script>
+
+    function getQueryParam(param) {
+
+      const urlParams = new URLSearchParams(window.location.search);
+
+      return urlParams.get(param);
+
+    }
+
+
+
+    const hlsStreamUrl = getQueryParam("file") || "https://live20.bozztv.com/akamaissh101/ssh101/starsports/chunks.m3u8";
+
+
+
+    const playerInstance = jwplayer("jwplayerDiv");
+
+
+
+    playerInstance.setup({
+
+      file: hlsStreamUrl,
+
+      width: "100%",
+
+      height: "100%",
+
+      aspectratio: "16:9",
+
+      autostart: true,
+
+      mute: false,
+
+      type: "hls",
+
+      preload: "auto",
+
+      cast: { appid: "CC1AD845" },
+
+      skin: { name: "seven" }
+
+    });
+
+
+
+    playerInstance.on('error', function (error) {
+
+      console.error("Error loading stream:", error.message);
+
+    });
+
+  </script>
+
+
+
+  <!-- SuperCounters -->
+
+  <div style="text-align: center; margin-top: 10px;">
+
+    <script type="text/javascript" src="//widget.supercounters.com/ssl/online_t.js"></script>
+
+    <script type="text/javascript">sc_online_t(1707487,"Users Online","ffffff");</script>
+
+    <noscript><a href="https://www.supercounters.com/">supercounters.com</a></noscript>
+
+  </div>
+
+
+
+  <!-- Telegram Button -->
+
+  <div id="telegramWrapper">
+
+    <a href="https://t.me/rslivetv" target="_blank" rel="noopener noreferrer">
+
+      <button id="joinTelegramButton">Join Telegram</button>
+
+    </a>
+
+  </div>
+
+
+
+  <!-- Ad Script -->
+
+  <div style="margin: 40px auto; text-align: center;">
+
+    <script async="async" data-cfasync="false" src="//pl26377079.profitableratecpm.com/cdeccdd75d3e2e6916a42ce9653cfb08/invoke.js"></script>
+
+    <div id="container-cdeccdd75d3e2e6916a42ce9653cfb08"></div>
+
+  </div>
+
+</body>
+
+</html>
